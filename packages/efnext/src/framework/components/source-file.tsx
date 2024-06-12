@@ -9,7 +9,7 @@ import { ScopeContext } from "./scope.js";
 
 export interface SourceFileProps {
   path: string;
-  filetype: "typescript" | "python";
+  filetype: "typescript" | "python" | "java";
   children?: ComponentChildren[];
 }
 
@@ -66,6 +66,10 @@ export function SourceFile({ path, filetype, children }: SourceFileProps) {
 
       if (filetype === "python") {
         importString += `from ${importPath.replace(/\.py$/, "")} import ${records.map((r) => r.name).join(", ")}\n`;
+      }
+
+      if (filetype === "java") {
+        importString += `from ${importPath.replace(/\.java$/, "")} import ${records.map((r) => r.name).join(", ")}\n`;
       }
     }
 

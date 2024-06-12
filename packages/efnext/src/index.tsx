@@ -1,5 +1,5 @@
 import { ComponentChildren, SourceNode } from "#jsx/jsx-runtime";
-import { EmitContext, Model, ModelProperty, Operation, Union } from "@typespec/compiler";
+import { EmitContext, Model, ModelProperty, Operation, Type, Union } from "@typespec/compiler";
 import { EmitOutput, SourceFile } from "./framework/components/index.js";
 import { Block } from "./typescript/block.js";
 import { Function } from "./typescript/function.js";
@@ -65,7 +65,11 @@ export function CommandArgParser({ command }: CommandArgParserProps) {
 }
 
 function isBoolean(type: Type) {
-  return 
+  return false;
+}
+
+function hasShortName(option: ModelProperty) {
+  return false;
 }
 
 
@@ -100,3 +104,7 @@ function collectCommandOptions(command: Operation): ModelProperty[] {
 
   return commandOpts;
 }
+function getShortName(option: ModelProperty): any {
+  throw new Error("Function not implemented.");
+}
+
