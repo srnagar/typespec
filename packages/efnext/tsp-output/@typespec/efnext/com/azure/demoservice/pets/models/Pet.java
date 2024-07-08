@@ -1,6 +1,5 @@
 
-import com.azure.core.credential.TokenCredential; 
-
-public class Pet {
-  
+public  class Pet {
+public  Pet() {
+}
 }

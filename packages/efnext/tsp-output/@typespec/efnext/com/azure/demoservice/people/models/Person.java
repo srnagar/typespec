@@ -1,6 +1,5 @@
 
-import com.azure.core.credential.TokenCredential; 
-
-public class Person {
-  
+public  class Person {
+public  Person() {
+}
 }

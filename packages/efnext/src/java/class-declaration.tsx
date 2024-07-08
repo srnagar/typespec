@@ -1,25 +1,24 @@
 import { ComponentChildren } from "#jsx/jsx-runtime";
-import { Model } from "@typespec/compiler";
 import { Declaration } from "../framework/components/declaration.js";
 import { code } from "../framework/core/code.js";
-import { ClassExpression } from "./class-expression.js";
-import { useNamePolicy } from "../framework/core/name-policy.js";
+import { AccessModifier } from "./access-modifier.js";
+import { ClassConstructor } from "./class-constructor.js";
 
 export interface ClassDeclarationProps {
-  type: Model;
-  name?: string;
+  name: string;
+  accessModifier: AccessModifier;
   children?: ComponentChildren;
 }
 
-export function ClassDeclaration({ type, name, children }: ClassDeclarationProps) {
-  const namer = useNamePolicy();
+export function ClassDeclaration({ name, accessModifier, children }: ClassDeclarationProps) {
+  const accessModifierCode = accessModifier === AccessModifier.packagePrivate ? "" : `${accessModifier} `;
 
-  const className = name ?? namer.getName(type, "class");
   return (
-    <Declaration name={className} refkey={type}>
+    <Declaration name={name} refkey={name}>
       {code`
-        public class ${className}:
-          ${(<ClassExpression type={type} />)}
+        ${accessModifierCode} class ${name} {
+        ${(<ClassConstructor className={name} accessModifier={AccessModifier.public} />)}
+}
       `}
     </Declaration>
   );

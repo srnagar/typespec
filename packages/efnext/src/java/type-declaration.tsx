@@ -1,6 +1,6 @@
 import { Type } from "@typespec/compiler";
+import { AccessModifier } from "./access-modifier.js";
 import { ClassDeclaration } from "./class-declaration.js";
-import { UnionDeclaration } from "./union-declaration.js";
 
 export interface TypeDeclarationProps {
   type: Type;
@@ -9,9 +9,7 @@ export interface TypeDeclarationProps {
 export function TypeDeclaration({ type }: TypeDeclarationProps) {
   switch (type.kind) {
     case "Model":
-      return <ClassDeclaration type={type} />;
-    case "Union":
-      return <UnionDeclaration type={type} />;
+      return <ClassDeclaration name={type.name} accessModifier={AccessModifier.public} />;
     default:
       throw new Error("Not yet supported");
   }
