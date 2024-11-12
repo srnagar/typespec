@@ -15,10 +15,16 @@ namespace DemoService {
   namespace People {
     model Person<T> {
       id: int32;
-      firstName: string;
+      firstName: "first name literal";
       lastName: string;
       special: T;
       pets: Pets.Pet[];
+      foo: Foo;
+    }
+
+    model Foo {
+      bar: string;
+      pet: Pets.Pet[];
     }
 
     @get op getPerson(@path id: int32): {

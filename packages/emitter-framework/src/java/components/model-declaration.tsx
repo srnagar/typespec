@@ -1,4 +1,4 @@
-import { Children, refkey as getRefkey, mapJoin } from "@alloy-js/core";
+import { Children, code, DeclarationContext, defineSlot, refkey as getRefkey, mapJoin, OutputScope, resolveFQN, useContext } from "@alloy-js/core";
 import { Class, Constructor, Generics, useJavaNamePolicy } from "@alloy-js/java";
 import { $, Model, ModelProperty, Type } from "@typespec/compiler";
 import { getTemplateParams } from "../utils.js";
@@ -7,20 +7,28 @@ import { ModelConstructor } from "./model-constructor.js";
 import { ModelMember } from "./model-member.js";
 import { Setter } from "./setter.js";
 import { TypeExpression } from "./type-expression.js";
+import * as jv from "@alloy-js/java";
+
+
+export const CustomModelMethodsSlot = defineSlot<ModelDeclarationProps>((query: { name: string }) =>
+  resolveFQN(query.name));
+
 
 export interface ModelDeclarationProps {
   type: Model;
   propertyComponent?: (property: ModelProperty) => Children;
+  children?: Children;
 }
 
 /**
  * Generate basic java class for a model
  */
-export function ModelDeclaration({
-  type,
-  propertyComponent = (property) => <ModelMember type={property} />,
-}: ModelDeclarationProps) {
+export function ModelDeclaration(props: ModelDeclarationProps) {
   const namePolicy = useJavaNamePolicy();
+
+  const type = props.type;
+
+  const propertyComponent = (property: ModelProperty) => <ModelMember type={property} />;
 
   const properties = Array.from(type?.properties?.values() ?? []).filter((p) => {
     return !p.decorators?.some((d) => d.definition?.name === "@statusCode");
@@ -51,6 +59,16 @@ export function ModelDeclaration({
   );
 
   const isErrorModel = $.model.isErrorModel(type);
+  
+  const sym = jv.createJavaSymbol({
+    name: "CustomModelMethodsSlot"
+  });
+
+  const CustomModelMethodsSlotInstance = CustomModelMethodsSlot.create(
+    sym,
+    props
+  );
+
 
   return (
     <Class
@@ -88,6 +106,10 @@ export function ModelDeclaration({
         { joiner: "\n\n" },
       )}
       {""}
+
+      <CustomModelMethodsSlotInstance />
+
+      {props.children}
     </Class>
   );
 }

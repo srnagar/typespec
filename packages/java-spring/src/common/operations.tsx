@@ -331,11 +331,13 @@ export function emitServices(ops: Record<string, OperationsGroup>) {
                       </>
                     ) : responseModel;
 
+
                     return (
                       <jv.Method
                         name={op.operation?.name}
                         throws={errorResponses.length >= 1 ? throwsClause : undefined}
                         // Interface will usually always return the type of our body, and void if body is undefined
+                        // return={refkey(finalResponseModel)}
                         return={finalResponseModel}
                         parameters={params}
                       />

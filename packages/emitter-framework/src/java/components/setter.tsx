@@ -1,4 +1,4 @@
-import { code } from "@alloy-js/core";
+import { code, defineSlot, Name, OutputScope, resolveFQN, DeclarationContext, useContext } from "@alloy-js/core";
 import * as jv from "@alloy-js/java";
 import { ModelProperty } from "@typespec/compiler";
 import { getTemplateParams } from "../utils.js";
@@ -8,10 +8,30 @@ export interface SetterProps {
   type: ModelProperty;
 }
 
+export const CustomMethodBodySlot = defineSlot<SetterProps>((query: { name: string }) =>
+  resolveFQN(query.name));
+
+
+
 /**
  * Generate setter for a model member
  */
 export function Setter(props: SetterProps) {
+
+  const sym = jv.createJavaSymbol({
+    name: "CustomMethodBodySlot"
+  });
+
+  const CustomMethodBodySlotInstance = CustomMethodBodySlot.create(
+    sym,
+    props,
+    code`
+      // default setter
+      this.${props.type.name} = ${props.type.name};
+      return this;
+    `
+  );
+
   const accessName = props.type.name.charAt(0).toUpperCase() + props.type.name.slice(1);
 
   // Need to figure out model declaration so we can specify return type
@@ -19,7 +39,7 @@ export function Setter(props: SetterProps) {
   const genericObject: Record<string, string> = {};
   generics?.forEach((generic) => (genericObject[generic] = ""));
 
-  const returnType = code`${props.type.model?.name}${(generics?.length ?? 0) >= 1 ? <jv.Generics types={Object.keys(genericObject)} /> : ""}`;
+  const returnType = code`${<Name/>} ${(generics?.length ?? 0) >= 1 ? <jv.Generics types={Object.keys(genericObject)} /> : ""}`;
 
   return (
     <jv.Method
@@ -28,10 +48,7 @@ export function Setter(props: SetterProps) {
       return={returnType}
       parameters={{ [props.type.name]: <TypeExpression type={props.type} /> }}
     >
-      {code`
-        this.${props.type.name} = ${props.type.name};
-        return this;
-      `}
+      <CustomMethodBodySlotInstance />
     </jv.Method>
   );
 }

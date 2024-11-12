@@ -1,22 +1,32 @@
 import { code, refkey } from "@alloy-js/core";
-import { Generics, javaUtil, Value } from "@alloy-js/java";
-import { IntrinsicType, Scalar, Type } from "@typespec/compiler";
+import { Generics, javaUtil, Reference, Value } from "@alloy-js/java";
+import { IntrinsicType, Model, Scalar, Type } from "@typespec/compiler";
 import { $ } from "@typespec/compiler/typekit";
-import { isArray } from "../../core/index.js";
+import { isArray, isDeclaration } from "../../core/index.js";
 
 export interface TypeExpressionProps {
   type: Type;
 }
 
 export function TypeExpression({ type }: TypeExpressionProps) {
+
+  if (isDeclaration(type) && !(type as Model).indexer) {
+    // todo: probably need abstraction around deciding what's a declaration in the output
+    // (it may not correspond to things which are declarations in TypeSpec?)
+    return <Reference refkey={refkey(type)} />;
+    //throw new Error("Reference not implemented");
+  }
+
+  
   switch (type.kind) {
     case "Scalar":
     case "Intrinsic":
       return <>{getScalarIntrinsicExpression(type)}</>;
     case "Boolean":
     case "Number":
-    case "String":
       return <Value value={type.value} />;
+    case "String":
+        return "String"
     case "Union":
       return "Object";
     case "EnumMember":
@@ -92,7 +102,7 @@ function getScalarIntrinsicExpression(type: Scalar | IntrinsicType): string {
   if ($.scalar.is(type)) {
     if ($.scalar.isUtcDateTime(type) || $.scalar.extendsUtcDateTime(type)) {
       const encoding = $.scalar.getEncoding(type);
-      let emittedType = "java.util.Date";
+      let emittedType = "java.time.OffsetDateTime";
       switch (encoding?.encoding) {
         case "unixTimestamp":
           emittedType = "Long";
@@ -100,7 +110,7 @@ function getScalarIntrinsicExpression(type: Scalar | IntrinsicType): string {
         case "rfc7231":
         case "rfc3339":
         default:
-          emittedType = "java.util.Date";
+          emittedType = "java.time.OffsetDateTime";
           break;
       }
 

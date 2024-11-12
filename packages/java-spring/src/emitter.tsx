@@ -21,6 +21,7 @@ import {
 import { NoBody, Response } from "./components/index.js";
 import { SpringProject } from "./spring/components/index.js";
 import { springFramework } from "./spring/libraries/index.js";
+import { DeclarationContext, OutputScope, useContext } from "@alloy-js/core";
 
 const RestNamespace = "TypeSpec.Rest";
 
@@ -34,6 +35,7 @@ const RestNamespace = "TypeSpec.Rest";
  * - version: Maven version for the project, by default it is '1.0.0'
  */
 export async function $onEmit(context: EmitContext) {
+  await import("./extension.js");
   const options = context.options;
   // Maven config, takes options into emitter
   const projectConfig: MavenProjectConfig = {
@@ -170,7 +172,19 @@ export async function $onEmit(context: EmitContext) {
                         }}
                       />
                     )}
-                    <ModelDeclaration type={type} />
+                    <ModelDeclaration type={type} >
+                    {
+                        () => {
+                          const sym = useContext(DeclarationContext)!;
+                          console.log("SPN Symbol name: ", sym.name);
+                          let scope: OutputScope | undefined = sym.scope;
+                          while (scope) {
+                            console.log(scope.name);
+                            scope = scope.parent;
+                          }
+                        }
+                    }
+                    </ModelDeclaration>
                   </jv.SourceFile>
                 );
               })}
@@ -195,6 +209,7 @@ export async function $onEmit(context: EmitContext) {
           {emitAuth(auth)}
         </jv.PackageDirectory>
       </SpringProject>
+      
     </ay.Output>
   );
 }

@@ -24,8 +24,8 @@
     "@typespec/emitter-framework": "workspace:*"
   },
   "dependencies": {
-    "@alloy-js/core": "0.3.0",
-    "@alloy-js/java": "0.3.0"
+    "@alloy-js/core": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/core@17eae24",
+    "@alloy-js/java": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/java@17eae24"
   },
   "devDependencies": {
     "@babel/cli": "^7.25.6",
