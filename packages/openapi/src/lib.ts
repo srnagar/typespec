@@ -16,7 +16,33 @@ export const $lib = createTypeSpecLibrary({
         parameter: paramMessage`Duplicate parameter key: '${"value"}'. Check @friendlyName decorators and overlap with types in TypeSpec or service namespace.`,
       },
     },
+    "not-url": {
+      severity: "error",
+      messages: {
+        default: paramMessage`${"property"}: ${"value"} is not a valid URL.`,
+      },
+    },
+    "duplicate-tag": {
+      severity: "error",
+      messages: {
+        default: paramMessage`"Metadata for tag '${"tagName"}' was specified twice."`,
+      },
+    },
+    "tag-metadata-target-service": {
+      severity: "error",
+      messages: {
+        default: paramMessage`@tagMetadata must be used on the service namespace. Did you mean to annotate '${"namespace"}'  with '@service'?`,
+      },
+    },
+  },
+  state: {
+    tagsMetadata: { description: "State for the @tagMetadata decorator." },
   },
 });
 
-export const { reportDiagnostic, createStateSymbol } = $lib;
+export const {
+  createDiagnostic,
+  reportDiagnostic,
+  createStateSymbol,
+  stateKeys: OpenAPIKeys,
+} = $lib;

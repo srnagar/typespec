@@ -21,8 +21,9 @@ export const AreaPaths: Record<keyof typeof AreaLabels, string[]> = {
   "emitter:protobuf": ["packages/protobuf/"],
   "emitter:openapi3": ["packages/openapi3/"],
   "openapi3:converter": ["packages/openapi3/src/cli/actions/convert/"],
-  "emitter:service:csharp": [],
-  "emitter:service:js": [],
+  "emitter:service:csharp": ["packages/http-server-csharp"],
+  "emitter:service:js": ["packages/http-server-javascript"],
+  "emitter:service:java": [],
   eng: ["eng/", ".github/"],
   "ui:playground": ["packages/playground/"],
   "ui:type-graph-viewer": ["packages/html-program-viewer/"],
@@ -48,7 +49,7 @@ export const CIRules = {
     "!.prettierignore", // Prettier is already run as its dedicated CI(via github action)
     "!.prettierrc.json",
     "!cspell.yaml", // CSpell is already run as its dedicated CI(via github action)
-    "!esling.config.json", // Eslint is already run as its dedicated CI(via github action)
+    "!eslint.config.json", // Eslint is already run as its dedicated CI(via github action)
     ...ignore(isolatedEmitters),
     ...ignore(AreaPaths["emitter:client:csharp"]),
     ...ignore(AreaPaths["emitter:client:java"]),

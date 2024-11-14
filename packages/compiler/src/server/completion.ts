@@ -6,13 +6,13 @@ import {
   MarkupKind,
   TextEdit,
 } from "vscode-languageserver";
+import { getSymNode } from "../core/binder.js";
 import { getDeprecationDetails } from "../core/deprecation.js";
 import {
   CompilerHost,
   IdentifierNode,
   Node,
   NodeFlags,
-  NodePackage,
   PositionDetail,
   Program,
   StringLiteralNode,
@@ -32,6 +32,7 @@ import {
   hasTrailingDirectorySeparator,
   resolvePath,
 } from "../core/path-utils.js";
+import { PackageJson } from "../types/package-json.js";
 import { findProjectRoot, loadFile, resolveTspMain } from "../utils/misc.js";
 import { getSymbolDetails } from "./type-details.js";
 
@@ -250,7 +251,7 @@ function addKeywordCompletion(area: keyof KeywordArea, completions: CompletionLi
   }
 }
 
-async function loadPackageJson(host: CompilerHost, path: string): Promise<NodePackage> {
+async function loadPackageJson(host: CompilerHost, path: string): Promise<PackageJson> {
   const [libPackageJson] = await loadFile(host, path, JSON.parse, () => {});
   return libPackageJson;
 }
@@ -410,17 +411,15 @@ function addIdentifierCompletion(
   for (const [key, { sym, label, suffix }] of result) {
     let kind: CompletionItemKind;
     let deprecated = false;
-    const type = sym.type ?? program.checker.getTypeForNode(sym.declarations[0]);
+    const node = getSymNode(sym);
+    const type = sym.type ?? program.checker.getTypeForNode(node);
     if (sym.flags & (SymbolFlags.Function | SymbolFlags.Decorator)) {
       kind = CompletionItemKind.Function;
-    } else if (
-      sym.flags & SymbolFlags.Namespace &&
-      sym.declarations[0].kind !== SyntaxKind.NamespaceStatement
-    ) {
+    } else if (sym.flags & SymbolFlags.Namespace && node.kind !== SyntaxKind.NamespaceStatement) {
       kind = CompletionItemKind.Module;
-    } else if (sym.declarations[0]?.kind === SyntaxKind.AliasStatement) {
+    } else if (node?.kind === SyntaxKind.AliasStatement) {
       kind = CompletionItemKind.Variable;
-      deprecated = getDeprecationDetails(program, sym.declarations[0]) !== undefined;
+      deprecated = getDeprecationDetails(program, node) !== undefined;
     } else {
       kind = getCompletionItemKind(program, type);
       deprecated = getDeprecationDetails(program, type) !== undefined;

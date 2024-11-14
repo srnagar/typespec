@@ -26,13 +26,8 @@ namespace Microsoft.Generator.CSharp.Providers
             _allowedValues = input.Values;
             // extensible enums are implemented as readonly structs
             _modifiers = TypeSignatureModifiers.Partial | TypeSignatureModifiers.ReadOnly | TypeSignatureModifiers.Struct;
-            var customCodeModifiers = GetCustomCodeModifiers();
 
-            if (customCodeModifiers != TypeSignatureModifiers.None)
-            {
-                _modifiers |= customCodeModifiers;
-            }
-            else if (input.Accessibility == "internal")
+            if (input.Accessibility == "internal")
             {
                 _modifiers |= TypeSignatureModifiers.Internal;
             }
@@ -175,7 +170,7 @@ namespace Microsoft.Generator.CSharp.Providers
             // public override bool Equals(object obj) => obj is EnumType other && Equals(other);
             methods.Add(new(
                 equalsSignature,
-                objParameter.AsExpression
+                objParameter
                     .Is(new DeclarationExpression(Type, "other", out var other))
                     .And(This.Invoke(nameof(Equals), [other])),
                 this));
@@ -207,7 +202,8 @@ namespace Microsoft.Generator.CSharp.Providers
                 Modifiers: MethodSignatureModifiers.Public | MethodSignatureModifiers.Override,
                 ReturnType: typeof(int),
                 ReturnDescription: null,
-                Parameters: Array.Empty<ParameterProvider>());
+                Parameters: Array.Empty<ParameterProvider>(),
+                Attributes: [new AttributeStatement(typeof(EditorBrowsableAttribute), FrameworkEnumValue(EditorBrowsableState.Never))]);
 
             // writes the method:
             // for string

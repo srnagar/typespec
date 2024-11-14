@@ -11,7 +11,6 @@ import {
   SdkType,
   UsageFlags,
 } from "@azure-tools/typespec-client-generator-core";
-import { getDoc } from "@typespec/compiler";
 import { NetEmitterOptions, resolveOptions } from "../options.js";
 import { CodeModel } from "../type/code-model.js";
 import { InputClient } from "../type/input-client.js";
@@ -86,14 +85,13 @@ export function createModel(sdkContext: SdkContext<NetEmitterOptions>): CodeMode
     const clientParameters = fromSdkEndpointParameter(endpointParameter);
     return {
       Name: getClientName(client, parentNames),
-      Description: client.description,
+      Description: client.summary ?? client.doc,
       Operations: client.methods
         .filter((m) => m.kind !== "clientaccessor")
         .map((m) =>
           fromSdkServiceMethod(
             m as SdkServiceMethod<SdkHttpOperation>,
             uri,
-            clientParameters,
             rootApiVersions,
             sdkContext,
             sdkTypeMap,
@@ -128,9 +126,8 @@ export function createModel(sdkContext: SdkContext<NetEmitterOptions>): CodeMode
   }
 
   function fromSdkEndpointParameter(p: SdkEndpointParameter): InputParameter[] {
-    // TODO: handle SdkUnionType
     if (p.type.kind === "union") {
-      return fromSdkEndpointType(p.type.values[0] as SdkEndpointType);
+      return fromSdkEndpointType(p.type.variantTypes[0]);
     } else {
       return fromSdkEndpointType(p.type);
     }
@@ -159,8 +156,7 @@ export function createModel(sdkContext: SdkContext<NetEmitterOptions>): CodeMode
       parameters.push({
         Name: parameter.name,
         NameInRequest: parameter.serializedName,
-        // TODO: remove this workaround after https://github.com/Azure/typespec-azure/issues/1212 is fixed
-        Description: parameter.__raw ? getDoc(sdkContext.program, parameter.__raw) : undefined,
+        Description: parameter.doc,
         // TODO: we should do the magic in generator
         Type: parameterType,
         Location: RequestLocation.Uri,
@@ -192,8 +188,8 @@ function getMethodUri(p: SdkEndpointParameter | undefined): string {
 
   if (p.type.kind === "endpoint" && p.type.templateArguments.length > 0) return p.type.serverUrl;
 
-  if (p.type.kind === "union" && p.type.values.length > 0)
-    return (p.type.values[0] as SdkEndpointType).serverUrl;
+  if (p.type.kind === "union" && p.type.variantTypes.length > 0)
+    return (p.type.variantTypes[0] as SdkEndpointType).serverUrl;
 
   return `{${p.name}}`;
 }

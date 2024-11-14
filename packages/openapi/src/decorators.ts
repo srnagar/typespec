@@ -1,4 +1,5 @@
 import {
+  $service,
   DecoratorContext,
   getDoc,
   getService,
@@ -11,6 +12,7 @@ import {
   typespecTypeToJson,
   TypeSpecValue,
 } from "@typespec/compiler";
+import { unsafe_useStateMap } from "@typespec/compiler/experimental";
 import { setStatusCode } from "@typespec/http";
 import {
   DefaultResponseDecorator,
@@ -18,8 +20,11 @@ import {
   ExternalDocsDecorator,
   InfoDecorator,
   OperationIdDecorator,
+  TagMetadata,
+  TagMetadataDecorator,
 } from "../generated-defs/TypeSpec.OpenAPI.js";
-import { createStateSymbol, reportDiagnostic } from "./lib.js";
+import { isOpenAPIExtensionKey, validateAdditionalInfoModel, validateIsUri } from "./helpers.js";
+import { createStateSymbol, OpenAPIKeys, reportDiagnostic } from "./lib.js";
 import { AdditionalInfo, ExtensionKey, ExternalDocs } from "./types.js";
 
 const operationIdsKey = createStateSymbol("operationIds");
@@ -110,10 +115,6 @@ export function getExtensions(program: Program, entity: Type): ReadonlyMap<Exten
   return program.stateMap(openApiExtensionKey).get(entity) ?? new Map<ExtensionKey, any>();
 }
 
-function isOpenAPIExtensionKey(key: string): key is ExtensionKey {
-  return key.startsWith("x-");
-}
-
 /**
  * The @defaultResponse decorator can be applied to a model. When that model is used
  * as the return type of an operation, this return type will be the default response.
@@ -185,6 +186,32 @@ export const $info: InfoDecorator = (
   if (data === undefined) {
     return;
   }
+
+  // Validate the AdditionalInfo model
+  if (
+    !validateAdditionalInfoModel(
+      context.program,
+      context.getArgumentTarget(0)!,
+      data,
+      "TypeSpec.OpenAPI.AdditionalInfo",
+    )
+  ) {
+    return;
+  }
+
+  // Validate termsOfService
+  if (data.termsOfService) {
+    if (
+      !validateIsUri(
+        context.program,
+        context.getArgumentTarget(0)!,
+        data.termsOfService,
+        "TermsOfService",
+      )
+    ) {
+      return;
+    }
+  }
   setInfo(context.program, entity, data);
 };
 
@@ -214,3 +241,80 @@ export function resolveInfo(program: Program, entity: Namespace): AdditionalInfo
 function omitUndefined<T extends Record<string, unknown>>(data: T): T {
   return Object.fromEntries(Object.entries(data).filter(([k, v]) => v !== undefined)) as any;
 }
+
+/** Get TagsMetadata set with `@tagMetadata` decorator */
+const [getTagsMetadata, setTagsMetadata] = unsafe_useStateMap<
+  Type,
+  { [name: string]: TagMetadata }
+>(OpenAPIKeys.tagsMetadata);
+
+/**
+ * Decorator to add metadata to a tag associated with a namespace.
+ * @param context - The decorator context.
+ * @param entity - The namespace entity to associate the tag with.
+ * @param name - The name of the tag.
+ * @param tagMetadata - Optional metadata for the tag.
+ */
+export const tagMetadataDecorator: TagMetadataDecorator = (
+  context: DecoratorContext,
+  entity: Namespace,
+  name: string,
+  tagMetadata: TagMetadata,
+) => {
+  // Check if the namespace is a service namespace
+  if (!entity.decorators.some((decorator) => decorator.decorator === $service)) {
+    reportDiagnostic(context.program, {
+      code: "tag-metadata-target-service",
+      format: {
+        namespace: entity.name,
+      },
+      target: context.getArgumentTarget(0)!,
+    });
+    return;
+  }
+
+  // Retrieve existing tags metadata or initialize an empty object
+  const tags = getTagsMetadata(context.program, entity) ?? {};
+
+  // Check for duplicate tag names
+  if (tags[name]) {
+    reportDiagnostic(context.program, {
+      code: "duplicate-tag",
+      format: { tagName: name },
+      target: context.getArgumentTarget(0)!,
+    });
+    return;
+  }
+
+  // Validate the additionalInfo model
+  if (
+    !validateAdditionalInfoModel(
+      context.program,
+      context.getArgumentTarget(0)!,
+      tagMetadata,
+      "TypeSpec.OpenAPI.TagMetadata",
+    )
+  ) {
+    return;
+  }
+
+  // Validate the externalDocs.url property
+  if (tagMetadata.externalDocs?.url) {
+    if (
+      !validateIsUri(
+        context.program,
+        context.getArgumentTarget(0)!,
+        tagMetadata.externalDocs.url,
+        "externalDocs.url",
+      )
+    ) {
+      return;
+    }
+  }
+
+  // Update the tags metadata with the new tag
+  tags[name] = tagMetadata;
+  setTagsMetadata(context.program, entity, tags);
+};
+
+export { getTagsMetadata };

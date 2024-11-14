@@ -1,5 +1,35 @@
 # Change Log - @typespec/playground
 
+## 0.6.0
+
+### Bug Fixes
+
+- [#4719](https://github.com/microsoft/typespec/pull/4719) Fix dark theme not applying
+
+### Bump dependencies
+
+- [#4679](https://github.com/microsoft/typespec/pull/4679) Upgrade dependencies - October 2024
+
+### Features
+
+- [#4587](https://github.com/microsoft/typespec/pull/4587) Expose state storage helper via its own exports
+
+
+## 0.5.0
+
+### Bug Fixes
+
+- [#4606](https://github.com/microsoft/typespec/pull/4606) Do not treat path as relative internally
+
+### Bump dependencies
+
+- [#4424](https://github.com/microsoft/typespec/pull/4424) Bump dependencies
+
+### Features
+
+- [#4538](https://github.com/microsoft/typespec/pull/4538) Upgrade to latest monaco-editor
+
+
 ## 0.4.2
 
 ### Bug Fixes

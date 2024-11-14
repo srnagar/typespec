@@ -1,5 +1,38 @@
 # Change Log - typespec-vscode
 
+## 0.62.0
+
+### Bug Fixes
+
+- [#4912](https://github.com/microsoft/typespec/pull/4912) Fix the issue when Typespec Language Server can't be restarted when the server wasn't running before
+
+### Bump dependencies
+
+- [#4679](https://github.com/microsoft/typespec/pull/4679) Upgrade dependencies - October 2024
+
+### Features
+
+- [#4790](https://github.com/microsoft/typespec/pull/4790) Support completion for tspconfig.yaml file in vscode
+- [#4737](https://github.com/microsoft/typespec/pull/4737) Add basic snippets for typespec
+- [#4912](https://github.com/microsoft/typespec/pull/4912) TypeSpec Language Server would be restarted with new settings when setting "typespec.tsp-server.path" is changed
+
+
+## 0.61.0
+
+### Bug Fixes
+
+- [#4430](https://github.com/microsoft/typespec/pull/4430) Use "shell" when spawning execution of .cmd file(i.e. tsp-server.cmd) in windows
+
+### Bump dependencies
+
+- [#4424](https://github.com/microsoft/typespec/pull/4424) Bump dependencies
+
+### Features
+
+- [#4330](https://github.com/microsoft/typespec/pull/4330) Support Compile Task and Watch Task in vscode.
+- [#4498](https://github.com/microsoft/typespec/pull/4498) Make extension web compatible with minimal functionality
+
+
 ## 0.60.0
 
 No changes, version bump only.

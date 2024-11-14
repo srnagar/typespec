@@ -21,6 +21,7 @@
   "description": "",
   "peerDependencies": {
     "@typespec/compiler": "workspace:*",
+    "@typespec/http-client-library": "workspace:*",
     "@typespec/http": "workspace:*",
     "@typespec/openapi": "workspace:*",
     "@typespec/rest": "workspace:*",
@@ -29,9 +30,8 @@
     "@typespec/openapi3": "workspace:*"
   },
   "dependencies": {
-    "@alloy-js/core": "0.3.0",
-    "@alloy-js/typescript": "0.3.0",
-    "@azure-tools/typespec-client-generator-core": "0.47.3"
+    "@alloy-js/core": "0.2.0",
+    "@alloy-js/typescript": "0.2.0"
   },
   "devDependencies": {
     "@azure-tools/cadl-ranch-expect": "0.15.4",

@@ -1,8 +1,10 @@
 import {
   SdkBasicServiceMethod,
+  SdkBodyModelPropertyType,
   SdkBodyParameter,
   SdkClientType,
   SdkHeaderParameter,
+  SdkHttpErrorResponse,
   SdkHttpOperation,
   SdkHttpOperationExample,
   SdkHttpResponse,
@@ -13,6 +15,7 @@ import {
   SdkQueryParameter,
   SdkServiceMethod,
   SdkServiceResponseHeader,
+  SdkType,
   UsageFlags,
 } from "@azure-tools/typespec-client-generator-core";
 import { HttpStatusCodeRange } from "@typespec/http";
@@ -23,7 +26,6 @@ import {
   emitParamBase,
   getAddedOn,
   getDelimiterAndExplode,
-  getDescriptionAndSummary,
   getImplementation,
   isAbstract,
   isAzureCoreErrorResponse,
@@ -53,10 +55,9 @@ export function emitBasicHttpMethod(
     {
       ...emitHttpOperation(context, rootClient, operationGroupName, method.operation, method),
       abstract: isAbstract(method),
-      internal: method.access === "internal",
       name: camelToSnakeCase(method.name),
-      description: getDescriptionAndSummary(method).description,
-      summary: getDescriptionAndSummary(method).summary,
+      description: method.doc ?? "",
+      summary: method.summary,
     },
   ];
 }
@@ -73,8 +74,8 @@ function emitInitialLroHttpMethod(
     isLroInitialOperation: true,
     wantTracing: false,
     exposeStreamKeyword: false,
-    description: getDescriptionAndSummary(method).description,
-    summary: getDescriptionAndSummary(method).summary,
+    description: method.doc ?? "",
+    summary: method.summary,
   };
 }
 
@@ -90,8 +91,8 @@ function addLroInformation(
     discriminator: "lro",
     initialOperation: emitInitialLroHttpMethod(context, rootClient, method, operationGroupName),
     exposeStreamKeyword: false,
-    description: getDescriptionAndSummary(method).description,
-    summary: getDescriptionAndSummary(method).summary,
+    description: method.doc ?? "",
+    summary: method.summary,
   };
 }
 
@@ -108,6 +109,14 @@ function addPagingInformation(
   }
   const itemType = getType(context, method.response.type!);
   const base = emitHttpOperation(context, rootClient, operationGroupName, method.operation, method);
+  const itemName = getPropertyWireName(
+    method.operation.responses[0].type,
+    method.response.resultPath,
+  );
+  const continuationTokenName = getPropertyWireName(
+    method.operation.responses[0].type,
+    method.nextLinkPath,
+  );
   base.responses.forEach((resp: Record<string, any>) => {
     resp.type = itemType;
   });
@@ -116,12 +125,22 @@ function addPagingInformation(
     name: camelToSnakeCase(method.name),
     discriminator: "paging",
     exposeStreamKeyword: false,
-    itemName: method.response.resultPath,
-    continuationTokenName: method.nextLinkPath,
+    itemName,
+    continuationTokenName,
     itemType,
-    description: getDescriptionAndSummary(method).description,
-    summary: getDescriptionAndSummary(method).summary,
+    description: method.doc ?? "",
+    summary: method.summary,
   };
+}
+
+function getPropertyWireName(type: SdkType | undefined, path?: string) {
+  if (!path || !type || type.kind !== "model") return path;
+  for (const property of type.properties) {
+    if (property.name === path) {
+      return (property as SdkBodyModelPropertyType).serializedName;
+    }
+  }
+  return path;
 }
 
 export function emitLroHttpMethod(
@@ -187,6 +206,7 @@ function emitHttpOperation(
     exposeStreamKeyword: true,
     crossLanguageDefinitionId: method?.crossLanguageDefintionId,
     samples: arrayToRecord(method?.operation.examples),
+    internal: method.access === "internal",
   };
   if (result.bodyParameter && isSpreadBody(operation.bodyParam)) {
     result.bodyParameter["propertyToParameterName"] = {};
@@ -338,7 +358,7 @@ function emitHttpBodyParameter(
 function emitHttpResponse(
   context: PythonSdkContext<SdkHttpOperation>,
   statusCodes: HttpStatusCodeRange | number | "*",
-  response: SdkHttpResponse,
+  response: SdkHttpResponse | SdkHttpErrorResponse,
   method?: SdkServiceMethod<SdkHttpOperation>,
   isException = false,
 ): Record<string, any> | undefined {

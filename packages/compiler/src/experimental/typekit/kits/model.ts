@@ -34,61 +34,65 @@ interface ModelDescriptor {
 }
 
 export interface ModelKit {
-  model: {
-    /**
-     * Create a model type.
-     *
-     * @param desc The descriptor of the model.
-     */
-    create(desc: ModelDescriptor): Model;
+  /**
+   * Create a model type.
+   *
+   * @param desc The descriptor of the model.
+   */
+  create(desc: ModelDescriptor): Model;
 
-    /**
-     * Check if the given `type` is a model..
-     *
-     * @param type The type to check.
-     */
-    is(type: Type): type is Model;
+  /**
+   * Check if the given `type` is a model..
+   *
+   * @param type The type to check.
+   */
+  is(type: Type): type is Model;
 
-    /**
-     * Check if the enum is an anonyous model. Specifically, this checks if the
-     * model has a name.
-     *
-     * @param type The model to check.
-     */
-    isExpresion(type: Model): boolean;
+  /**
+   * Check if the enum is an anonyous model. Specifically, this checks if the
+   * model has a name.
+   *
+   * @param type The model to check.
+   */
+  isExpresion(type: Model): boolean;
 
-    /**
-     * Check if the model is an error model as declared by the `@error` decorator.
-     *
-     * @param type The model to check.
-     */
-    isErrorModel(type: Model): boolean;
 
-    /**
-     * If the input is anonymous (or the provided filter removes properties)
-     * and there exists a named model with the same set of properties
-     * (ignoring filtered properties), then return that named model.
-     * Otherwise, return the input unchanged.
-     *
-     * This can be used by emitters to find a better name for a set of
-     * properties after filtering. For example, given `{ @metadata prop:
-     * string} & SomeName`, and an emitter that wishes to discard properties
-     * marked with `@metadata`, the emitter can use this to recover that the
-     * best name for the remaining properties is `SomeName`.
-     *
-     * @param model The input model
-     * @param filter An optional filter to apply to the input model's
-     * properties.
-     */
-    getEffectiveModel(model: Model, filter?: (property: ModelProperty) => boolean): Model;
-  };
+  /**
+   * If the input is anonymous (or the provided filter removes properties)
+   * and there exists a named model with the same set of properties
+   * (ignoring filtered properties), then return that named model.
+   * Otherwise, return the input unchanged.
+   *
+   * This can be used by emitters to find a better name for a set of
+   * properties after filtering. For example, given `{ @metadata prop:
+   * string} & SomeName`, and an emitter that wishes to discard properties
+   * marked with `@metadata`, the emitter can use this to recover that the
+   * best name for the remaining properties is `SomeName`.
+   *
+   * @param model The input model
+   * @param filter An optional filter to apply to the input model's
+   * properties.
+   */
+  getEffectiveModel(model: Model, filter?: (property: ModelProperty) => boolean): Model;
+}
+
+interface TypeKit {
+  /**
+   * Utilities for working with model properties.
+   *
+   * For many reflection operations, the metadata being asked for may be found
+   * on the model or the type of the model. In such cases,
+   * these operations will return the metadata from the model if it
+   * exists, or the type of the model if it exists.
+   */
+  model: ModelKit;
 }
 
 declare module "../define-kit.js" {
-  interface TypekitPrototype extends ModelKit {}
+  interface TypekitPrototype extends TypeKit {}
 }
 
-export const ModelKit = defineKit<ModelKit>({
+export const ModelKit = defineKit<TypeKit>({
   model: {
     create(desc) {
       const properties = createRekeyableMap(Array.from(Object.entries(desc.properties)));
