@@ -74,6 +74,13 @@ export interface ModelKit {
    * properties.
    */
   getEffectiveModel(model: Model, filter?: (property: ModelProperty) => boolean): Model;
+
+  /**
+   * Check if the given model is an error model.
+   *
+   * @param type The model to check.
+   */
+  isErrorModel(type: Model): boolean;
 }
 
 interface TypeKit {
