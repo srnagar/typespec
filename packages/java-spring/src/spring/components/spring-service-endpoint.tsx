@@ -1,7 +1,7 @@
 import { Children } from "@alloy-js/core";
 import * as jv from "@alloy-js/java";
 import { Generics } from "@alloy-js/java";
-import { $ } from "@typespec/compiler";
+import { $ } from "@typespec/compiler/typekit";
 import { TypeExpression } from "@typespec/emitter-framework/java";
 import { HttpOperation } from "@typespec/http";
 import { FlatHttpResponse } from "@typespec/http/typekit";

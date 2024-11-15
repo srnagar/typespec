@@ -1,6 +1,8 @@
-import { code, rename, replace, resolveFQN } from "@alloy-js/core";
-import { resolveJavaFQN } from "@alloy-js/java";
-import { CustomMethodBodySlot, CustomModelMethodsSlot, SetterProps } from "@typespec/emitter-framework/java";
+import { code, ComponentContext, createContext, rename, replace, resolveFQN, useContext } from "@alloy-js/core";
+import { javaUtil } from "@alloy-js/java";
+import { CustomMethodBodySlot, CustomModelMethodsSlot, ModelDeclarationProps, SetterProps } from "@typespec/emitter-framework/java";
+import { MavenLibraryContext } from "./emitter.jsx";
+
 
 // Renames
 
@@ -11,46 +13,48 @@ import { CustomMethodBodySlot, CustomModelMethodsSlot, SetterProps } from "@type
 // rename(petJavaFile, "PetModel_java");
 
 // Rename the Pet class to PetModel
-// const petModel = resolveFQN(
-//   "TestProject.io.io_typespec.io_typespec_generated.io_typespec_generated_models.Pet_java.Pet",
-// );
-// rename(petModel, "PetModel");
+const petModel = resolveFQN(
+  "my-project.io.io_typespec.io_typespec_generated.io_typespec_generated_models.Pet_java.Pet",
+);
+rename(petModel, "PetModel");
 
 // Rename the name field to petName
-const petName = resolveFQN(
-  "TestProject.io.io_typespec.io_typespec_generated.io_typespec_generated_models.Pet_java.Pet#name",
-);
-rename(petName, "petName");
-
+// const petName = resolveFQN(
+//   "TestProject.io.io_typespec.io_typespec_generated.io_typespec_generated_models.Pet_java.Pet#name",
+// );
+// rename(petName, "petName");
 
 
 // Replaces
 
 // Add a validatePet method to the PetModel class
-// const customModelMethodsSlot = CustomModelMethodsSlot.find({
-//   name: "TestProject.io.io_typespec.io_typespec_generated.io_typespec_generated_models.Pet_java.CustomModelMethodsSlot",
-// });
+const customModelMethodsSlot = CustomModelMethodsSlot.find({
+  name: "my-project.io.io_typespec.io_typespec_generated.io_typespec_generated_models.Pet_java.CustomModelMethodsSlot",
+});
 
-// replace(customModelMethodsSlot, (props) => {
-//   return code`
-//     public void validatePet() {
+replace(customModelMethodsSlot, (props: ModelDeclarationProps) => {
+  console.log("Model name === ", props.type.name);
+  return code`
+    public void validatePet() {
 
-//       if(this.name == null) {
-//         throw new IllegalArgumentException("Name is required");
-//       }
+      ${javaUtil.List}<String> errors = new ${javaUtil.ArrayList}<>();
 
-//       if(this.owner == null) {
-//         throw new IllegalArgumentException("Pet must have an owner");
-//       }
-//     }  
-//   `;
-// });
+      if(this.name == null) {
+        throw new IllegalArgumentException("Name is required");
+      }
+      
+      if(this.owner == null) {
+        throw new IllegalArgumentException("Pet must have an owner");
+      }
+    }  
+  `;
+});
 
-const pName = resolveJavaFQN("Pet.java", "io.typespec.generated.models", "Pet");
-rename(pName, "PetModel");
+// const pName = resolveJavaFQN("my-project", "Pet.java", "io.typespec.generated.models", "Pet");
+// rename(pName, "PetModel");
 
-const personName = resolveJavaFQN("Person.java", "io.typespec.generated.models", "Person");
-rename(personName, "PersonModel");
+// const personName = resolveJavaFQN("Person.java", "io.typespec.generated.models", "Person");
+// rename(personName, "PersonModel");
 
 
 

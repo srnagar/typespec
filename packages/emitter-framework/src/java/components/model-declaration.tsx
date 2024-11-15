@@ -1,6 +1,6 @@
-import { Children, code, DeclarationContext, defineSlot, refkey as getRefkey, mapJoin, OutputScope, resolveFQN, useContext } from "@alloy-js/core";
+import { Children, defineSlot, refkey as getRefkey, mapJoin, resolveFQN } from "@alloy-js/core";
 import { Class, Constructor, Generics, useJavaNamePolicy } from "@alloy-js/java";
-import { $, Model, ModelProperty, Type } from "@typespec/compiler";
+import { Model, ModelProperty, Type } from "@typespec/compiler";
 import { getTemplateParams } from "../utils.js";
 import { Getter } from "./getter.js";
 import { ModelConstructor } from "./model-constructor.js";
@@ -8,6 +8,7 @@ import { ModelMember } from "./model-member.js";
 import { Setter } from "./setter.js";
 import { TypeExpression } from "./type-expression.js";
 import * as jv from "@alloy-js/java";
+import { $ } from "@typespec/compiler/typekit";
 
 
 export const CustomModelMethodsSlot = defineSlot<ModelDeclarationProps>((query: { name: string }) =>

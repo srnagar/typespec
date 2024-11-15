@@ -16,7 +16,6 @@ export function TypeExpression({ type }: TypeExpressionProps) {
     return <Reference refkey={refkey(type)} />;
     //throw new Error("Reference not implemented");
   }
-
   
   switch (type.kind) {
     case "Scalar":

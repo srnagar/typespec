@@ -1,7 +1,8 @@
 import { Child, code, Indent, mapJoin, refkey } from "@alloy-js/core";
 import * as jv from "@alloy-js/java";
 import { useJavaNamePolicy } from "@alloy-js/java";
-import { $, ModelProperty } from "@typespec/compiler";
+import { ModelProperty } from "@typespec/compiler";
+import { $ } from "@typespec/compiler/typekit";
 import { TypeExpression } from "@typespec/emitter-framework/java";
 import { HttpOperation, OperationContainer } from "@typespec/http";
 import { FlatHttpResponse } from "@typespec/http/typekit";

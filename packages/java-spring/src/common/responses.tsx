@@ -1,7 +1,8 @@
 import { mapJoin, refkey } from "@alloy-js/core";
 import * as jv from "@alloy-js/java";
 import { useJavaNamePolicy } from "@alloy-js/java";
-import { $, Model } from "@typespec/compiler";
+import { Model } from "@typespec/compiler";
+import { $ } from "@typespec/compiler/typekit";
 import { TypeExpression } from "@typespec/emitter-framework/java";
 import { HttpOperation } from "@typespec/http";
 

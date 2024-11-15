@@ -1,7 +1,8 @@
 import * as ay from "@alloy-js/core";
 import * as jv from "@alloy-js/java";
 import { createJavaNamePolicy, javaUtil, MavenProjectConfig } from "@alloy-js/java";
-import { $, EmitContext, getNamespaceFullName, isStdNamespace, Type } from "@typespec/compiler";
+import { EmitContext, getNamespaceFullName, isStdNamespace, Type } from "@typespec/compiler";
+import { $ } from "@typespec/compiler/typekit"
 import { TypeCollector } from "@typespec/emitter-framework";
 import { EnumDeclaration, ModelDeclaration } from "@typespec/emitter-framework/java";
 import {
@@ -21,9 +22,15 @@ import {
 import { NoBody, Response } from "./components/index.js";
 import { SpringProject } from "./spring/components/index.js";
 import { springFramework } from "./spring/libraries/index.js";
-import { DeclarationContext, OutputScope, useContext } from "@alloy-js/core";
+import { ComponentContext, createContext, DeclarationContext, OutputScope, useContext } from "@alloy-js/core";
 
 const RestNamespace = "TypeSpec.Rest";
+
+export interface MavenLibraryContext {
+  config: MavenProjectConfig;
+}
+
+export const MavenLibraryContext: ComponentContext<MavenLibraryContext> = createContext();
 
 /**
  * This emitter takes a few custom options:
@@ -33,9 +40,9 @@ const RestNamespace = "TypeSpec.Rest";
  * - groupId: Maven groupId for the project, by default it is 'io.typespec'
  * - artifactId: Maven artifactId for the project, by default it is 'generated'
  * - version: Maven version for the project, by default it is '1.0.0'
+ * - extensions: Path to the extension file
  */
 export async function $onEmit(context: EmitContext) {
-  await import("./extension.js");
   const options = context.options;
   // Maven config, takes options into emitter
   const projectConfig: MavenProjectConfig = {
@@ -52,6 +59,14 @@ export async function $onEmit(context: EmitContext) {
       ],
     },
   };
+
+  const libraryContext: MavenLibraryContext = {
+    config: projectConfig,
+  };
+
+  <MavenLibraryContext.Provider value={libraryContext}></MavenLibraryContext.Provider>
+
+  {await import("./extension.js")}
 
   // Query types needed in program, models, interfaces etc
   const types = queryTypes(context);
@@ -142,7 +157,7 @@ export async function $onEmit(context: EmitContext) {
       namePolicy={createJavaNamePolicy()}
     >
       <SpringProject
-        name="TestProject"
+        name={projectConfig.artifactId}
         mavenProjectConfig={projectConfig}
         useAuth={(auth?.schemes?.length ?? 0) > 0}
         springVersion={options?.springVersion}
@@ -211,6 +226,8 @@ export async function $onEmit(context: EmitContext) {
       </SpringProject>
       
     </ay.Output>
+
+    
   );
 }
 
