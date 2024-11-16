@@ -187,19 +187,7 @@ export async function $onEmit(context: EmitContext) {
                         }}
                       />
                     )}
-                    <ModelDeclaration type={type} >
-                    {
-                        () => {
-                          const sym = useContext(DeclarationContext)!;
-                          console.log("SPN Symbol name: ", sym.name);
-                          let scope: OutputScope | undefined = sym.scope;
-                          while (scope) {
-                            console.log(scope.name);
-                            scope = scope.parent;
-                          }
-                        }
-                    }
-                    </ModelDeclaration>
+                    <ModelDeclaration type={type} />
                   </jv.SourceFile>
                 );
               })}
