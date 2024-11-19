@@ -1,7 +1,7 @@
 import * as ay from "@alloy-js/core";
 import * as jv from "@alloy-js/java";
 import { createJavaNamePolicy, javaUtil, MavenProjectConfig } from "@alloy-js/java";
-import { EmitContext, getNamespaceFullName, isStdNamespace, Type } from "@typespec/compiler";
+import { EmitContext, getNamespaceFullName, isStdNamespace, resolvePath, Type } from "@typespec/compiler";
 import { $ } from "@typespec/compiler/typekit"
 import { TypeCollector } from "@typespec/emitter-framework";
 import { EnumDeclaration, ModelDeclaration } from "@typespec/emitter-framework/java";
@@ -44,6 +44,7 @@ export const MavenLibraryContext: ComponentContext<MavenLibraryContext> = create
  */
 export async function $onEmit(context: EmitContext) {
   const options = context.options;
+
   // Maven config, takes options into emitter
   const projectConfig: MavenProjectConfig = {
     groupId: options?.groupId ?? "io.typespec",
@@ -66,6 +67,7 @@ export async function $onEmit(context: EmitContext) {
 
   <MavenLibraryContext.Provider value={libraryContext}></MavenLibraryContext.Provider>
 
+  // const extension = resolvePath("./extension.js");
   {await import("./extension.js")}
 
   // Query types needed in program, models, interfaces etc

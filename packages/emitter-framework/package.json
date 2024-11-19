@@ -40,9 +40,9 @@
     "@typespec/http": "workspace:~"
   },
   "dependencies": {
-    "@alloy-js/core": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/core@3854b48",
-    "@alloy-js/typescript": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/typescript@3854b48",
-    "@alloy-js/java": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/java@3854b48"
+    "@alloy-js/core": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/core@7443b42",
+    "@alloy-js/typescript": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/typescript@7443b42",
+    "@alloy-js/java": "https://pkg.pr.new/alloy-framework/alloy/@alloy-js/java@7443b42"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.8",

@@ -11,6 +11,8 @@
     "sourceMap": true,
     "declarationMap": true,
     "jsx": "preserve",
+    "allowJs": true,
+    "esModuleInterop": true,
 
     "emitDeclarationOnly": true,
     "outDir": "dist"

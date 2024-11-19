@@ -15,7 +15,7 @@ namespace DemoService {
   namespace People {
     model Person<T> {
       id: int32;
-      firstName: "first name literal";
+      firstName: string;
       lastName: string;
       special: T;
       pets: Pets.Pet[];

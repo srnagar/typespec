@@ -1,5 +1,5 @@
 import { Children, defineSlot, refkey as getRefkey, mapJoin, resolveFQN } from "@alloy-js/core";
-import { Class, Constructor, Generics, useJavaNamePolicy } from "@alloy-js/java";
+import { Class, Constructor, Generics, useJavaNamePolicy, resolveJavaFQN } from "@alloy-js/java";
 import { Model, ModelProperty, Type } from "@typespec/compiler";
 import { getTemplateParams } from "../utils.js";
 import { Getter } from "./getter.js";
@@ -11,8 +11,11 @@ import * as jv from "@alloy-js/java";
 import { $ } from "@typespec/compiler/typekit";
 
 
-export const CustomModelMethodsSlot = defineSlot<ModelDeclarationProps>((query: { name: string }) =>
-  resolveFQN(query.name));
+export const CustomModelMethodsSlot = defineSlot<ModelDeclarationProps>((query: { artifactId: string, javaFileName: string, pkg?: string, memberName?: string }) =>
+{
+  console.log("CustomModelMethodsSlot", query.artifactId, query.javaFileName, query.pkg, query.memberName);
+  return resolveJavaFQN(query.artifactId, query.javaFileName, query.pkg, query.memberName, false)
+});
 
 
 export interface ModelDeclarationProps {

@@ -13,6 +13,6 @@ options:
     # The maven groupId for the generated project
     groupId: io.typespec
     # The maven artifactId for the generated project
-    artifactId: generated
+    artifactId: my-project
     # The maven version for the generated project
     version: 1.0.0
