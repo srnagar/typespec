@@ -1,4 +1,4 @@
-import { Children, defineSlot, refkey as getRefkey, mapJoin, resolveFQN } from "@alloy-js/core";
+import { Children, defineSlot, refkey as getRefkey, mapJoin, rename, resolveFQN } from "@alloy-js/core";
 import { Class, Constructor, Generics, useJavaNamePolicy, resolveJavaFQN } from "@alloy-js/java";
 import { Model, ModelProperty, Type } from "@typespec/compiler";
 import { getTemplateParams } from "../utils.js";
@@ -10,6 +10,11 @@ import { TypeExpression } from "./type-expression.js";
 import * as jv from "@alloy-js/java";
 import { $ } from "@typespec/compiler/typekit";
 
+
+export function renameClass(artifactId: string, packageName: string, className: string, newClassName: string, ) {
+  const symbol = resolveJavaFQN(artifactId, className + ".java", packageName, className);
+  rename(symbol, newClassName);
+}
 
 export const CustomModelMethodsSlot = defineSlot<ModelDeclarationProps>((query: { artifactId: string, javaFileName: string, pkg?: string, memberName?: string }) =>
 {

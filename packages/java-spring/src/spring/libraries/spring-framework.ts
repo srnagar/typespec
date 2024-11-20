@@ -33,3 +33,5 @@ export const springFramework = createLibrary({
     "com.fasterxml.jackson.annotation": ["JsonIgnoreProperties"],
   },
 });
+
+

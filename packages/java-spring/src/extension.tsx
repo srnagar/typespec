@@ -26,42 +26,42 @@ import { CustomModelMethodsSlot, ModelDeclarationProps } from "@typespec/emitter
 // Replaces
 
 // Add a validate method to the Pet class
-const petValidation = CustomModelMethodsSlot.find({
-  artifactId: "my-project",
-  javaFileName: "Pet.java",
-  pkg: "io.typespec.generated.models",
-  memberName: "CustomModelMethodsSlot",
-});
+// const petValidation = CustomModelMethodsSlot.find({
+//   artifactId: "my-project",
+//   javaFileName: "Pet.java",
+//   pkg: "io.typespec.generated.models",
+//   memberName: "CustomModelMethodsSlot",
+// });
 
-replace(petValidation, (props: ModelDeclarationProps) => {
-  console.log("Model name: ", props.type.name);
-  return code`
-    public void validate() {
-      ${javaUtil.List}<String> errors = new ${javaUtil.ArrayList}<>();
-      ${mapJoin(props.type.properties, (property, modelProperty) => {
-        if (!modelProperty.optional) {
-          console.log("Property name: ", property, modelProperty.optional);
+// replace(petValidation, (props: ModelDeclarationProps) => {
+//   console.log("Model name: ", props.type.name);
+//   return code`
+//     public void validate() {
+//       ${javaUtil.List}<String> errors = new ${javaUtil.ArrayList}<>();
+//       ${mapJoin(props.type.properties, (property, modelProperty) => {
+//         if (!modelProperty.optional) {
+//           console.log("Property name: ", property, modelProperty.optional);
 
-          modelProperty.name = property + "Name";
-          console.log("Updated property name: ", modelProperty.name);
-          return code`
-              if(${property} == null) {
-                errors.add("${property} is required");
-              }
-            `;
-        }
-      })}
-      if(!errors.isEmpty()) {
-        throw new IllegalArgumentException(errors.toString());
-      }
-    }  
+//           modelProperty.name = property + "Name";
+//           console.log("Updated property name: ", modelProperty.name);
+//           return code`
+//               if(${property} == null) {
+//                 errors.add("${property} is required");
+//               }
+//             `;
+//         }
+//       })}
+//       if(!errors.isEmpty()) {
+//         throw new IllegalArgumentException(errors.toString());
+//       }
+//     }  
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(${(mapJoin(props.type.properties, (property, modelProperty) => property), ",")});
-    }
-  `;
-});
+//     @Override
+//     public int hashCode() {
+//         return Objects.hash(${(mapJoin(props.type.properties, (property, modelProperty) => property), ",")});
+//     }
+//   `;
+// });
 
 // // Add a validate method to the Person class
 // const personValidation = CustomModelMethodsSlot.find({
@@ -97,39 +97,39 @@ replace(petValidation, (props: ModelDeclarationProps) => {
 //   `;
 // });
 
-const fooValidation = CustomModelMethodsSlot.find({
-  artifactId: "my-project",
-  javaFileName: "Foo.java",
-  pkg: "io.typespec.generated.models",
-  memberName: "CustomModelMethodsSlot",
-});
+// const fooValidation = CustomModelMethodsSlot.find({
+//   artifactId: "my-project",
+//   javaFileName: "Foo.java",
+//   pkg: "io.typespec.generated.models",
+//   memberName: "CustomModelMethodsSlot",
+// });
 
-replace(fooValidation, (props: ModelDeclarationProps) => {
-  console.log("Model name: ", props.type.name);
+// replace(fooValidation, (props: ModelDeclarationProps) => {
+//   console.log("Model name: ", props.type.name);
 
-  mapJoin(props.type.properties, (property, modelProperty) => {
-    console.log("Property name: ", property, modelProperty.optional);
-  });
+//   mapJoin(props.type.properties, (property, modelProperty) => {
+//     console.log("Property name: ", property, modelProperty.optional);
+//   });
 
-  return code`
-    public void validate() {
-      ${javaUtil.List}<String> errors = new ${javaUtil.ArrayList}<>();
-      ${mapJoin(props.type.properties, (property, modelProperty) => {
-        if (!modelProperty.optional) {
-          return code`
-              if(${property} == null) {
-                errors.add("${property} is required");
-              }
-            `;
-        }
-      })}
+//   return code`
+//     public void validate() {
+//       ${javaUtil.List}<String> errors = new ${javaUtil.ArrayList}<>();
+//       ${mapJoin(props.type.properties, (property, modelProperty) => {
+//         if (!modelProperty.optional) {
+//           return code`
+//               if(${property} == null) {
+//                 errors.add("${property} is required");
+//               }
+//             `;
+//         }
+//       })}
 
-      if(!errors.isEmpty()) {
-        throw new IllegalArgumentException(errors.toString());
-      }
-    }  
-  `;
-});
+//       if(!errors.isEmpty()) {
+//         throw new IllegalArgumentException(errors.toString());
+//       }
+//     }  
+//   `;
+// });
 
 // const pName = resolveJavaFQN("my-project", "Pet.java", "io.typespec.generated.models", "Pet");
 // rename(pName, "PetModel");

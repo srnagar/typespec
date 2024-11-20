@@ -19,11 +19,16 @@ namespace DemoService {
       lastName: string;
       special: T;
       pets: Pets.Pet[];
-      foo: Foo;
+      address: Address;
     }
 
-    model Foo {
-      bar: string;
+    model Address {
+      unit: string;
+      street: string;
+      city: string;
+      state: string;
+      postalCode: string;
+      country: string;
       pet: Pets.Pet[];
     }
 
