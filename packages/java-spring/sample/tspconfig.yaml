@@ -16,3 +16,5 @@ options:
     artifactId: demo-service
     # The maven version for the generated project
     version: 1.0.0
+    # The path to customization file
+    # extension: file://C:/Users/srnagar/home/code/typespec/packages/java-spring/tsp-output/dist/src/extension.js

@@ -13,11 +13,10 @@ namespace DemoService {
 
   @route("/people")
   namespace People {
-    model Person<T> {
+    model Person {
       id: int32;
       firstName: string;
       lastName: string;
-      special: T;
       pets: Pets.Pet[];
       address: Address;
     }
@@ -29,22 +28,22 @@ namespace DemoService {
       state: string;
       postalCode: string;
       country: string;
-      pet: Pets.Pet[];
+      pets: Pets.Pet[];
     }
 
     @get op getPerson(@path id: int32): {
-      @body body: Person<string>;
+      @body body: Person;
       @header testHeader: string;
     } | NotFoundResponse | CustomError;
-    @get op listPeople(): Person<string>[] | CustomError;
-    @post op createPerson(@body person: Person<string>): CreatedResponse | CustomError;
+    @get op listPeople(): Person[] | CustomError;
+    @post op createPerson(@body person: Person): CreatedResponse | CustomError;
   }
 
   @route("/pets")
   namespace Pets {
     model Pet {
       name: string | int32;
-      owner?: People.Person<int32>;
+      owner?: People.Person;
     }
 
     op listPets(): {

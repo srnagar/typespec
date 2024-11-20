@@ -16,9 +16,8 @@ export function renameClass(artifactId: string, packageName: string, className: 
   rename(symbol, newClassName);
 }
 
-export const CustomModelMethodsSlot = defineSlot<ModelDeclarationProps>((query: { artifactId: string, javaFileName: string, pkg?: string, memberName?: string }) =>
+export const CustomizationSlot = defineSlot<ModelDeclarationProps>((query: { artifactId: string, javaFileName: string, pkg?: string, memberName?: string }) =>
 {
-  console.log("CustomModelMethodsSlot", query.artifactId, query.javaFileName, query.pkg, query.memberName);
   return resolveJavaFQN(query.artifactId, query.javaFileName, query.pkg, query.memberName, false)
 });
 
@@ -70,10 +69,10 @@ export function ModelDeclaration(props: ModelDeclarationProps) {
   const isErrorModel = $.model.isErrorModel(type);
   
   const sym = jv.createJavaSymbol({
-    name: "CustomModelMethodsSlot"
+    name: "CustomizationSlot"
   });
 
-  const CustomModelMethodsSlotInstance = CustomModelMethodsSlot.create(
+  const CustomizationSlotInstance = CustomizationSlot.create(
     sym,
     props
   );
@@ -116,7 +115,7 @@ export function ModelDeclaration(props: ModelDeclarationProps) {
       )}
       {""}
 
-      <CustomModelMethodsSlotInstance />
+      <CustomizationSlotInstance />
 
       {props.children}
     </Class>

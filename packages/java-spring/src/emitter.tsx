@@ -67,8 +67,10 @@ export async function $onEmit(context: EmitContext) {
 
   <MavenLibraryContext.Provider value={libraryContext}></MavenLibraryContext.Provider>
 
-  const extension = resolvePath("file://C:/Users/srnagar/home/code/typespec/packages/java-spring/tsp-output/dist/src/extension.js");
-  {await import(extension)}
+  if (options?.extension) {
+    const extension = resolvePath(options?.extension);
+    {await import(extension)}
+  }
 
   // Query types needed in program, models, interfaces etc
   const types = queryTypes(context);
