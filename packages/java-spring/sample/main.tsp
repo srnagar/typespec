@@ -28,7 +28,6 @@ namespace DemoService {
       state: string;
       postalCode: string;
       country: string;
-      pets: Pets.Pet[];
     }
 
     @get op getPerson(@path id: int32): {
@@ -46,9 +45,19 @@ namespace DemoService {
       owner?: People.Person;
     }
 
+    model PetStore {
+      address: string;
+      pets: Pets.Pet[];
+    }
+
     op listPets(): {
      @body body: Pet[];
      @header x: string;
     } | CustomError;
+
+    @get @route("/stores")
+    op listPetStores(): {
+      @body body: PetStore[];
+    };
   }
 }
