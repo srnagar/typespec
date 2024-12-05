@@ -28,6 +28,7 @@ namespace DemoService {
       state: string;
       postalCode: string;
       country: string;
+      pets: Pets.Pet[];
     }
 
     @get op getPerson(@path id: int32): {
