@@ -233,7 +233,7 @@ export class CodeModelBuilder {
       return this.codeModel;
     }
 
-    this.sdkContext = await createSdkContext(this.emitterContext, "@typespec/http-client-java", {
+    this.sdkContext = await createSdkContext(this.emitterContext, "@azure-tools/typespec-java", {
       versioning: { previewStringRegex: /$/ },
     }); // include all versions and do the filter by ourselves
 

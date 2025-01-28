@@ -112,7 +112,7 @@ const EmitterOptionsSchema: JSONSchemaType<EmitterOptions> = {
 };
 
 export const $lib = createTypeSpecLibrary({
-  name: "@typespec/http-client-java",
+  name: "@azure-tools/typespec-java",
   diagnostics: {},
   emitter: {
     options: EmitterOptionsSchema,

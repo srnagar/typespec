@@ -196,7 +196,7 @@ public class ProxyMethodParameter extends MethodParameter {
 //            imports.add(String.format("com.azure.core.annotation.FormParam"));
 //        }
 
-        if (!settings.isBranded()) {
+        if (!settings.isBranded() || settings.isAzureCoreV2()) {
             imports.add("io.clientcore.core.http.models.HttpMethod");
         }
 

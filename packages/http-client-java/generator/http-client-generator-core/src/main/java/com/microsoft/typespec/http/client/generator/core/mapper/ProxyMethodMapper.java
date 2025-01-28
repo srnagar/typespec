@@ -335,6 +335,63 @@ public class ProxyMethodMapper implements IMapper<Operation, Map<Request, List<P
             }
             syncProxyMethods.add(asyncProxyMethod.toSync());
         }
+
+        for (ProxyMethod proxyMethod : proxyMethods) {
+            ProxyMethod syncProxyMethod = proxyMethod.toSync();
+            IType responseBodyType = syncProxyMethod.getResponseBodyType();
+
+            StringBuilder convenienceMethodImpl = new StringBuilder();
+            convenienceMethodImpl.append(responseBodyType == PrimitiveType.VOID ? "" : "return ")
+                .append(syncProxyMethod.getName())
+                .append("(");
+
+            List<ProxyMethodParameter> requiredParams = new ArrayList<>();
+
+            boolean isFirst = true;
+            for (ProxyMethodParameter param : syncProxyMethod.getAllParameters()) {
+                if (!isFirst) {
+                    convenienceMethodImpl.append(", ");
+                }
+                if (param.isRequired()) {
+                    requiredParams.add(param);
+                    convenienceMethodImpl.append(param.getName());
+                } else {
+                    convenienceMethodImpl.append("null");
+                }
+                if (isFirst) {
+                    isFirst = false;
+                }
+            }
+            convenienceMethodImpl.append(")");
+            convenienceMethodImpl.append(responseBodyType == PrimitiveType.VOID ? ";" : ".getValue();");
+
+            ProxyMethod newSyncProxyMethod = new ProxyMethod.Builder().baseName(syncProxyMethod.getBaseName())
+                .name(syncProxyMethod.getName() + "Convenience")
+                .operationId(syncProxyMethod.getOperationId())
+                .httpMethod(syncProxyMethod.getHttpMethod())
+                .baseURL(syncProxyMethod.getBaseUrl())
+                .rawResponseBodyType(syncProxyMethod.getRawResponseBodyType())
+                .description(syncProxyMethod.getDescription())
+                .responseBodyType(syncProxyMethod.getResponseBodyType())
+                .requestContentType(syncProxyMethod.getRequestContentType())
+                .returnType(responseBodyType)
+                .returnValueWireType(syncProxyMethod.getReturnValueWireType())
+                .unexpectedResponseExceptionTypes(syncProxyMethod.getUnexpectedResponseExceptionTypes())
+                .unexpectedResponseExceptionType(syncProxyMethod.getUnexpectedResponseExceptionType())
+                .isSync(syncProxyMethod.isSync())
+                .isResumable(syncProxyMethod.isResumable())
+                .customHeaderIgnored(syncProxyMethod.isCustomHeaderIgnored())
+                .examples(syncProxyMethod.getExamples())
+                .urlPath(syncProxyMethod.getUrlPath())
+                .specialHeaders(syncProxyMethod.getSpecialHeaders())
+                .responseContentTypes(syncProxyMethod.getResponseContentTypes())
+                .responseExpectedStatusCodes(syncProxyMethod.getResponseExpectedStatusCodes())
+                .allParameters(requiredParams)
+                .parameters(requiredParams)
+                .implementation(convenienceMethodImpl.toString())
+                .build();
+            syncProxyMethods.add(newSyncProxyMethod);
+        }
         proxyMethods.addAll(syncProxyMethods);
     }
 

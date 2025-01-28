@@ -776,7 +776,7 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
             convertClientTypesToWireTypes(function, clientMethod, restAPIMethod.getParameters());
 
             boolean requestOptionsLocal = false;
-            if (settings.isDataPlaneClient()) {
+            if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
                 requestOptionsLocal = addSpecialHeadersToRequestOptions(function, clientMethod);
             }
 
@@ -845,7 +845,7 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
         if (clientMethod.getMethodPageDetails().nonNullNextLink()) {
             writeMethod(typeBlock, clientMethod.getMethodVisibility(), clientMethod.getDeclaration(), function -> {
                 addOptionalVariables(function, clientMethod);
-                if (settings.isDataPlaneClient()) {
+                if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
                     function.line("RequestOptions requestOptionsForNextPage = new RequestOptions();");
                     function.line(
                         "requestOptionsForNextPage.setContext(requestOptions != null && requestOptions.getContext() != null ? requestOptions.getContext() : "
@@ -1121,7 +1121,7 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
             convertClientTypesToWireTypes(function, clientMethod, restAPIMethod.getParameters());
 
             boolean requestOptionsLocal = false;
-            if (settings.isDataPlaneClient()) {
+            if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
                 requestOptionsLocal = addSpecialHeadersToRequestOptions(function, clientMethod);
             }
 
@@ -1394,7 +1394,7 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
             convertClientTypesToWireTypes(function, clientMethod, restAPIMethod.getParameters());
 
             boolean requestOptionsLocal = false;
-            if (settings.isDataPlaneClient()) {
+            if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
                 requestOptionsLocal = addSpecialHeadersToRequestOptions(function, clientMethod);
             }
 
@@ -1636,7 +1636,7 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
             }
         }
 
-        if (settings.isDataPlaneClient()) {
+        if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
             argumentLine = argumentLine.replace("requestOptions", "requestOptionsForNextPage");
         }
         return String.format("nextLink -> %s(%s)", methodName, argumentLine);

@@ -379,7 +379,7 @@ abstract class ConvenienceMethodTemplateBase {
         imports.add(JacksonAdapter.class.getName());
         imports.add(CollectionFormat.class.getName());
         imports.add(TypeReference.class.getName());
-        if (!JavaSettings.getInstance().isBranded()) {
+        if (!JavaSettings.getInstance().isBranded() || JavaSettings.getInstance().isAzureCoreV2()) {
             imports.add(Type.class.getName());
             imports.add(ParameterizedType.class.getName());
         }

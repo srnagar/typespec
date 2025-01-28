@@ -22,6 +22,7 @@ import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
 import com.microsoft.typespec.http.client.generator.core.util.MethodUtil;
 import com.microsoft.typespec.http.client.generator.core.util.ModelNamer;
 import com.microsoft.typespec.http.client.generator.core.util.TemplateUtil;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -72,6 +73,8 @@ public class ServiceClientTemplate implements IJavaTemplate<ServiceClient, JavaF
         } else {
             addSerializerImport(imports);
         }
+
+        imports.add(InvocationTargetException.class.getName());
 
         serviceClient.addImportsTo(imports, true, false, settings);
         additionalMethods.forEach(method -> method.addImportsTo(imports));

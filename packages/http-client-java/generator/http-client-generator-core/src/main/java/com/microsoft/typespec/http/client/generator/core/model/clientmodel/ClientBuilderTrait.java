@@ -198,7 +198,7 @@ public class ClientBuilderTrait {
         importPackages.add(ClassType.HTTP_PIPELINE_POLICY.getFullName());
         httpClientBuilderTraitMethods.add(addPolicyMethod);
 
-        if (!isBranded) {
+        if (!isBranded || JavaSettings.getInstance().isAzureCoreV2()) {
             // redirectOptions
             ServiceClientProperty redirectOptionsProperty
                 = new ServiceClientProperty("The redirect options to configure redirect policy",

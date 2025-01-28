@@ -24,6 +24,7 @@ public class ProxyMethod {
      * Get the Content-Type of the request.
      */
     private final String requestContentType;
+    private String implementation;
     /**
      * The value that is returned from this method.
      */
@@ -113,7 +114,7 @@ public class ProxyMethod {
         this(requestContentType, returnType, httpMethod, baseUrl, urlPath, responseExpectedStatusCodes,
             unexpectedResponseExceptionType, unexpectedResponseExceptionTypes, name, parameters, allParameters,
             description, returnValueWireType, responseBodyType, rawResponseBodyType, isResumable, responseContentTypes,
-            operationId, examples, specialHeaders, false, name, false);
+            operationId, examples, specialHeaders, false, name, false, null);
     }
 
     /**
@@ -145,7 +146,8 @@ public class ProxyMethod {
         List<ProxyMethodParameter> parameters, List<ProxyMethodParameter> allParameters, String description,
         IType returnValueWireType, IType responseBodyType, IType rawResponseBodyType, boolean isResumable,
         Set<String> responseContentTypes, String operationId, Map<String, ProxyMethodExample> examples,
-        List<String> specialHeaders, boolean isSync, String baseName, boolean customHeaderIgnored) {
+        List<String> specialHeaders, boolean isSync, String baseName, boolean customHeaderIgnored,
+        String implementation) {
         this.requestContentType = requestContentType;
         this.returnType = returnType;
         this.httpMethod = httpMethod;
@@ -169,6 +171,7 @@ public class ProxyMethod {
         this.isSync = isSync;
         this.baseName = baseName;
         this.customHeaderIgnored = customHeaderIgnored;
+        this.implementation = implementation;
     }
 
     public final String getRequestContentType() {
@@ -283,6 +286,14 @@ public class ProxyMethod {
         return customHeaderIgnored;
     }
 
+    public String getImplementation() {
+        return implementation;
+    }
+
+    public void updateImplementation(String implementation) {
+        this.implementation = implementation;
+    }
+
     public ProxyMethod toSync() {
         if (isSync) {
             return this;
@@ -298,9 +309,11 @@ public class ProxyMethod {
         List<ProxyMethodParameter> allSyncParams
             = this.getAllParameters().stream().map(this::mapToSyncParam).collect(Collectors.toList());
 
+        String syncMethodName = this.getName()
+            + (JavaSettings.getInstance().isAzureCoreV2() || !JavaSettings.getInstance().isBranded() ? "" : "Sync");
         this.syncProxy = new ProxyMethod.Builder().parameters(syncParams)
             .httpMethod(this.getHttpMethod())
-            .name(this.getName() + "Sync")
+            .name(syncMethodName)
             .baseName(this.getName())
             .description(this.getDescription())
             .baseURL(this.getBaseUrl())
@@ -481,6 +494,7 @@ public class ProxyMethod {
         protected boolean isSync;
         protected String baseName;
         protected boolean customHeaderIgnored;
+        protected String implementation;
 
         /*
          * Sets the Content-Type of the request.
@@ -735,7 +749,12 @@ public class ProxyMethod {
                 responseExpectedStatusCodes, unexpectedResponseExceptionType, unexpectedResponseExceptionTypes, name,
                 parameters, allParameters, description, returnValueWireType, responseBodyType, rawResponseBodyType,
                 isResumable, responseContentTypes, operationId, examples, specialHeaders, isSync, baseName,
-                customHeaderIgnored);
+                customHeaderIgnored, implementation);
+        }
+
+        public Builder implementation(String implementation) {
+            this.implementation = implementation;
+            return this;
         }
     }
 }

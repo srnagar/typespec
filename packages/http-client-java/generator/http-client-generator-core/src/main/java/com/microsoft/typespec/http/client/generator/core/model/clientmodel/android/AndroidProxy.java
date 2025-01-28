@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class AndroidProxy extends Proxy {
     protected AndroidProxy(String name, String clientTypeName, String baseURL, List<ProxyMethod> methods) {
-        super(name, clientTypeName, baseURL, methods);
+        super(name, clientTypeName, baseURL, methods, null);
     }
 
     @Override

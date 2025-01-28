@@ -180,7 +180,8 @@ public class JavaSettings {
         // The brand name we use to generate SDK.
         this.flavor = getStringValue(host, "flavor", "azure");
 
-        this.modelsSubpackage = getStringValue(host, "models-subpackage", isBranded(this.flavor) ? "models" : "");
+        this.modelsSubpackage
+            = getStringValue(host, "models-subpackage", isBranded(this.flavor) || isAzureCoreV2() ? "models" : "");
 
         // The custom types that will be generated.
         String customTypes = getStringValue(host, "custom-types", "");
@@ -398,6 +399,10 @@ public class JavaSettings {
 
     private static boolean isBranded(String flavor) {
         return "azure".equalsIgnoreCase(flavor);
+    }
+
+    public boolean isAzureCoreV2() {
+        return "azurev2".equals(this.flavor);
     }
 
     private final String keyCredentialHeaderName;

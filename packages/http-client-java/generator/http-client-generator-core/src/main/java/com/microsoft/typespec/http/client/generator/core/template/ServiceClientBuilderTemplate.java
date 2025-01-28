@@ -307,7 +307,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
                         serializerExpression = getLocalBuildVariableName(getSerializerMemberName());
                     }
 
-                    if (!settings.isBranded()) {
+                    if (!settings.isBranded() || settings.isAzureCoreV2()) {
                         if (constructorArgs != null && !constructorArgs.isEmpty()) {
                             function.line(String.format("%1$s client = new %2$s(%3$s%4$s);",
                                 serviceClient.getClassName(), serviceClient.getClassName(),
@@ -581,8 +581,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
                 ClassType.DURATION, "defaultPollInterval", false, "Duration.ofSeconds(30)"));
         }
 
-        // Low-level client does not need serializer. It returns BinaryData.
-        if (!settings.isDataPlaneClient()) {
+        if (settings.isBranded() && !settings.isDataPlaneClient()) {
             commonProperties.add(new ServiceClientProperty("The serializer to serialize an object into a string",
                 ClassType.SERIALIZER_ADAPTER, getSerializerMemberName(), false,
                 settings.isFluent()
