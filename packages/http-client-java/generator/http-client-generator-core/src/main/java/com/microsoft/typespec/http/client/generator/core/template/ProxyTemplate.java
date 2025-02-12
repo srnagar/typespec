@@ -63,13 +63,13 @@ public class ProxyTemplate implements IJavaTemplate<Proxy, JavaClass> {
                     List<ProxyMethodParameter> commonParams = restAPI.getCommonParams();
 
                     StringBuilder params = new StringBuilder();
-                    params.append("HttpPipeline pipeline");
+                    params.append("HttpPipeline pipeline, ").append("ObjectSerializer serializer");
 
                     StringBuilder paramTypes = new StringBuilder();
-                    paramTypes.append("HttpPipeline.class");
+                    paramTypes.append("HttpPipeline.class,").append("ObjectSerializer.class");
 
                     StringBuilder reflectionParams = new StringBuilder();
-                    reflectionParams.append("pipeline");
+                    reflectionParams.append("pipeline, serializer");
 
                     for (ProxyMethodParameter commonParam : commonParams) {
                         params.append(", ");
@@ -83,7 +83,7 @@ public class ProxyTemplate implements IJavaTemplate<Proxy, JavaClass> {
                     }
 
                     interfaceBlock.staticMethod(JavaVisibility.PackagePrivate,
-                        restAPI.getName() + " getInstance(" + params + ")", javaBlock -> {
+                        restAPI.getName() + " getNewInstance(" + params + ")", javaBlock -> {
 
                             String serviceClientInterfacePackageName
                                 = ClientModelUtil.getServiceClientInterfacePackageName();
@@ -91,7 +91,7 @@ public class ProxyTemplate implements IJavaTemplate<Proxy, JavaClass> {
                                 tryBlock.line(
                                     "Class<?> clazz = Class.forName(" + "\"" + JavaSettings.getInstance().getPackage()
                                         + ".implementation." + restAPI.getName() + "Impl" + "\");");
-                                tryBlock.line("return (" + restAPI.getName() + ") clazz.getMethod(\"getInstance\", "
+                                tryBlock.line("return (" + restAPI.getName() + ") clazz.getMethod(\"getNewInstance\", "
                                     + paramTypes + ").invoke(null, " + reflectionParams + ");");
                             })
                                 .catchBlock(

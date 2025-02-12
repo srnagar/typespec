@@ -366,7 +366,7 @@ public class ProxyMethodMapper implements IMapper<Operation, Map<Request, List<P
             convenienceMethodImpl.append(responseBodyType == PrimitiveType.VOID ? ";" : ".getValue();");
 
             ProxyMethod newSyncProxyMethod = new ProxyMethod.Builder().baseName(syncProxyMethod.getBaseName())
-                .name(syncProxyMethod.getName() + "Convenience")
+                .name(syncProxyMethod.getName())
                 .operationId(syncProxyMethod.getOperationId())
                 .httpMethod(syncProxyMethod.getHttpMethod())
                 .baseURL(syncProxyMethod.getBaseUrl())
