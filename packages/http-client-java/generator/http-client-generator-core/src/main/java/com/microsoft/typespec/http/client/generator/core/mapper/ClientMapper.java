@@ -554,7 +554,7 @@ public class ClientMapper implements IMapper<CodeModel, Client> {
         xmlSequenceWrappers.computeIfAbsent(modelTypeName, name -> new XmlSequenceWrapper(name, arraySchema, settings));
     }
 
-    static ObjectSchema parseHeader(Operation operation, JavaSettings settings) {
+    public static ObjectSchema parseHeader(Operation operation, JavaSettings settings) {
         if (!SchemaUtil.responseContainsHeaderSchemas(operation, settings)) {
             return null;
         }
@@ -701,7 +701,8 @@ public class ClientMapper implements IMapper<CodeModel, Client> {
         return ret;
     }
 
-    static ClassType getClientResponseClassType(Operation method, List<ClientModel> models, JavaSettings settings) {
+    public static ClassType getClientResponseClassType(Operation method, List<ClientModel> models,
+        JavaSettings settings) {
         String name = CodeNamer.getPlural(method.getOperationGroup().getLanguage().getJava().getName())
             + CodeNamer.toPascalCase(method.getLanguage().getJava().getName()) + "Response";
         String packageName = settings.getPackage(settings.getModelsSubpackage());

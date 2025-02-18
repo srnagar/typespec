@@ -32,7 +32,7 @@ public final class CodeFormatterUtil {
      */
     public static void formatCode(Map<String, String> files, NewPlugin plugin) {
         for (Map.Entry<String, String> file : formatCodeInternal(files.entrySet())) {
-            plugin.writeFile(file.getKey(), file.getValue().replace("com.azure.core.", "com.azure.core.v2."), null);
+            plugin.writeFile(file.getKey(), file.getValue().replace("com.azure.core.", "com.azure.v2.core."), null);
         }
     }
 

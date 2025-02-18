@@ -1,7 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-package com.microsoft.typespec.http.client.generator.core.mapper;
+package com.microsoft.typespec.http.client.generator.core.mapper.azurevnext;
 
 import com.azure.core.http.HttpMethod;
 import com.azure.core.util.CoreUtils;
@@ -13,6 +10,11 @@ import com.microsoft.typespec.http.client.generator.core.extension.model.codemod
 import com.microsoft.typespec.http.client.generator.core.extension.model.codemodel.Response;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.PluginLogger;
+import com.microsoft.typespec.http.client.generator.core.mapper.ClientMapper;
+import com.microsoft.typespec.http.client.generator.core.mapper.CustomProxyParameterMapper;
+import com.microsoft.typespec.http.client.generator.core.mapper.MapperUtils;
+import com.microsoft.typespec.http.client.generator.core.mapper.Mappers;
+import com.microsoft.typespec.http.client.generator.core.mapper.ProxyMethodMapper;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClassType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClientModels;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.GenericType;
@@ -43,10 +45,17 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 
-/**
- * Maps Swagger definition into the interface methods that RestProxy consumes.
- */
-public class ProxyMethodMapper implements IMapper<Operation, Map<Request, List<ProxyMethod>>> {
+public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
+
+    private static final AzureVNextProxyMethodMapper INSTANCE = new AzureVNextProxyMethodMapper();
+
+    private AzureVNextProxyMethodMapper() {
+
+    }
+
+    public static AzureVNextProxyMethodMapper getInstance() {
+        return INSTANCE;
+    }
 
     private final Logger logger = new PluginLogger(Javagen.getPluginInstance(), ProxyMethodMapper.class);
 
@@ -55,16 +64,7 @@ public class ProxyMethodMapper implements IMapper<Operation, Map<Request, List<P
             PrimitiveType.DURATION_DOUBLE, ClassType.DURATION_LONG, ClassType.DURATION_DOUBLE,
             PrimitiveType.UNIX_TIME_LONG, ClassType.UNIX_TIME_LONG, ClassType.UNIX_TIME_DATE_TIME);
 
-    private static final ProxyMethodMapper INSTANCE = new ProxyMethodMapper();
-
     private final Map<Request, List<ProxyMethod>> parsed = new ConcurrentHashMap<>();
-
-    protected ProxyMethodMapper() {
-    }
-
-    public static ProxyMethodMapper getInstance() {
-        return INSTANCE;
-    }
 
     @Override
     public Map<Request, List<ProxyMethod>> map(Operation operation) {
@@ -79,7 +79,7 @@ public class ProxyMethodMapper implements IMapper<Operation, Map<Request, List<P
         if (CoreUtils.isNullOrEmpty(operationId)
             && operation.getLanguage() != null
             && operation.getLanguage().getDefault() != null) {  // operationId or language.default could be null for
-                                                                // generated method like "listNext"
+            // generated method like "listNext"
             if (operationGroupNotNull(operation, settings)) {
                 operationId = operation.getOperationGroup().getLanguage().getDefault().getName() + "_"
                     + operation.getLanguage().getDefault().getName();
@@ -222,17 +222,9 @@ public class ProxyMethodMapper implements IMapper<Operation, Map<Request, List<P
             String name = deduplicateMethodName(operationName, parameters, requestContentType, methodSignatures);
             builder.name(name);
 
-            if (settings.isDataPlaneClient()) {
-                ProxyMethodParameter requestOptions = ProxyMethodParameter.REQUEST_OPTIONS_PARAMETER;
-                allParameters.add(requestOptions);
-                parameters.add(requestOptions);
-            }
-
-            if (JavaSettings.getInstance().isBranded()) {
-                ProxyMethodParameter contextParameter = getContextParameter();
-                allParameters.add(contextParameter);
-                parameters.add(contextParameter);
-            }
+            ProxyMethodParameter requestOptions = ProxyMethodParameter.REQUEST_OPTIONS_PARAMETER;
+            allParameters.add(requestOptions);
+            parameters.add(requestOptions);
 
             appendCallbackParameter(parameters, responseBodyType);
             builder.allParameters(allParameters);
@@ -401,28 +393,6 @@ public class ProxyMethodMapper implements IMapper<Operation, Map<Request, List<P
             && operation.getOperationGroup().getLanguage() != null
             && operation.getOperationGroup().getLanguage().getDefault() != null
             && !CoreUtils.isNullOrEmpty(operation.getOperationGroup().getLanguage().getDefault().getName());
-    }
-
-    private ProxyMethodParameter getContextParameter() {
-        return new ProxyMethodParameter.Builder().description("The context to associate with this operation.")
-            .wireType(getContextClass())
-            .clientType(getContextClass())
-            .name("context")
-            .requestParameterLocation(RequestParameterLocation.NONE)
-            .requestParameterName("context")
-            .alreadyEncoded(true)
-            .constant(false)
-            .required(false)
-            .nullable(false)
-            .fromClient(false)
-            .parameterReference("context")
-            .origin(ParameterSynthesizedOrigin.CONTEXT)
-            .build();
-
-    }
-
-    protected ClassType getContextClass() {
-        return ClassType.CONTEXT;
     }
 
     protected void appendCallbackParameter(List<ProxyMethodParameter> parameters, IType responseBodyType) {

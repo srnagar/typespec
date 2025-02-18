@@ -287,8 +287,12 @@ public final class ModelTemplateHeaderHelper {
 
         block.line();
 
-        block.block("for (HttpHeader header : rawHeaders)", body -> {
-            body.line("String headerName = header.getName();");
+        block.block("rawHeaders.stream().forEach(header -> ", body -> {
+            if (JavaSettings.getInstance().isBranded()) {
+                body.line("String headerName = header.getName().getValue();");
+            } else {
+                body.line("String headerName = header.getName().getValue();");
+            }
             int propertiesSize = properties.size();
             for (int i = 0; i < propertiesSize; i++) {
                 ClientModelProperty property = properties.get(i);
@@ -297,12 +301,13 @@ public final class ModelTemplateHeaderHelper {
                     ifBlock.line("%sHeaderCollection.put(headerName.substring(%d), header.getValue());",
                         property.getName(), property.getHeaderCollectionPrefix().length());
                     if (needsContinue) {
-                        ifBlock.line("continue;");
+                        ifBlock.line("return;");
                     }
                 });
             }
         });
 
+        block.text(");");
         block.line();
 
         for (ClientModelProperty property : properties) {

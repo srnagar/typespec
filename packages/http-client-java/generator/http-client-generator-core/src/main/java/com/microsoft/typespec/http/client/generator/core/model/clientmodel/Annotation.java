@@ -7,7 +7,7 @@ import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSe
 import java.util.Set;
 
 public class Annotation {
-    private static final String CLIENTCORE_PACKAGE = "io.clientcore.core.http.annotation";
+    private static final String CLIENTCORE_PACKAGE = "io.clientcore.core.http.annotations";
 
     public static final Annotation GENERATED
         = new Annotation.Builder().knownClass(com.azure.core.annotation.Generated.class).build();
@@ -54,13 +54,13 @@ public class Annotation {
     public static final Annotation HEADER_COLLECTION
         = new Annotation.Builder().knownClass(com.azure.core.annotation.HeaderCollection.class).build();
 
-    public static final Annotation METADATA = new Annotation("io.clientcore.core.annotation", "Metadata");
+    public static final Annotation METADATA = new Annotation("io.clientcore.core.annotations", "Metadata");
 
     public static final Annotation HTTP_REQUEST_INFORMATION
         = new Annotation(CLIENTCORE_PACKAGE, "HttpRequestInformation");
     public static final Annotation UNEXPECTED_RESPONSE_EXCEPTION_INFORMATION
         = new Annotation(CLIENTCORE_PACKAGE, "UnexpectedResponseExceptionDetail");
-    public static final Annotation TYPE_CONDITIONS = new Annotation("io.clientcore.core.annotation", "TypeConditions");
+    public static final Annotation TYPE_CONDITIONS = new Annotation("io.clientcore.core.annotations", "TypeConditions");
 
     private final String fullName;
     private final String packageName;
@@ -105,7 +105,8 @@ public class Annotation {
             if (!JavaSettings.getInstance().isBranded()) {
                 this.packageName(clazz.getPackage()
                     .getName()
-                    .replace(ExternalPackage.AZURE_CORE_PACKAGE_NAME, ExternalPackage.CLIENTCORE_PACKAGE_NAME)
+                    .replace(ExternalPackage.AZURE_CORE_PACKAGE_NAME + ".annotation",
+                        ExternalPackage.CLIENTCORE_PACKAGE_NAME + ".annotations")
                     .replace(ExternalPackage.AZURE_JSON_PACKAGE_NAME, ExternalPackage.CLIENTCORE_JSON_PACKAGE_NAME));
             }
 

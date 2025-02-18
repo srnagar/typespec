@@ -3,7 +3,6 @@
 
 package com.microsoft.typespec.http.client.generator.core.template;
 
-import com.azure.core.http.HttpHeader;
 import com.azure.core.util.CoreUtils;
 import com.azure.core.util.logging.ClientLogger;
 import com.azure.core.util.serializer.JacksonAdapter;
@@ -430,13 +429,13 @@ public class ModelTemplate implements IJavaTemplate<ClientModel, JavaFile> {
         // Add HttpHeaders as an import when strongly-typed HTTP header objects use that as a constructor parameter.
         if (model.isStronglyTypedHeader()) {
             ClassType.HTTP_HEADERS.addImportsTo(imports, false);
+            ClassType.HTTP_HEADER.addImportsTo(imports, false);
             ClassType.HTTP_HEADER_NAME.addImportsTo(imports, false);
 
             // Also add any potential imports needed to convert the header to the strong type.
             // If the import isn't used it will be removed later on.
             imports.add(Base64.class.getName());
             imports.add(LinkedHashMap.class.getName());
-            imports.add(HttpHeader.class.getName());
             imports.add(UUID.class.getName());
             imports.add(URL.class.getName());
             imports.add(IOException.class.getName());

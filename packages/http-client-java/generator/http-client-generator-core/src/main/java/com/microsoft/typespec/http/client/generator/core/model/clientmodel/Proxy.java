@@ -4,6 +4,7 @@
 package com.microsoft.typespec.http.client.generator.core.model.clientmodel;
 
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  * Details that describe the dynamic proxy.
  */
 public class Proxy {
-    private final List<ProxyMethodParameter> commonParams;
+    private List<ProxyMethodParameter> commonParams;
     /**
      * Get the name of the REST API interface.
      */
@@ -43,7 +44,7 @@ public class Proxy {
         this.clientTypeName = clientTypeName;
         this.baseURL = baseURL;
         this.methods = methods;
-        this.commonParams = commonParams;
+        this.commonParams = commonParams == null ? Collections.emptyList() : commonParams;
     }
 
     public final String getName() {
@@ -77,7 +78,7 @@ public class Proxy {
         if (includeImplementationImports) {
             Annotation.HOST.addImportsTo(imports);
             if (settings.isAzureCoreV2() || !settings.isBranded()) {
-                imports.add("io.clientcore.core.annotation.ServiceInterface");
+                imports.add("io.clientcore.core.annotations.ServiceInterface");
             } else {
                 Annotation.SERVICE_INTERFACE.addImportsTo(imports);
             }

@@ -143,18 +143,20 @@ public class ClientBuilderTrait {
         httpClientBuilderTraitMethods.add(httpClientMethod);
 
         // httpLogOptions
-        ServiceClientProperty httpLogOptionsProperty
-            = new ServiceClientProperty("The logging configuration for HTTP " + "requests and responses.",
-                ClassType.HTTP_LOG_OPTIONS, "httpLogOptions", false, null);
-        Consumer<JavaBlock> httpLogOptionsMethodImpl = function -> {
-            function.line(String.format("this.%1$s = %2$s;", "httpLogOptions", "httpLogOptions"));
-            function.methodReturn("this");
-        };
-        ClientBuilderTraitMethod httpLogOptionsMethod = createTraitMethod("httpLogOptions", "httpLogOptions",
-            ClassType.HTTP_LOG_OPTIONS, httpLogOptionsProperty, "{@inheritDoc}", httpLogOptionsMethodImpl);
-        importPackages.add(ClassType.HTTP_LOG_OPTIONS.getFullName());
+        if (isBranded) {
+            ServiceClientProperty httpLogOptionsProperty
+                = new ServiceClientProperty("The logging configuration for HTTP " + "requests and responses.",
+                    ClassType.HTTP_LOG_OPTIONS, "httpLogOptions", false, null);
+            Consumer<JavaBlock> httpLogOptionsMethodImpl = function -> {
+                function.line(String.format("this.%1$s = %2$s;", "httpLogOptions", "httpLogOptions"));
+                function.methodReturn("this");
+            };
+            ClientBuilderTraitMethod httpLogOptionsMethod = createTraitMethod("httpLogOptions", "httpLogOptions",
+                ClassType.HTTP_LOG_OPTIONS, httpLogOptionsProperty, "{@inheritDoc}", httpLogOptionsMethodImpl);
+            importPackages.add(ClassType.HTTP_LOG_OPTIONS.getFullName());
 
-        httpClientBuilderTraitMethods.add(httpLogOptionsMethod);
+            httpClientBuilderTraitMethods.add(httpLogOptionsMethod);
+        }
 
         // clientOptions
         if (isBranded) {
@@ -211,6 +213,22 @@ public class ClientBuilderTrait {
                 ClassType.REDIRECT_OPTIONS, redirectOptionsProperty, "{@inheritDoc}", redirectOptionsMethodImpl);
             importPackages.add(ClassType.REDIRECT_OPTIONS.getFullName());
             httpClientBuilderTraitMethods.add(redirectOptionsMethod);
+
+            // instrumentation options
+            ServiceClientProperty httpInstrumentationOptionsProperty
+                = new ServiceClientProperty("The instrumentation configuration for HTTP " + "requests and responses.",
+                    ClassType.HTTP_LOG_OPTIONS, "httpInstrumentationOptions", false, null);
+            Consumer<JavaBlock> httpInstrumentationOptionsMethodImpl = function -> {
+                function.line(
+                    String.format("this.%1$s = %2$s;", "httpInstrumentationOptions", "httpInstrumentationOptions"));
+                function.methodReturn("this");
+            };
+            ClientBuilderTraitMethod httpInstrumentationOptionsMethod = createTraitMethod("httpInstrumentationOptions",
+                "httpInstrumentationOptions", ClassType.HTTP_LOG_OPTIONS, httpInstrumentationOptionsProperty,
+                "{@inheritDoc}", httpInstrumentationOptionsMethodImpl);
+            importPackages.add(ClassType.HTTP_LOG_OPTIONS.getFullName());
+
+            httpClientBuilderTraitMethods.add(httpInstrumentationOptionsMethod);
         }
 
         return httpTrait;

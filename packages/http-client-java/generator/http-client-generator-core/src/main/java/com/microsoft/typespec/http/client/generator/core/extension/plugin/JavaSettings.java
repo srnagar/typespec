@@ -8,6 +8,10 @@ import com.azure.json.JsonReader;
 import com.azure.json.JsonSerializable;
 import com.azure.json.JsonToken;
 import com.azure.json.JsonWriter;
+import com.microsoft.typespec.http.client.generator.core.mapper.Mappers;
+import com.microsoft.typespec.http.client.generator.core.mapper.azurevnext.AzureVNextMapperFactory;
+import com.microsoft.typespec.http.client.generator.core.template.Templates;
+import com.microsoft.typespec.http.client.generator.core.template.azurevnext.AzureVNextTemplateFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -179,6 +183,11 @@ public class JavaSettings {
 
         // The brand name we use to generate SDK.
         this.flavor = getStringValue(host, "flavor", "azure");
+
+        if (isAzureCoreV2()) {
+            Mappers.setFactory(new AzureVNextMapperFactory());
+            Templates.setFactory(new AzureVNextTemplateFactory());
+        }
 
         this.modelsSubpackage
             = getStringValue(host, "models-subpackage", isBranded(this.flavor) || isAzureCoreV2() ? "models" : "");

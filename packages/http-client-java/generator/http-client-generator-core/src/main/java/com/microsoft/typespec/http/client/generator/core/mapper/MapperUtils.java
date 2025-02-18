@@ -127,7 +127,7 @@ public final class MapperUtils {
         }
     }
 
-    static IType handleResponseSchema(Operation operation, JavaSettings settings) {
+    public static IType handleResponseSchema(Operation operation, JavaSettings settings) {
         Schema responseBodySchema = SchemaUtil.getLowestCommonParent(
             operation.getResponses().stream().map(Response::getSchema).filter(Objects::nonNull).iterator());
         boolean xmlWrapperResponse = responseBodySchema != null

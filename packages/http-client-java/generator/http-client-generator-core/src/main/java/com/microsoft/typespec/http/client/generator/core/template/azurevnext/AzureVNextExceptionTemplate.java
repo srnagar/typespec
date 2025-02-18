@@ -1,25 +1,21 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-package com.microsoft.typespec.http.client.generator.core.template;
+package com.microsoft.typespec.http.client.generator.core.template.azurevnext;
 
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClassType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClientException;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaFile;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaJavadocComment;
+import com.microsoft.typespec.http.client.generator.core.template.ExceptionTemplate;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Writes a ClientException to a JavaFile.
- */
-public class ExceptionTemplate implements IJavaTemplate<ClientException, JavaFile> {
-    private static final ExceptionTemplate INSTANCE = new ExceptionTemplate();
+public class AzureVNextExceptionTemplate extends ExceptionTemplate {
 
-    protected ExceptionTemplate() {
+    private static final AzureVNextExceptionTemplate INSTANCE = new AzureVNextExceptionTemplate();
+
+    private AzureVNextExceptionTemplate() {
     }
 
-    public static ExceptionTemplate getInstance() {
+    public static AzureVNextExceptionTemplate getInstance() {
         return INSTANCE;
     }
 
@@ -44,9 +40,9 @@ public class ExceptionTemplate implements IJavaTemplate<ClientException, JavaFil
                     comment.param("response", "the HTTP response");
                 });
                 classBlock.publicConstructor(
-                    String.format("%1$s(String message, HttpResponse response)", exception.getName()),
+                    String.format("%1$s(String message, Response<?> response)", exception.getName()),
                     (constructorBlock) -> {
-                        constructorBlock.line("super(message, response);");
+                        constructorBlock.line("super(message, response, null);");
                     });
 
                 classBlock.javadocComment((comment) -> {
@@ -57,7 +53,7 @@ public class ExceptionTemplate implements IJavaTemplate<ClientException, JavaFil
                     comment.param("response", "the HTTP response");
                     comment.param("value", "the deserialized response value");
                 });
-                classBlock.publicConstructor(String.format("%1$s(String message, HttpResponse response, %2$s value)",
+                classBlock.publicConstructor(String.format("%1$s(String message, Response<?> response, %2$s value)",
                     exception.getName(), exception.getErrorName()), (constructorBlock) -> {
                         constructorBlock.line("super(message, response, value);");
                     });
@@ -71,6 +67,6 @@ public class ExceptionTemplate implements IJavaTemplate<ClientException, JavaFil
     }
 
     protected String getHttpResponseImport() {
-        return ClassType.HTTP_RESPONSE.getFullName();
+        return ClassType.RESPONSE.getFullName();
     }
 }

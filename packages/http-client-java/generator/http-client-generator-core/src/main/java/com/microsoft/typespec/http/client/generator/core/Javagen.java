@@ -81,7 +81,6 @@ public class Javagen extends NewPlugin {
     private boolean generateJava(JavaSettings settings) {
         try {
 
-            logger.info("SPN ---- Generating Java files");
             // Step 1: Parse input yaml as CodeModel
             CodeModel codeModel = new Preprocessor(this, connection, pluginName, sessionId).processCodeModel();
 
