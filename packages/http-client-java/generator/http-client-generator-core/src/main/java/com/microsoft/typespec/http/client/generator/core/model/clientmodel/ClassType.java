@@ -162,7 +162,6 @@ public class ClassType implements IType {
             put(EndpointTrait.class, new ClassDetails(EndpointTrait.class, "io.clientcore.core.traits.EndpointTrait"));
             put(KeyCredentialTrait.class,
                 new ClassDetails(KeyCredentialTrait.class, "io.clientcore.core.traits.KeyCredentialTrait"));
-            put(TypeReference.class, new ClassDetails(TypeReference.class, "io.clientcore.core.models.TypeReference"));
             put(ClientLogger.class,
                 new ClassDetails(ClientLogger.class, "io.clientcore.core.instrumentation.logging.ClientLogger"));
             put(LogLevel.class,
