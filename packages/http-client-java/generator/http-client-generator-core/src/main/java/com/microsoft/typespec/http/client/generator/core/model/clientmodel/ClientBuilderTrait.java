@@ -12,6 +12,7 @@ import com.azure.core.credential.TokenCredential;
 import com.azure.core.util.logging.LogLevel;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaBlock;
+import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;

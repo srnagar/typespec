@@ -56,7 +56,6 @@ import com.azure.core.util.logging.LogLevel;
 import com.azure.core.util.polling.PollOperationDetails;
 import com.azure.core.util.serializer.JsonSerializer;
 import com.azure.core.util.serializer.SerializerAdapter;
-import com.azure.core.util.serializer.TypeReference;
 import com.azure.json.JsonReader;
 import com.azure.json.JsonSerializable;
 import com.azure.json.JsonToken;
@@ -122,14 +121,16 @@ public class ClassType implements IType {
                 new ClassDetails(HttpLogOptions.class, "io.clientcore.core.http.pipeline.HttpInstrumentationOptions"));
             put(HttpPipelinePolicy.class,
                 new ClassDetails(HttpPipelinePolicy.class, "io.clientcore.core.http.pipeline.HttpPipelinePolicy"));
+            put(KeyCredential.class,
+                new ClassDetails(KeyCredential.class, "io.clientcore.core.credentials.KeyCredential"));
             put(KeyCredentialPolicy.class,
                 new ClassDetails(KeyCredentialPolicy.class, "io.clientcore.core.http.pipeline.KeyCredentialPolicy"));
             put(RetryPolicy.class,
                 new ClassDetails(RetryPolicy.class, "io.clientcore.core.http.pipeline.HttpRetryPolicy"));
             put(RedirectPolicy.class,
                 new ClassDetails(RedirectPolicy.class, "io.clientcore.core.http.pipeline.HttpRedirectPolicy"));
-            put(HttpLoggingPolicy.class,
-                new ClassDetails(HttpLoggingPolicy.class, "io.clientcore.core.http.pipeline.HttpLoggingPolicy"));
+            put(HttpLoggingPolicy.class, new ClassDetails(HttpLoggingPolicy.class,
+                "io.clientcore.core.http.pipeline.HttpInstrumentationPolicy"));
             put(Configuration.class,
                 new ClassDetails(Configuration.class, "io.clientcore.core.utils.configuration.Configuration"));
             put(HttpHeaders.class, new ClassDetails(HttpHeaders.class, "io.clientcore.core.http.models.HttpHeaders"));
@@ -150,7 +151,7 @@ public class ClassType implements IType {
             put(Response.class, new ClassDetails(Response.class, "io.clientcore.core.http.models.Response"));
             put(SimpleResponse.class, new ClassDetails(SimpleResponse.class, "io.clientcore.core.http.SimpleResponse"));
             put(ExpandableStringEnum.class,
-                new ClassDetails(ExpandableStringEnum.class, "io.clientcore.core.util.ExpandableEnum"));
+                new ClassDetails(ExpandableStringEnum.class, "io.clientcore.core.utils.ExpandableEnum"));
             put(ExpandableEnum.class,
                 new ClassDetails(ExpandableEnum.class, "io.clientcore.core.utils.ExpandableEnum"));
             put(HttpResponseException.class, new ClassDetails(HttpResponseException.class,
@@ -315,10 +316,13 @@ public class ClassType implements IType {
     public static final ClassType BASE_64_URL = getClassTypeBuilder(Base64Url.class)
         .serializationValueGetterModifier(valueGetter -> "Objects.toString(" + valueGetter + ", null)")
         .jsonToken("JsonToken.STRING")
-        .jsonDeserializationMethod("getNullable(nonNullReader -> new Base64Url(nonNullReader.getString()))")
+        .jsonDeserializationMethod("getNullable(nonNullReader -> new "
+            + (JavaSettings.getInstance().isBranded() ? "Base64Url" : "Base64Uri") + "(nonNullReader.getString()))")
         .serializationMethodBase("writeString")
-        .xmlElementDeserializationMethod("getNullableElement(Base64Url::new)")
-        .xmlAttributeDeserializationTemplate("%s.getNullableAttribute(%s, %s, Base64Url::new)")
+        .xmlElementDeserializationMethod(
+            "getNullableElement(" + (JavaSettings.getInstance().isBranded() ? "Base64Url" : "Base64Uri") + "::new)")
+        .xmlAttributeDeserializationTemplate("%s.getNullableAttribute(%s, %s, "
+            + (JavaSettings.getInstance().isBranded() ? "Base64Url" : "Base64Uri") + "::new)")
         .build();
 
     public static final ClassType ANDROID_BASE_64_URL
@@ -525,12 +529,6 @@ public class ClassType implements IType {
     public static final ClassType RETRY_POLICY = getClassTypeBuilder(RetryPolicy.class).build();
     public static final ClassType REDIRECT_POLICY = getClassTypeBuilder(RedirectPolicy.class).build();
     public static final ClassType HTTP_LOGGING_POLICY = getClassTypeBuilder(HttpLoggingPolicy.class).build();
-
-    // clientcore
-    public static final ClassType HTTP_INSTRUMENTATION_POLICY
-        = new ClassType.Builder(false).packageName("io.clientcore.core.http.pipeline")
-            .name("HttpInstrumentationPolicy")
-            .build();
 
     public static final ClassType RETRY_OPTIONS = getClassTypeBuilder(RetryOptions.class).build();
 
@@ -768,7 +766,7 @@ public class ClassType implements IType {
         } else if (this == ClassType.UNIX_TIME_LONG) {
             expression = expression + ".toEpochSecond()";
         } else if (this == ClassType.BASE_64_URL) {
-            expression = "Base64Url.encode(" + expression + ")";
+            expression = ClassType.BASE_64_URL.getName() + ".encode(" + expression + ")";
         } else if (this == ClassType.URL) {
             expression = expression + ".toString()";
         } else if (this == ClassType.DURATION_LONG) {

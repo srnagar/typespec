@@ -184,7 +184,15 @@ public class ProxyMethodParameter extends MethodParameter {
         }
         if (getRequestParameterLocation() != RequestParameterLocation.BODY) {
             if (getClientType() == ArrayType.BYTE_ARRAY) {
+<<<<<<< HEAD
                 ClassType.BASE_64_UTIL.addImportsTo(imports, false);
+=======
+                if (settings.isBranded()) {
+                    imports.add("com.azure.core.util.Base64Util");
+                } else {
+                    imports.add("io.clientcore.core.utils.Base64Util");
+                }
+>>>>>>> upstream/main
             } else if (getClientType() instanceof ListType && !getExplode()) {
                 imports.add("com.azure.core.util.serializer.CollectionFormat");
                 imports.add("com.azure.core.util.serializer.JacksonAdapter");
