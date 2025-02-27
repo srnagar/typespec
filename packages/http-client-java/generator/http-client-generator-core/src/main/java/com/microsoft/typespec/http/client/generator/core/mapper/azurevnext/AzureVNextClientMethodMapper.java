@@ -105,7 +105,7 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
 
     @Override
     public List<ClientMethod> map(Operation operation) {
-        return map(operation, JavaSettings.getInstance().isDataPlaneClient());
+        return map(operation, false);
     }
 
     /**
@@ -371,16 +371,6 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
                         ClientMethodType.SimpleSyncRestResponse, defaultOverloadType, true, isProtocolMethod);
                     // for vanilla and fluent, the SimpleAsyncRestResponse is VISIBLE, so that they can be used for
                     // possible customization on LRO
-
-                    // there is ambiguity of RestResponse from simple API and from LRO API
-                    // e.g. SimpleAsyncRestResponse without Context in simple API should be VISIBLE
-                    // hence override here for DPG
-                    if (settings.isDataPlaneClient()) {
-                        simpleAsyncMethodVisibility = NOT_GENERATE;
-                        simpleAsyncMethodVisibilityWithContext = NOT_VISIBLE;
-                        simpleSyncMethodVisibility = NOT_GENERATE;
-                        simpleSyncMethodVisibilityWithContext = NOT_VISIBLE;
-                    }
 
                     // WithResponseAsync, with required and optional parameters
                     methods.add(builder
@@ -943,17 +933,17 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
     private static void createOverloadForVersioning(boolean isProtocolMethod, List<ClientMethod> methods,
         ClientMethod.Builder builder, List<ClientMethodParameter> parameters) {
 
-        if (!isProtocolMethod && JavaSettings.getInstance().isDataPlaneClient()) {
-            if (parameters.stream().anyMatch(p -> p.getVersioning() != null && p.getVersioning().getAdded() != null)) {
-                List<List<ClientMethodParameter>> signatures = findOverloadedSignatures(parameters);
-                for (List<ClientMethodParameter> overloadedParameters : signatures) {
-                    builder.parameters(overloadedParameters);
-                    methods.add(builder.build());
-                }
-            }
-
-            builder.parameters(parameters);
-        }
+//        if (!isProtocolMethod && JavaSettings.getInstance().isDataPlaneClient()) {
+//            if (parameters.stream().anyMatch(p -> p.getVersioning() != null && p.getVersioning().getAdded() != null)) {
+//                List<List<ClientMethodParameter>> signatures = findOverloadedSignatures(parameters);
+//                for (List<ClientMethodParameter> overloadedParameters : signatures) {
+//                    builder.parameters(overloadedParameters);
+//                    methods.add(builder.build());
+//                }
+//            }
+//
+//            builder.parameters(parameters);
+//        }
     }
 
     static List<List<ClientMethodParameter>> findOverloadedSignatures(List<ClientMethodParameter> parameters) {
@@ -1450,48 +1440,48 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
         boolean isProtocolMethod) {
 
         JavaSettings settings = JavaSettings.getInstance();
-        if (settings.isDataPlaneClient()) {
-            if (isProtocolMethod) {
-                /*
-                 * Rule for DPG protocol method
-                 *
-                 * 1. Only generate "WithResponse" method for simple API (hence exclude SimpleAsync and SimpleSync).
-                 * 2. For sync method, Context is included in "RequestOptions", hence do not generate method with
-                 * Context parameter.
-                 * 3. For async method, Context is not included in method (this rule is valid for all clients).
-                 */
-                if (methodType == ClientMethodType.SimpleAsync
-                    || methodType == ClientMethodType.SimpleSync
-                    || !hasContextParameter
-                    || (methodType == ClientMethodType.PagingSyncSinglePage && !settings.isSyncStackEnabled())) {
-                    return NOT_GENERATE;
-                }
-
-                if (methodType == ClientMethodType.PagingAsyncSinglePage
-                    || (methodType == ClientMethodType.PagingSyncSinglePage && settings.isSyncStackEnabled())) {
-                    return NOT_VISIBLE;
-                }
-                return VISIBLE;
-            } else {
-                // at present, only generate convenience method for simple API and pageable API (no LRO)
-                return ((methodType == ClientMethodType.SimpleAsync && !hasContextParameter)
-                    || (methodType == ClientMethodType.SimpleSync && !hasContextParameter)
-                    || (methodType == ClientMethodType.PagingAsync && !hasContextParameter)
-                    || (methodType == ClientMethodType.PagingSync && !hasContextParameter)
-                    || (methodType == ClientMethodType.LongRunningBeginAsync && !hasContextParameter)
-                    || (methodType == ClientMethodType.LongRunningBeginSync && !hasContextParameter))
-                        // || (methodType == ClientMethodType.SimpleSyncRestResponse && hasContextParameter))
-                        ? VISIBLE
-                        : NOT_GENERATE;
-            }
-        } else {
-            if (methodType == ClientMethodType.SimpleSyncRestResponse && !hasContextParameter) {
-                return NOT_GENERATE;
-            } else if (methodType == ClientMethodType.SimpleSync && hasContextParameter) {
-                return NOT_GENERATE;
-            }
-            return VISIBLE;
+//        if (settings.isDataPlaneClient()) {
+//            if (isProtocolMethod) {
+//                /*
+//                 * Rule for DPG protocol method
+//                 *
+//                 * 1. Only generate "WithResponse" method for simple API (hence exclude SimpleAsync and SimpleSync).
+//                 * 2. For sync method, Context is included in "RequestOptions", hence do not generate method with
+//                 * Context parameter.
+//                 * 3. For async method, Context is not included in method (this rule is valid for all clients).
+//                 */
+//                if (methodType == ClientMethodType.SimpleAsync
+//                    || methodType == ClientMethodType.SimpleSync
+//                    || !hasContextParameter
+//                    || (methodType == ClientMethodType.PagingSyncSinglePage && !settings.isSyncStackEnabled())) {
+//                    return NOT_GENERATE;
+//                }
+//
+//                if (methodType == ClientMethodType.PagingAsyncSinglePage
+//                    || (methodType == ClientMethodType.PagingSyncSinglePage && settings.isSyncStackEnabled())) {
+//                    return NOT_VISIBLE;
+//                }
+//                return VISIBLE;
+//            } else {
+//                // at present, only generate convenience method for simple API and pageable API (no LRO)
+//                return ((methodType == ClientMethodType.SimpleAsync && !hasContextParameter)
+//                    || (methodType == ClientMethodType.SimpleSync && !hasContextParameter)
+//                    || (methodType == ClientMethodType.PagingAsync && !hasContextParameter)
+//                    || (methodType == ClientMethodType.PagingSync && !hasContextParameter)
+//                    || (methodType == ClientMethodType.LongRunningBeginAsync && !hasContextParameter)
+//                    || (methodType == ClientMethodType.LongRunningBeginSync && !hasContextParameter))
+//                        // || (methodType == ClientMethodType.SimpleSyncRestResponse && hasContextParameter))
+//                        ? VISIBLE
+//                        : NOT_GENERATE;
+//            }
+//        } else {
+        if (methodType == ClientMethodType.SimpleSyncRestResponse && !hasContextParameter) {
+            return NOT_GENERATE;
+        } else if (methodType == ClientMethodType.SimpleSync && hasContextParameter) {
+            return NOT_GENERATE;
         }
+        return VISIBLE;
+//        }
     }
 
     @FunctionalInterface

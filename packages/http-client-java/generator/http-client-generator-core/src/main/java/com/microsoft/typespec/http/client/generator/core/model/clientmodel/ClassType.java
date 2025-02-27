@@ -171,8 +171,6 @@ public class ClassType implements IType {
 
             put(KeyCredential.class,
                 new ClassDetails(KeyCredential.class, "io.clientcore.core.credentials.KeyCredential"));
-            put(HttpLoggingPolicy.class,
-                new ClassDetails(HttpLoggingPolicy.class, "io.clientcore.core.http.pipeline.HttpLoggingPolicy"));
 
             put(DateTimeRfc1123.class,
                 new ClassDetails(DateTimeRfc1123.class, "io.clientcore.core.utils.DateTimeRfc1123"));

@@ -674,8 +674,9 @@ abstract class ConvenienceMethodTemplateBase {
     }
 
     private static String expressionConvertToType(String name, MethodParameter convenienceParameter, String mediaType) {
-        if (convenienceParameter.getProxyMethodParameter().getRequestParameterLocation()
-            == RequestParameterLocation.BODY) {
+        if (convenienceParameter.getProxyMethodParameter() != null
+            && convenienceParameter.getProxyMethodParameter().getRequestParameterLocation()
+                == RequestParameterLocation.BODY) {
             IType bodyType = convenienceParameter.getProxyMethodParameter().getRawType();
             if (bodyType instanceof ClassType) {
                 ClientModel model = ClientModelUtil.getClientModel(bodyType.toString());
@@ -793,9 +794,12 @@ abstract class ConvenienceMethodTemplateBase {
         Map<MethodParameter, MethodParameter> parameterMap = new LinkedHashMap<>();
         List<MethodParameter> convenienceParameters = getParameters(convenienceMethod, true);
         Map<String, MethodParameter> clientParameters = getParameters(protocolMethod, false).stream()
-            .collect(Collectors.toMap(MethodParameter::getSerializedName, Function.identity()));
+            .collect(Collectors.toMap(key -> key.getSerializedName() == null ? key.getName() : key.getSerializedName(),
+                Function.identity()));
         for (MethodParameter convenienceParameter : convenienceParameters) {
-            String name = convenienceParameter.getSerializedName();
+            String name = convenienceParameter.getSerializedName() == null
+                ? convenienceParameter.getName()
+                : convenienceParameter.getSerializedName();
             parameterMap.put(convenienceParameter, clientParameters.get(name));
         }
         return parameterMap;

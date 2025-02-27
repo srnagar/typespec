@@ -38,7 +38,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -977,13 +976,7 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
         boolean useFullClassName) {
         // interface need a fully-qualified exception class name, since exception is usually only included in
         // ProxyMethod
-        typeBlock.javadocComment(comment -> {
-            if (JavaSettings.getInstance().isDataPlaneClient()) {
-                generateProtocolMethodJavadoc(clientMethod, comment);
-            } else {
-                generateJavadoc(clientMethod, comment, restAPIMethod, useFullClassName);
-            }
-        });
+        typeBlock.javadocComment(comment -> generateJavadoc(clientMethod, comment, restAPIMethod, useFullClassName));
     }
 
     /**
@@ -1184,30 +1177,6 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
 
     private String getPagingSinglePageExpression(ClientMethod clientMethod, String methodName, String argumentLine,
         JavaSettings settings) {
-        if (settings.isDataPlaneClient() && settings.isPageSizeEnabled()) {
-            Optional<String> maxPageSizeSerializedName
-                = MethodUtil.serializedNameOfMaxPageSizeParameter(clientMethod.getProxyMethod());
-            if (maxPageSizeSerializedName.isPresent()) {
-                argumentLine = argumentLine.replace("requestOptions", "requestOptionsLocal");
-                StringBuilder expression = new StringBuilder();
-                expression.append("(pageSize) -> {");
-                expression.append(
-                    "RequestOptions requestOptionsLocal = requestOptions == null ? new RequestOptions() : requestOptions;")
-                    .append("if (pageSize != null) {")
-                    .append("  requestOptionsLocal.addRequestCallback(requestLocal -> {")
-                    .append("    UrlBuilder urlBuilder = UrlBuilder.parse(requestLocal.getUrl());")
-                    .append("    urlBuilder.setQueryParameter(\"")
-                    .append(maxPageSizeSerializedName.get())
-                    .append("\", String.valueOf(pageSize));")
-                    .append("    requestLocal.setUrl(urlBuilder.toString());")
-                    .append("  });")
-                    .append("}")
-                    .append(String.format("return %s(%s);", methodName, argumentLine));
-                expression.append("}");
-                return expression.toString();
-            }
-        }
-
         String lambdaParameters = "";
         if (!settings.isBranded()) {
             lambdaParameters = "pagingOptions";
@@ -1218,29 +1187,6 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
 
     private String getPagingNextPageExpression(ClientMethod clientMethod, String methodName, String argumentLine,
         JavaSettings settings) {
-        if (settings.isDataPlaneClient() && settings.isPageSizeEnabled()) {
-            Optional<String> maxPageSizeSerializedName
-                = MethodUtil.serializedNameOfMaxPageSizeParameter(clientMethod.getProxyMethod());
-            if (maxPageSizeSerializedName.isPresent()) {
-                argumentLine = argumentLine.replace("requestOptions", "requestOptionsLocal");
-                StringBuilder expression = new StringBuilder();
-                expression.append("(nextLink, pageSize) -> {");
-                expression.append("RequestOptions requestOptionsLocal = new RequestOptions();")
-                    .append("requestOptionsLocal.setContext(requestOptionsForNextPage.getContext());")
-                    .append("if (pageSize != null) {")
-                    .append("  requestOptionsLocal.addRequestCallback(requestLocal -> {")
-                    .append("    UrlBuilder urlBuilder = UrlBuilder.parse(requestLocal.getUrl());")
-                    .append("    urlBuilder.setQueryParameter(\"")
-                    .append(maxPageSizeSerializedName.get())
-                    .append("\", String.valueOf(pageSize));")
-                    .append("    requestLocal.setUrl(urlBuilder.toString());")
-                    .append("  });")
-                    .append("}")
-                    .append(String.format("return %s(%s);", methodName, argumentLine));
-                expression.append("}");
-                return expression.toString();
-            }
-        }
 
         String lambdaParameters = "nextLink";
         if (!settings.isBranded()) {
@@ -1298,9 +1244,7 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
 
     private static String getServiceVersionValue(ClientMethod clientMethod) {
         String serviceVersion = "null";
-        if (JavaSettings.getInstance().isDataPlaneClient()
-            && clientMethod.getProxyMethod() != null
-            && clientMethod.getProxyMethod().getParameters() != null) {
+        if (clientMethod.getProxyMethod() != null && clientMethod.getProxyMethod().getParameters() != null) {
             if (clientMethod.getProxyMethod()
                 .getParameters()
                 .stream()

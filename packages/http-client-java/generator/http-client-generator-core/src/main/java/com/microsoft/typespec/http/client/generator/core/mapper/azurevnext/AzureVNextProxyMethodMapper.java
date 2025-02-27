@@ -19,12 +19,10 @@ import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Class
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClientModels;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.GenericType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.IType;
-import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ParameterSynthesizedOrigin;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.PrimitiveType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ProxyMethod;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ProxyMethodExample;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ProxyMethodParameter;
-import com.microsoft.typespec.http.client.generator.core.util.ClientModelUtil;
 import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
 import com.microsoft.typespec.http.client.generator.core.util.MethodUtil;
 import com.microsoft.typespec.http.client.generator.core.util.SchemaUtil;
@@ -160,27 +158,27 @@ public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
             List<ProxyMethodParameter> allParameters = new ArrayList<>();
             List<ProxyMethod> proxyMethods = new ArrayList<>();
             // add content-type parameter to allParameters when body is optional and there is single content type
-            if (settings.isDataPlaneClient()
-                // only if "content-type" is not already defined in parameters
-                && request.getParameters()
-                    .stream()
-                    .noneMatch(p -> p.getProtocol() != null
-                        && p.getProtocol().getHttp() != null
-                        && p.getProtocol().getHttp().getIn() == RequestParameterLocation.HEADER
-                        && "content-type".equalsIgnoreCase(p.getLanguage().getDefault().getSerializedName()))) {
-                boolean isBodyParamRequired = request.getParameters()
-                    .stream()
-                    .filter(p -> p.getProtocol() != null
-                        && p.getProtocol().getHttp() != null
-                        && p.getProtocol().getHttp().getIn() == RequestParameterLocation.BODY)
-                    .map(Parameter::isRequired)
-                    .findFirst()
-                    .orElse(false);
-                if (MethodUtil.getContentTypeCount(operation.getRequests()) == 1 && !isBodyParamRequired) {
-                    Parameter contentTypeParameter = MethodUtil.createContentTypeParameter(request, operation);
-                    allParameters.add(Mappers.getProxyParameterMapper().map(contentTypeParameter));
-                }
-            }
+//            if (settings.isDataPlaneClient()
+//                // only if "content-type" is not already defined in parameters
+//                && request.getParameters()
+//                    .stream()
+//                    .noneMatch(p -> p.getProtocol() != null
+//                        && p.getProtocol().getHttp() != null
+//                        && p.getProtocol().getHttp().getIn() == RequestParameterLocation.HEADER
+//                        && "content-type".equalsIgnoreCase(p.getLanguage().getDefault().getSerializedName()))) {
+//                boolean isBodyParamRequired = request.getParameters()
+//                    .stream()
+//                    .filter(p -> p.getProtocol() != null
+//                        && p.getProtocol().getHttp() != null
+//                        && p.getProtocol().getHttp().getIn() == RequestParameterLocation.BODY)
+//                    .map(Parameter::isRequired)
+//                    .findFirst()
+//                    .orElse(false);
+//                if (MethodUtil.getContentTypeCount(operation.getRequests()) == 1 && !isBodyParamRequired) {
+//                    Parameter contentTypeParameter = MethodUtil.createContentTypeParameter(request, operation);
+//                    allParameters.add(Mappers.getProxyParameterMapper().map(contentTypeParameter));
+//                }
+//            }
 
             for (Parameter parameter : request.getParameters()
                 .stream()
@@ -192,21 +190,8 @@ public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
                     proxyMethodParameter = CustomProxyParameterMapper.getInstance().map(parameter);
                 }
                 allParameters.add(proxyMethodParameter);
-                if (!settings.isDataPlaneClient()) {
-                    parameters.add(proxyMethodParameter);
-                } else {
-                    // LLC will put required path, body, query, header parameters to method signature
-                    final boolean parameterIsRequired = parameter.isRequired();
-                    final boolean parameterIsClientOrApiVersion
-                        = ClientModelUtil.getClientDefaultValueOrConstantValue(parameter) != null
-                            && ParameterSynthesizedOrigin.fromValue(parameter.getOrigin())
-                                == ParameterSynthesizedOrigin.API_VERSION;
-                    final boolean parameterIsConstantOrFromClient
-                        = proxyMethodParameter.isConstant() || proxyMethodParameter.isFromClient();
-                    if (parameterIsRequired || parameterIsConstantOrFromClient || parameterIsClientOrApiVersion) {
-                        parameters.add(proxyMethodParameter);
-                    }
-                }
+                parameters.add(proxyMethodParameter);
+
             }
             List<ProxyMethodParameter> specialParameters = getSpecialParameters(operation);
             if (!CoreUtils.isNullOrEmpty(specialParameters)) {
@@ -214,9 +199,7 @@ public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
                     .map(ProxyMethodParameter::getRequestParameterName)
                     .collect(Collectors.toList()));
             }
-            if (!settings.isDataPlaneClient()) {
-                parameters.addAll(specialParameters);
-            }
+            parameters.addAll(specialParameters);
             allParameters.addAll(specialParameters);
 
             String name = deduplicateMethodName(operationName, parameters, requestContentType, methodSignatures);
@@ -248,9 +231,6 @@ public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
             ProxyMethod proxyMethod = builder.build();
             proxyMethods.add(proxyMethod);
 
-            addNoCustomHeaderProxyMethod(operation, settings, operationName, builder, responseBodyType,
-                asyncRestResponseReturnType, proxyMethods);
-
             ProxyMethodParameter fluxByteBufferParam = parameters.stream()
                 .filter(parameter -> parameter.getClientType() == GenericType.FLUX_BYTE_BUFFER)
                 .findFirst()
@@ -271,50 +251,15 @@ public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
                 builder.parameters(proxyMethodParameters);
                 proxyMethods.add(builder.build());
 
-                addNoCustomHeaderProxyMethod(operation, settings, operationName, builder, responseBodyType,
-                    asyncRestResponseReturnType, proxyMethods);
             }
 
             final List<ProxyMethod> asyncProxyMethods = new ArrayList<>(proxyMethods);
-            if (settings.isSyncStackEnabled()) {
-                addSyncProxyMethods(proxyMethods);
-            }
-            if (settings.getSyncMethods() == JavaSettings.SyncMethodsGeneration.SYNC_ONLY) {
-                proxyMethods.removeAll(asyncProxyMethods);
-            }
+            addSyncProxyMethods(proxyMethods);
+            proxyMethods.removeAll(asyncProxyMethods);
             result.put(request, proxyMethods);
             parsed.put(request, proxyMethods);
         }
         return result;
-    }
-
-    private void addNoCustomHeaderProxyMethod(Operation operation, JavaSettings settings, String operationName,
-        ProxyMethod.Builder builder, IType responseBodyType, IType asyncRestResponseReturnType,
-        List<ProxyMethod> proxyMethods) {
-        if (settings.isDisableTypedHeadersMethods()) {
-            return;
-        }
-
-        if (settings.isNoCustomHeaders()
-            && asyncRestResponseReturnType instanceof GenericType
-            && ((GenericType) asyncRestResponseReturnType).getTypeArguments()[0] instanceof GenericType
-            && ((GenericType) ((GenericType) asyncRestResponseReturnType).getTypeArguments()[0]).getName()
-                .equals("ResponseBase")) {
-            IType asyncResponseWithNoHeaders = getAsyncRestResponseReturnType(operation, responseBodyType,
-                settings.isDataPlaneClient(), settings, true);
-            builder.returnType(asyncResponseWithNoHeaders);
-            builder.name(operationName + "NoCustomHeaders");
-            builder.customHeaderIgnored(true);
-
-            proxyMethods.add(builder.build());
-
-            // reset builder state
-            // TODO (srnagar): add a clone method to proxy method builder. Each proxy method should use it's own
-            // builder instance to maintain its state separately.
-            builder.returnType(asyncRestResponseReturnType);
-            builder.name(operationName);
-            builder.customHeaderIgnored(false);
-        }
     }
 
     private void addSyncProxyMethods(List<ProxyMethod> proxyMethods) {
@@ -382,7 +327,7 @@ public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
                 .build();
 
             if (syncProxyMethod.getAllParameters().size() != newSyncProxyMethod.getAllParameters().size()) {
-                syncProxyMethods.add(newSyncProxyMethod);
+//                syncProxyMethods.add(newSyncProxyMethod);
             }
         }
         proxyMethods.addAll(syncProxyMethods);

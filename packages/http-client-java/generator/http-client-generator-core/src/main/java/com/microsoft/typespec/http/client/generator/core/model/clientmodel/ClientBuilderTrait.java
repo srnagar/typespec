@@ -12,7 +12,6 @@ import com.azure.core.credential.TokenCredential;
 import com.azure.core.util.logging.LogLevel;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaBlock;
-import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -219,6 +218,7 @@ public class ClientBuilderTrait {
             ServiceClientProperty httpInstrumentationOptionsProperty
                 = new ServiceClientProperty("The instrumentation configuration for HTTP " + "requests and responses.",
                     ClassType.HTTP_LOG_OPTIONS, "httpInstrumentationOptions", false, null);
+            importPackages.add(ClassType.HTTP_LOGGING_POLICY.getFullName());
             Consumer<JavaBlock> httpInstrumentationOptionsMethodImpl = function -> {
                 function.line(
                     String.format("this.%1$s = %2$s;", "httpInstrumentationOptions", "httpInstrumentationOptions"));

@@ -94,7 +94,9 @@ public class ClientModelUtil {
                 .findAny()
                 .map(og -> getConvenienceMethods(serviceClient::getClientMethods, og))
                 .orElse(Collections.emptyList());
-            builder.convenienceMethods(convenienceMethods);
+            if (!JavaSettings.getInstance().isAzureCoreV2()) {
+                builder.convenienceMethods(convenienceMethods);
+            }
 
             if (generateAsyncMethods) {
                 String asyncClassName = clientNameToAsyncClientName(serviceClient.getClientBaseName());
@@ -127,7 +129,9 @@ public class ClientModelUtil {
                 .findAny()
                 .map(og -> getConvenienceMethods(methodGroupClient::getClientMethods, og))
                 .orElse(Collections.emptyList());
-            builder.convenienceMethods(convenienceMethods);
+            if (!JavaSettings.getInstance().isAzureCoreV2()) {
+                builder.convenienceMethods(convenienceMethods);
+            }
 
             if (count == 1) {
                 // if it is the only method group, use service client name as base.

@@ -47,7 +47,7 @@ public class WrapperClientMethodTemplate extends ClientMethodTemplateBase {
         }
 
         ProxyMethod restAPIMethod = clientMethod.getProxyMethod();
-        if (settings.isDataPlaneClient()) {
+        if (settings.isDataPlaneClient() && !settings.isAzureCoreV2()) {
             typeBlock.javadocComment(comment -> generateProtocolMethodJavadoc(clientMethod, comment));
         } else {
             generateJavadoc(clientMethod, typeBlock, restAPIMethod);

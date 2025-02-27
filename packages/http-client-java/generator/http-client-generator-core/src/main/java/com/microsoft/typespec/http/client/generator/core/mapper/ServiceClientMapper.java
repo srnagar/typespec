@@ -166,7 +166,7 @@ public class ServiceClientMapper implements IMapper<CodeModel, ServiceClient> {
                 .collect(Collectors.toList()));
         }
 
-        List<ProxyMethodParameter> commonParams = extractCommonParams(restAPIMethods);
+        List<ProxyMethodParameter> commonParams = new ArrayList<>(); // extractCommonParams(restAPIMethods);
 
         proxyBuilder.methods(restAPIMethods);
         proxyBuilder.commonParams(commonParams);
