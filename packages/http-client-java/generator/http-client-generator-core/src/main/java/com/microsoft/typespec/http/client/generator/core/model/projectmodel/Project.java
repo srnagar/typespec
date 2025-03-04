@@ -56,7 +56,9 @@ public class Project {
     public enum Dependency {
         // azure
         AZURE_CLIENT_SDK_PARENT("com.azure", "azure-client-sdk-parent", "1.7.0"),
+        AZURE_CLIENT_SDK_PARENT_V2("com.azure", "azure-client-sdk-parent-v2", "1.0.0-beta.1"),
         AZURE_CORE("com.azure", "azure-core", "1.55.1"),
+        AZURE_CORE_V2("com.azure", "azure-core-v2", "2.0.0-beta.1"),
         AZURE_CORE_MANAGEMENT("com.azure", "azure-core-management", "1.16.1"),
         AZURE_CORE_HTTP_NETTY("com.azure", "azure-core-http-netty", "1.15.9"),
         AZURE_CORE_TEST("com.azure", "azure-core-test", "1.27.0-beta.6"),

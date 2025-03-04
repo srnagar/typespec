@@ -206,7 +206,7 @@ public class ServiceClientTemplate implements IJavaTemplate<ServiceClient, JavaF
 
                 classBlock.constructor(visibility,
                     String.format("%1$s(%2$s)", serviceClient.getClassName(), constructorParams), constructorBlock -> {
-                        if (!settings.isBranded()) {
+                        if (!settings.isBranded() || settings.isAzureCoreV2()) {
                             if (constructor.getParameters()
                                 .equals(Arrays.asList(serviceClient.getHttpPipelineParameter()))) {
                                 writeMaxOverloadedDataPlaneConstructorImplementation(constructorBlock, serviceClient,
@@ -393,7 +393,7 @@ public class ServiceClientTemplate implements IJavaTemplate<ServiceClient, JavaF
         return constructorArgs;
     }
 
-    private void writeMaxOverloadedDataPlaneConstructorImplementation(JavaBlock constructorBlock,
+    protected void writeMaxOverloadedDataPlaneConstructorImplementation(JavaBlock constructorBlock,
         ServiceClient serviceClient, Consumer<JavaBlock> constructorParametersCodes) {
         constructorBlock.line("this.httpPipeline = httpPipeline;");
         writeSerializerMemberInitialization(constructorBlock);

@@ -1,7 +1,4 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-
-package com.microsoft.typespec.http.client.generator.core.template;
+package com.microsoft.typespec.http.client.generator.core.template.azurevnext;
 
 import com.azure.core.util.CoreUtils;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
@@ -9,27 +6,24 @@ import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Pom;
 import com.microsoft.typespec.http.client.generator.core.model.projectmodel.Project;
 import com.microsoft.typespec.http.client.generator.core.model.xmlmodel.XmlBlock;
 import com.microsoft.typespec.http.client.generator.core.model.xmlmodel.XmlFile;
+import com.microsoft.typespec.http.client.generator.core.template.PomTemplate;
+import com.microsoft.typespec.http.client.generator.core.template.TemplateHelper;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Writes a ServiceClient to a JavaFile.
- */
-public class PomTemplate implements IXmlTemplate<Pom, XmlFile> {
-    private static final PomTemplate INSTANCE = new PomTemplate();
+public class AzureVNextPomTemplate extends PomTemplate {
 
-    protected PomTemplate() {
-    }
+    private static final AzureVNextPomTemplate INSTANCE = new AzureVNextPomTemplate();
 
-    public static PomTemplate getInstance() {
+    public static AzureVNextPomTemplate getInstance() {
         return INSTANCE;
     }
 
+    @Override
     public void write(Pom pom, XmlFile xmlFile) {
         JavaSettings settings = JavaSettings.getInstance();
-        boolean branded = settings.isBranded();
 
         // copyright
         xmlFile.blockComment(xmlLineComment -> {
@@ -55,7 +49,7 @@ public class PomTemplate implements IXmlTemplate<Pom, XmlFile> {
                     parentBlock.tag("groupId", parentGroupId);
                     parentBlock.tag("artifactId", parentArtifactId);
                     parentBlock.tagWithInlineComment("version", parentVersion,
-                        "{x-version-update;com.azure:azure-client-sdk-parent;current}");
+                        "{x-version-update;com.azure:azure-client-sdk-parent-v2;current}");
                     parentBlock.tag("relativePath", pom.getParentRelativePath());
                 });
             }
@@ -72,9 +66,7 @@ public class PomTemplate implements IXmlTemplate<Pom, XmlFile> {
 
             projectBlock.tag("name", TemplateHelper.getPomProjectName(pom.getServiceName()));
             projectBlock.tag("description", pom.getServiceDescription());
-            if (branded) {
-                projectBlock.tag("url", "https://github.com/Azure/azure-sdk-for-java");
-            }
+            projectBlock.tag("url", "https://github.com/Azure/azure-sdk-for-java");
 
             projectBlock.line();
 
@@ -88,32 +80,19 @@ public class PomTemplate implements IXmlTemplate<Pom, XmlFile> {
 
             projectBlock.line();
 
-            if (branded) {
-                projectBlock.block("scm", scmBlock -> {
-                    scmBlock.tag("url", "https://github.com/Azure/azure-sdk-for-java");
-                    scmBlock.tag("connection", "scm:git:git@github.com:Azure/azure-sdk-for-java.git");
-                    scmBlock.tag("developerConnection", "scm:git:git@github.com:Azure/azure-sdk-for-java.git");
-                    scmBlock.tag("tag", "HEAD");
-                });
+            projectBlock.block("scm", scmBlock -> {
+                scmBlock.tag("url", "https://github.com/Azure/azure-sdk-for-java");
+                scmBlock.tag("connection", "scm:git:git@github.com:Azure/azure-sdk-for-java.git");
+                scmBlock.tag("developerConnection", "scm:git:git@github.com:Azure/azure-sdk-for-java.git");
+                scmBlock.tag("tag", "HEAD");
+            });
 
-                projectBlock.block("developers", developersBlock -> {
-                    developersBlock.block("developer", developerBlock -> {
-                        developerBlock.tag("id", "microsoft");
-                        developerBlock.tag("name", "Microsoft");
-                    });
+            projectBlock.block("developers", developersBlock -> {
+                developersBlock.block("developer", developerBlock -> {
+                    developerBlock.tag("id", "microsoft");
+                    developerBlock.tag("name", "Microsoft");
                 });
-            }
-
-            if (!branded && pom.getRepositories() != null && !pom.getRepositories().isEmpty()) {
-                projectBlock.block("repositories", repositoriesBlock -> {
-                    for (Map.Entry<String, String> repository : pom.getRepositories().entrySet()) {
-                        repositoriesBlock.block("repository", repositoryBlock -> {
-                            repositoryBlock.tag("id", repository.getKey());
-                            repositoryBlock.tag("url", repository.getValue());
-                        });
-                    }
-                });
-            }
+            });
 
             projectBlock.block("properties", propertiesBlock -> {
                 propertiesBlock.tag("project.build.sourceEncoding", "UTF-8");
@@ -200,7 +179,7 @@ public class PomTemplate implements IXmlTemplate<Pom, XmlFile> {
         if (pom.isRequireCompilerPlugins()) {
             projectBlock.block("build", buildBlock -> {
                 buildBlock.block("plugins", pluginsBlock -> {
-                    writeStandAlonePlugins(projectBlock);
+                    writePlugins(projectBlock);
                 });
             });
         }
@@ -211,49 +190,50 @@ public class PomTemplate implements IXmlTemplate<Pom, XmlFile> {
      *
      * @param pluginsBlock the "plugins" xml block.
      */
-    protected void writeStandAlonePlugins(XmlBlock pluginsBlock) {
+    private void writePlugins(XmlBlock pluginsBlock) {
         // maven-compiler-plugin
         pluginsBlock.block("plugin", pluginBlock -> {
             pluginBlock.tag("groupId", "org.apache.maven.plugins");
             pluginBlock.tag("artifactId", "maven-compiler-plugin");
             pluginBlock.tag("version", "3.13.0");
-            pluginBlock.block("configuration", configurationBlock -> {
-                configurationBlock.tag("release", JavaSettings.getInstance().isBranded() ? "11" : "17");
-            });
-        });
 
-        // maven-source-plugin
-        pluginsBlock.block("plugin", pluginBlock -> {
-            pluginBlock.tag("groupId", "org.apache.maven.plugins");
-            pluginBlock.tag("artifactId", "maven-source-plugin");
-            pluginBlock.tag("version", "3.3.1");
             pluginBlock.block("executions", executionsBlock -> {
                 executionsBlock.block("execution", executionBlock -> {
-                    executionBlock.tag("id", "attach-sources");
+                    executionBlock.tag("id", "run-annotation-processing");
+                    executionBlock.tag("phase", "generate-sources");
                     executionBlock.block("goals", goalsBlock -> {
-                        goalsBlock.tag("goal", "jar");
+                        goalsBlock.tag("goal", "compile");
                     });
-                });
-            });
-        });
 
-        // build-helper-maven-plugin: allow samples to be compiled
-        pluginsBlock.block("plugin", pluginBlock -> {
-            pluginBlock.tag("groupId", "org.codehaus.mojo");
-            pluginBlock.tag("artifactId", "build-helper-maven-plugin");
-            pluginBlock.tag("version", "3.0.0");
-            pluginBlock.block("executions", executionsBlock -> {
-                executionsBlock.block("execution", executionBlock -> {
-                    executionBlock.tag("id", "add-test-source");
-                    executionBlock.tag("phase", "generate-test-sources");
-                    executionBlock.block("goals", goalsBlock -> {
-                        goalsBlock.tag("goal", "add-test-source");
-                    });
                     executionBlock.block("configuration", configurationBlock -> {
-                        configurationBlock.block("sources", sourcesBlock -> {
-                            sourcesBlock.tag("source", "${basedir}/src/samples");
+                        configurationBlock.tag("source", "1.8");
+                        configurationBlock.tag("target", "1.8");
+                        configurationBlock.tag("release", "8");
+                        configurationBlock.tag("proc", "only");
+                        configurationBlock.block("annotationProcessorPaths", annotationProcessorPathsBlock -> {
+                            annotationProcessorPathsBlock.block("annotationProcessorPath", pathBlock -> {
+                                pathBlock.tag("groupId", "io.clientcore");
+                                pathBlock.tag("artifactId", "annotation-processor");
+                                pathBlock.tag("version", "1.0.0-beta.1");
+                            });
+                        });
+                        configurationBlock.block("annotationProcessors", annotationProcessorsBlock -> {
+                            annotationProcessorsBlock.tag("annotationProcessor",
+                                "io.clientcore.annotation.processor.AnnotationProcessor");
+                        });
+                        configurationBlock.block("compilerArgs", compilerArgsBlock -> {
+                            compilerArgsBlock.tag("arg", "-Xlint:-options");
                         });
                     });
+
+                });
+            });
+
+            pluginsBlock.block("dependencies", dependenciesBlock -> {
+                dependenciesBlock.block("dependency", dependencyBlock -> {
+                    dependencyBlock.tag("groupId", "io.clientcore");
+                    dependencyBlock.tag("artifactId", "annotation-processor");
+                    dependencyBlock.tag("version", "1.0.0-beta.1");
                 });
             });
         });

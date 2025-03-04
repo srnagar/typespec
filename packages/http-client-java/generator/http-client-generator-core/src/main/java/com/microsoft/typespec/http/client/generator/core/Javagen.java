@@ -11,7 +11,6 @@ import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSe
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.NewPlugin;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.PluginLogger;
 import com.microsoft.typespec.http.client.generator.core.mapper.Mappers;
-import com.microsoft.typespec.http.client.generator.core.mapper.PomMapper;
 import com.microsoft.typespec.http.client.generator.core.mapper.android.AndroidMapperFactory;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.AsyncSyncClient;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Client;
@@ -402,7 +401,7 @@ public class Javagen extends NewPlugin {
 
             // POM
             if (settings.isRegeneratePom()) {
-                Pom pom = new PomMapper().map(project);
+                Pom pom = Mappers.getPomMapper().map(project);
                 javaPackage.addPom("pom.xml", pom);
             }
 
