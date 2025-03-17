@@ -280,9 +280,7 @@ public class TemplateUtil {
                 break;
 
             default:
-                if (JavaSettings.getInstance().isBranded()) {
-                    typeBlock.annotation("ServiceMethod(returns = ReturnType.SINGLE)");
-                }
+                typeBlock.annotation("ServiceMethod(returns = ReturnType.SINGLE)");
                 break;
         }
     }

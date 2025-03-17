@@ -14,6 +14,7 @@ public class ExternalPackage {
     public static final String AZURE_CORE_PACKAGE_NAME = "com.azure.core";
     public static final String AZURE_JSON_PACKAGE_NAME = "com.azure.json";
     public static final String AZURE_XML_PACKAGE_NAME = "com.azure.xml";
+    public static final String AZURE_CORE_VNEXT_PACKAGE_NAME = "com.azure.v2.core";
 
     public static final ExternalPackage CORE
         = new Builder().packageName(CLIENTCORE_PACKAGE_NAME).groupId("io.clientcore").artifactId("core").build();

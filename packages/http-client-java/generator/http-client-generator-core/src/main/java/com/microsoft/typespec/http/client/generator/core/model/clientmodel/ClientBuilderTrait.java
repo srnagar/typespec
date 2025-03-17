@@ -6,14 +6,14 @@ package com.microsoft.typespec.http.client.generator.core.model.clientmodel;
 import com.azure.core.client.traits.AzureKeyCredentialTrait;
 import com.azure.core.client.traits.EndpointTrait;
 import com.azure.core.client.traits.KeyCredentialTrait;
-import com.azure.core.client.traits.TokenCredentialTrait;
 import com.azure.core.credential.AzureKeyCredential;
-import com.azure.core.credential.TokenCredential;
 import com.azure.core.util.logging.LogLevel;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaBlock;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 /**
@@ -73,6 +73,10 @@ public class ClientBuilderTrait {
      */
     public void setImportPackages(List<String> importPackages) {
         this.importPackages = importPackages;
+    }
+
+    public void setImportPackages(Set<String> importPackages) {
+        this.importPackages = new ArrayList<>(importPackages);
     }
 
     /**
@@ -366,10 +370,11 @@ public class ClientBuilderTrait {
 
     private static ClientBuilderTrait createTokenCredentialTrait() {
         ClientBuilderTrait tokenCredentialTrait = new ClientBuilderTrait();
-        tokenCredentialTrait.setTraitInterfaceName(TokenCredentialTrait.class.getSimpleName());
-        List<String> importPackages = new ArrayList<>();
+        tokenCredentialTrait.setTraitInterfaceName(ClassType.TOKEN_CREDENTIAL_TRAIT.getName());
+        Set<String> importPackages = new HashSet<>();
+        ClassType.TOKEN_CREDENTIAL_TRAIT.addImportsTo(importPackages, false);
+        ClassType.TOKEN_CREDENTIAL.addImportsTo(importPackages, false);
         tokenCredentialTrait.setImportPackages(importPackages);
-        importPackages.add(TokenCredentialTrait.class.getName());
 
         List<ClientBuilderTraitMethod> clientBuilderTraitMethods = new ArrayList<>();
         tokenCredentialTrait.setTraitMethods(clientBuilderTraitMethods);
@@ -384,7 +389,6 @@ public class ClientBuilderTrait {
         };
         ClientBuilderTraitMethod clientMethod = createTraitMethod("credential", propertyName,
             ClassType.TOKEN_CREDENTIAL, property, "{@inheritDoc}", methodImpl);
-        importPackages.add(TokenCredential.class.getName());
 
         clientBuilderTraitMethods.add(clientMethod);
         return tokenCredentialTrait;

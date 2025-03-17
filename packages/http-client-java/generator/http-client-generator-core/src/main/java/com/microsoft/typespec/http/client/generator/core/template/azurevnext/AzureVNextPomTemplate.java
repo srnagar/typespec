@@ -210,6 +210,8 @@ public class AzureVNextPomTemplate extends PomTemplate {
                         configurationBlock.tag("target", "1.8");
                         configurationBlock.tag("release", "8");
                         configurationBlock.tag("proc", "only");
+                        configurationBlock.tag("generatedSourcesDirectory",
+                            "<generatedSourcesDirectory>${project.build.directory}/generated-sources/</generatedSourcesDirectory>");
                         configurationBlock.block("annotationProcessorPaths", annotationProcessorPathsBlock -> {
                             annotationProcessorPathsBlock.block("annotationProcessorPath", pathBlock -> {
                                 pathBlock.tag("groupId", "io.clientcore");

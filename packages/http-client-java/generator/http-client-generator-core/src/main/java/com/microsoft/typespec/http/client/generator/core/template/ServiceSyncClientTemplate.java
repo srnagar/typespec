@@ -186,6 +186,7 @@ public class ServiceSyncClientTemplate implements IJavaTemplate<AsyncSyncClient,
             Annotation.GENERATED.addImportsTo(imports);
         } else {
             Annotation.METADATA.addImportsTo(imports);
+            Annotation.METADATA_PROPERTIES.addImportsTo(imports);
         }
     }
 
@@ -193,7 +194,7 @@ public class ServiceSyncClientTemplate implements IJavaTemplate<AsyncSyncClient,
         if (JavaSettings.getInstance().isBranded()) {
             classBlock.annotation(Annotation.GENERATED.getName());
         } else {
-            classBlock.annotation(Annotation.METADATA.getName() + "(generated = true)");
+            classBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
         }
     }
 

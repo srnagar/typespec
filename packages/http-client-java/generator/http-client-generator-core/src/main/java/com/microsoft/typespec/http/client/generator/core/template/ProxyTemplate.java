@@ -63,13 +63,13 @@ public class ProxyTemplate implements IJavaTemplate<Proxy, JavaClass> {
                     List<ProxyMethodParameter> commonParams = restAPI.getCommonParams();
 
                     StringBuilder params = new StringBuilder();
-                    params.append("HttpPipeline pipeline, ").append("ObjectSerializer serializer");
+                    params.append("HttpPipeline pipeline");
 
                     StringBuilder paramTypes = new StringBuilder();
-                    paramTypes.append("HttpPipeline.class,").append("ObjectSerializer.class");
+                    paramTypes.append("HttpPipeline.class");
 
                     StringBuilder reflectionParams = new StringBuilder();
-                    reflectionParams.append("pipeline, serializer");
+                    reflectionParams.append("pipeline");
 
                     for (ProxyMethodParameter commonParam : commonParams) {
                         params.append(", ");

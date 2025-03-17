@@ -634,6 +634,9 @@ public class ClientMapper implements IMapper<CodeModel, Client> {
 
         List<ModuleInfo.RequireModule> requireModules = moduleInfo.getRequireModules();
         requireModules.add(new ModuleInfo.RequireModule(ExternalPackage.CORE.getPackageName(), true));
+        if (settings.isAzureCoreV2()) {
+            requireModules.add(new ModuleInfo.RequireModule(ExternalPackage.AZURE_CORE_VNEXT_PACKAGE_NAME, true));
+        }
 
         // export packages that contain Client, ClientBuilder, ServiceVersion
         List<ModuleInfo.ExportModule> exportModules = moduleInfo.getExportModules();

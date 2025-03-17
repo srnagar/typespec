@@ -393,6 +393,7 @@ public class EnumTemplate implements IJavaTemplate<EnumType, JavaFile> {
                 Annotation.GENERATED.addImportsTo(imports);
             } else {
                 Annotation.METADATA.addImportsTo(imports);
+                Annotation.METADATA_PROPERTIES.addImportsTo(imports);
             }
         }
     }
@@ -402,7 +403,7 @@ public class EnumTemplate implements IJavaTemplate<EnumType, JavaFile> {
             if (JavaSettings.getInstance().isBranded()) {
                 classBlock.annotation(Annotation.GENERATED.getName());
             } else {
-                classBlock.annotation(Annotation.METADATA.getName() + "(generated = true)");
+                classBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
             }
         }
     }
@@ -412,7 +413,7 @@ public class EnumTemplate implements IJavaTemplate<EnumType, JavaFile> {
             if (JavaSettings.getInstance().isBranded()) {
                 enumBlock.annotation(Annotation.GENERATED.getName());
             } else {
-                enumBlock.annotation(Annotation.METADATA.getName() + "(generated = true)");
+                enumBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
             }
         }
     }

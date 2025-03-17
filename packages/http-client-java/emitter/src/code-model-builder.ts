@@ -223,6 +223,7 @@ export class CodeModelBuilder {
   }
 
   public async build(): Promise<CodeModel> {
+    console.log("Building code model for ", this.isBranded() ? "branded" : "unbranded", " SDK");
     if (this.program.hasError()) {
       return this.codeModel;
     }
@@ -396,6 +397,10 @@ export class CodeModelBuilder {
   }
 
   private isBranded(): boolean {
+    return this.options["flavor"]?.toLocaleLowerCase() === "azure" || this.options["flavor"]?.toLocaleLowerCase() === "azurev2";
+  }
+
+  private isAzureV1(): boolean {
     return this.options["flavor"]?.toLocaleLowerCase() === "azure";
   }
 
@@ -522,7 +527,8 @@ export class CodeModelBuilder {
 
   private processClients() {
     // preprocess group-etag-headers
-    this.options["group-etag-headers"] = this.options["group-etag-headers"] ?? true;
+    
+    this.options["group-etag-headers"] = this.options["group-etag-headers"] ?? false;
 
     const sdkPackage = this.sdkContext.sdkPackage;
     for (const client of sdkPackage.clients) {
@@ -1609,6 +1615,7 @@ export class CodeModelBuilder {
           ? "Specifies HTTP options for conditional requests based on modification time."
           : "Specifies HTTP options for conditional requests.";
 
+          console.log("RequestCOnditions namespace ", this.options.namespace);
         // group schema
         const requestConditionsSchema = this.codeModel.schemas.add(
           new GroupSchema(schemaName, schemaDescription, {
@@ -1617,7 +1624,7 @@ export class CodeModelBuilder {
                 namespace: namespace,
               },
               java: {
-                namespace: "com.azure.core.http",
+                namespace: this.options.namespace,
               },
             },
           }),

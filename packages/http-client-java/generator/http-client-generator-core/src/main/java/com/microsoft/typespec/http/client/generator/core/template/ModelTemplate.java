@@ -559,9 +559,9 @@ public class ModelTemplate implements IJavaTemplate<ClientModel, JavaFile> {
             }
         } else {
             if (fluent) {
-                javaFile.annotation("Metadata(conditions = {TypeConditions.FLUENT})");
+                javaFile.annotation("Metadata(properties = {MetadataProperties.FLUENT})");
             } else {
-                javaFile.annotation("Metadata(conditions = {TypeConditions.IMMUTABLE})");
+                javaFile.annotation("Metadata(properties = {MetadataProperties.IMMUTABLE})");
             }
         }
     }
@@ -1331,6 +1331,7 @@ public class ModelTemplate implements IJavaTemplate<ClientModel, JavaFile> {
                 Annotation.GENERATED.addImportsTo(imports);
             } else {
                 Annotation.METADATA.addImportsTo(imports);
+                Annotation.METADATA_PROPERTIES.addImportsTo(imports);
             }
         }
     }
@@ -1340,7 +1341,7 @@ public class ModelTemplate implements IJavaTemplate<ClientModel, JavaFile> {
             if (JavaSettings.getInstance().isBranded()) {
                 classBlock.annotation(Annotation.GENERATED.getName());
             } else {
-                classBlock.annotation(Annotation.METADATA.getName() + "(generated = true)");
+                classBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
             }
         }
     }

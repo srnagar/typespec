@@ -23,6 +23,7 @@ public class AzureVNextExceptionTemplate extends ExceptionTemplate {
     public void write(ClientException exception, JavaFile javaFile) {
         Set<String> imports = new HashSet<>();
         imports.add(getHttpResponseImport());
+        ClassType.BINARY_DATA.addImportsTo(imports, false);
         exception.getParentType().addImportsTo(imports, false);
         javaFile.declareImport(imports);
         javaFile.javadocComment((comment) -> {
@@ -40,7 +41,7 @@ public class AzureVNextExceptionTemplate extends ExceptionTemplate {
                     comment.param("response", "the HTTP response");
                 });
                 classBlock.publicConstructor(
-                    String.format("%1$s(String message, Response<?> response)", exception.getName()),
+                    String.format("%1$s(String message, Response<BinaryData> response)", exception.getName()),
                     (constructorBlock) -> {
                         constructorBlock.line("super(message, response, null);");
                     });
@@ -53,10 +54,11 @@ public class AzureVNextExceptionTemplate extends ExceptionTemplate {
                     comment.param("response", "the HTTP response");
                     comment.param("value", "the deserialized response value");
                 });
-                classBlock.publicConstructor(String.format("%1$s(String message, Response<?> response, %2$s value)",
-                    exception.getName(), exception.getErrorName()), (constructorBlock) -> {
-                        constructorBlock.line("super(message, response, value);");
-                    });
+                classBlock
+                    .publicConstructor(String.format("%1$s(String message, Response<BinaryData> response, %2$s value)",
+                        exception.getName(), exception.getErrorName()), (constructorBlock) -> {
+                            constructorBlock.line("super(message, response, value);");
+                        });
 
                 classBlock.javadocComment(JavaJavadocComment::inheritDoc);
                 classBlock.annotation("Override");

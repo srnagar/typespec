@@ -704,7 +704,6 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
                 function.line("res.getRequest(),");
                 function.line("res.getStatusCode(),");
                 function.line("res.getHeaders(),");
-                function.line("res.getBody(),");
                 function.line("res.getValue().%s(),", CodeNamer.getModelNamer()
                     .modelPropertyGetterName(clientMethod.getMethodPageDetails().getItemName()));
                 // continuation token
@@ -786,9 +785,7 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
     }
 
     private static void addServiceMethodAnnotation(JavaType typeBlock, ReturnType returnType) {
-        if (JavaSettings.getInstance().isBranded()) {
-            typeBlock.annotation("ServiceMethod(returns = ReturnType." + returnType.name() + ")");
-        }
+        typeBlock.annotation("ServiceMethod(returns = ReturnType." + returnType.name() + ")");
     }
 
     protected void generateResumable(ClientMethod clientMethod, JavaType typeBlock, ProxyMethod restAPIMethod,

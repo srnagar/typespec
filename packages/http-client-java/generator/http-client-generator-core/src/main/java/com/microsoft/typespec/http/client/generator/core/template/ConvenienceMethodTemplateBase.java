@@ -407,7 +407,7 @@ abstract class ConvenienceMethodTemplateBase {
         if (JavaSettings.getInstance().isBranded()) {
             typeBlock.annotation(Annotation.GENERATED.getName());
         } else {
-            typeBlock.annotation(Annotation.METADATA.getName() + "(generated = true)");
+            typeBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
         }
     }
 

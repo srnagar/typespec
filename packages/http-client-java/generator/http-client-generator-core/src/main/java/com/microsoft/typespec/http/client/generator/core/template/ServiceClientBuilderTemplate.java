@@ -8,7 +8,6 @@ import com.azure.core.http.policy.AddDatePolicy;
 import com.azure.core.http.policy.AddHeadersFromContextPolicy;
 import com.azure.core.http.policy.AddHeadersPolicy;
 import com.azure.core.http.policy.AzureKeyCredentialPolicy;
-import com.azure.core.http.policy.BearerTokenAuthenticationPolicy;
 import com.azure.core.http.policy.HttpPolicyProviders;
 import com.azure.core.http.policy.RequestIdPolicy;
 import com.azure.core.util.CoreUtils;
@@ -176,7 +175,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
                         String.format("String[] DEFAULT_SCOPES = new String[] {%s}", String.join(", ", scopes)));
                 }
 
-                if (settings.isBranded()) {
+                if (settings.isBranded() || settings.isAzureCoreV2()) {
                     // properties for sdk name and version
                     String propertiesValue = "new HashMap<>()";
                     String artifactId = ClientModelUtil.getArtifactId();
@@ -186,26 +185,15 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
                     addGeneratedAnnotation(classBlock);
                     classBlock.privateStaticFinalVariable(
                         String.format("Map<String, String> PROPERTIES = %s", propertiesValue));
-
-                    addGeneratedAnnotation(classBlock);
-                    classBlock.privateFinalMemberVariable("List<HttpPipelinePolicy>", "pipelinePolicies");
-
-                    // constructor
-                    classBlock.javadocComment(String.format("Create an instance of the %s.", serviceClientBuilderName));
-                    addGeneratedAnnotation(classBlock);
-                    classBlock.publicConstructor(String.format("%1$s()", serviceClientBuilderName), javaBlock -> {
-                        javaBlock.line("this.pipelinePolicies = new ArrayList<>();");
-                    });
-                } else {
-                    addGeneratedAnnotation(classBlock);
-                    classBlock.privateFinalMemberVariable("List<HttpPipelinePolicy>", "pipelinePolicies");
-
-                    classBlock.javadocComment(String.format("Create an instance of the %s.", serviceClientBuilderName));
-                    addGeneratedAnnotation(classBlock);
-                    classBlock.publicConstructor(String.format("%1$s()", serviceClientBuilderName), javaBlock -> {
-                        javaBlock.line("this.pipelinePolicies = new ArrayList<>();");
-                    });
                 }
+                addGeneratedAnnotation(classBlock);
+                classBlock.privateFinalMemberVariable("List<HttpPipelinePolicy>", "pipelinePolicies");
+
+                classBlock.javadocComment(String.format("Create an instance of the %s.", serviceClientBuilderName));
+                addGeneratedAnnotation(classBlock);
+                classBlock.publicConstructor(String.format("%1$s()", serviceClientBuilderName), javaBlock -> {
+                    javaBlock.line("this.pipelinePolicies = new ArrayList<>();");
+                });
             }
 
             Stream<ServiceClientProperty> serviceClientPropertyStream
@@ -513,7 +501,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
     }
 
     protected void addHttpPolicyImports(Set<String> imports) {
-        imports.add(BearerTokenAuthenticationPolicy.class.getName());
+        ClassType.BEARER_TOKEN_POLICY.addImportsTo(imports, false);
 
         // one of the key credential policy imports will be removed by the formatter depending
         // on which one is used
@@ -611,6 +599,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
             Annotation.GENERATED.addImportsTo(imports);
         } else {
             Annotation.METADATA.addImportsTo(imports);
+            Annotation.METADATA_PROPERTIES.addImportsTo(imports);
         }
     }
 
@@ -618,7 +607,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
         if (JavaSettings.getInstance().isBranded()) {
             classBlock.annotation(Annotation.GENERATED.getName());
         } else {
-            classBlock.annotation(Annotation.METADATA.getName() + "(generated = true)");
+            classBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
         }
     }
 
