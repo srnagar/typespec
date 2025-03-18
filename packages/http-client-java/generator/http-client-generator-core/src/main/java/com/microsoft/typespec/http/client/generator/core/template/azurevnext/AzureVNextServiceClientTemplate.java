@@ -1,6 +1,7 @@
 package com.microsoft.typespec.http.client.generator.core.template.azurevnext;
 
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
+import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClassType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.MethodGroupClient;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ServiceClient;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ServiceClientProperty;
@@ -42,9 +43,14 @@ public class AzureVNextServiceClientTemplate extends ServiceClientTemplate {
         }
 
         if (serviceClient.getProxy() != null) {
-            String implName = JavaSettings.getInstance().getPackage() + ".implementation."
-                + serviceClient.getProxy().getName() + "Impl";
-            constructorBlock.line("this.service = %s.getNewInstance(this.httpPipeline);", implName);
+            if (JavaSettings.getInstance().useRestProxy()) {
+                constructorBlock.line(String.format("this.service = %1$s.create(%2$s.class, this.httpPipeline);",
+                    ClassType.REST_PROXY.getName(), serviceClient.getProxy().getName()));
+            } else {
+                String implName = JavaSettings.getInstance().getPackage() + ".implementation."
+                    + serviceClient.getProxy().getName() + "Impl";
+                constructorBlock.line("this.service = %s.getNewInstance(this.httpPipeline);", implName);
+            }
         }
     }
 }

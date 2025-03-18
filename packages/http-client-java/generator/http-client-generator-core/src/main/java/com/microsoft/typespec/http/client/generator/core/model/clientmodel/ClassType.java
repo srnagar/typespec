@@ -189,8 +189,8 @@ public class ClassType implements IType {
 
             put(DateTimeRfc1123.class,
                 new ClassDetails(DateTimeRfc1123.class, "io.clientcore.core.utils.DateTimeRfc1123"));
-            put(Base64Util.class, new ClassDetails(Base64Util.class, "io.clientcore.core.utils.Base64Util"));
-            put(Base64Url.class, new ClassDetails(Base64Url.class, "io.clientcore.core.utils.Base64Url"));
+            put(Base64Util.class, new ClassDetails(Base64Util.class, "java.lang.String"));
+            put(Base64Url.class, new ClassDetails(Base64Url.class, "java.lang.String"));
             put(TokenCredential.class,
                 new ClassDetails(TokenCredential.class, "io.clientcore.core.credentials.oauth.OAuthTokenCredential",
                     "com.azure.v2.core.credentials.TokenCredential"));

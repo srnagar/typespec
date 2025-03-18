@@ -267,6 +267,9 @@ public class TypeSpecPlugin extends Javagen {
         if (options.getUseObjectForUnknown()) {
             SETTINGS_MAP.put("use-object-for-unknown", emitterOptions.getUseObjectForUnknown());
         }
+        if (options.getUseRestProxy()) {
+            SETTINGS_MAP.put("use-rest-proxy", emitterOptions.getUseRestProxy());
+        }
 
         SETTINGS_MAP.put("sdk-integration", sdkIntegration);
         SETTINGS_MAP.put("regenerate-pom", sdkIntegration);

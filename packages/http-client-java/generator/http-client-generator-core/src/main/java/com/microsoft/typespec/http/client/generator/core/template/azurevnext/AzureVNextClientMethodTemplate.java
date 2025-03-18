@@ -287,12 +287,23 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
                 String transformationOutputParameterModelCompositeTypeName
                     = transformationOutputParameterModelType.toString();
 
-                function.line("%s%s = new %s();",
+                List<String> requiredParams = transformation.getParameterMappings()
+                    .stream()
+                    .filter(parameterMapping -> parameterMapping.getOutputParameterProperty() != null
+                        && parameterMapping.getOutputParameterProperty().isRequired())
+                    .map(requiredParameterMapping -> requiredParameterMapping.getInputParameter().getName())
+                    .collect(Collectors.toList());
+
+                function.line("%s%s = new %s(%s);",
                     !conditionalAssignment ? transformation.getOutParameter().getClientType() + " " : "",
-                    outParameterName, transformationOutputParameterModelCompositeTypeName);
+                    outParameterName, transformationOutputParameterModelCompositeTypeName,
+                    String.join(", ", requiredParams));
             }
 
             for (ParameterMapping mapping : transformation.getParameterMappings()) {
+                if (mapping.getOutputParameterProperty() != null && mapping.getOutputParameterProperty().isRequired()) {
+                    continue;
+                }
                 String inputPath;
                 if (mapping.getInputParameterProperty() != null) {
                     inputPath = mapping.getInputParameter().getName() + "."
@@ -384,12 +395,12 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
                     String expression = "null";
                     if (!alwaysNull) {
                         String methodCall = (parameterWireType == ClassType.STRING)
-                            ? "Base64Util.encodeToString"
-                            : "Base64Url.encode";
-                        expression = methodCall + "(" + parameterName + ")";
+                            ? "new String(Base64.getEncoder().encode"
+                            : "new String(Base64.getUrlEncoder().encode";
+                        expression = methodCall + "(" + parameterName + "))";
                     }
 
-                    function.line(parameterWireType + " " + parameterWireName + " = " + expression + ";");
+                    function.line("String  " + parameterWireName + " = " + expression + ";");
                     addedConversion = true;
                 } else if (parameterClientType instanceof IterableType) {
                     boolean alreadyNullChecked

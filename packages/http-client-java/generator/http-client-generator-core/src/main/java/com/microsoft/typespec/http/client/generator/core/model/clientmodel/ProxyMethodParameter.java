@@ -7,6 +7,7 @@ import com.azure.core.util.serializer.CollectionFormat;
 import com.microsoft.typespec.http.client.generator.core.extension.model.codemodel.RequestParameterLocation;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
+import java.util.Base64;
 import java.util.Set;
 
 /**
@@ -185,6 +186,7 @@ public class ProxyMethodParameter extends MethodParameter {
         if (getRequestParameterLocation() != RequestParameterLocation.BODY) {
             if (getClientType() == ArrayType.BYTE_ARRAY) {
                 ClassType.BASE_64_UTIL.addImportsTo(imports, false);
+                imports.add(Base64.class.getName());
             } else if (getClientType() instanceof ListType && !getExplode()) {
                 imports.add("com.azure.core.util.serializer.CollectionFormat");
                 imports.add("com.azure.core.util.serializer.JacksonAdapter");
