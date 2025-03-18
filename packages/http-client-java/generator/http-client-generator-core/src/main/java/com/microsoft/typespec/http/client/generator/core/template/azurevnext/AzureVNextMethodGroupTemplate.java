@@ -23,7 +23,7 @@ public class AzureVNextMethodGroupTemplate extends MethodGroupTemplate {
         } else {
             String implName = JavaSettings.getInstance().getPackage() + ".implementation."
                 + methodGroupClient.getProxy().getName() + "Impl";
-            constructor.line("this.service = %s.getNewInstance(this.httpPipeline);", implName);
+            constructor.line("this.service = %s.getNewInstance(client.getHttpPipeline());", implName);
         }
 
     }
