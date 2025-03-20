@@ -216,7 +216,8 @@ public class AzureVNextPomTemplate extends PomTemplate {
                             annotationProcessorPathsBlock.block("annotationProcessorPath", pathBlock -> {
                                 pathBlock.tag("groupId", "io.clientcore");
                                 pathBlock.tag("artifactId", "annotation-processor");
-                                pathBlock.tag("version", "1.0.0-beta.1");
+                                pathBlock.tagWithInlineComment("version", "1.0.0-beta.1",
+                                    "{x-version-update;io.clientcore:annotation-processor;dependency}");
                             });
                         });
                         configurationBlock.block("annotationProcessors", annotationProcessorsBlock -> {
@@ -225,6 +226,9 @@ public class AzureVNextPomTemplate extends PomTemplate {
                         });
                         configurationBlock.block("compilerArgs", compilerArgsBlock -> {
                             compilerArgsBlock.tag("arg", "-Xlint:-options");
+                        });
+                        configurationBlock.block("excludes", excludesBlock -> {
+                            excludesBlock.tag("exclude", "module-info.java");
                         });
                     });
 
@@ -235,7 +239,8 @@ public class AzureVNextPomTemplate extends PomTemplate {
                 dependenciesBlock.block("dependency", dependencyBlock -> {
                     dependencyBlock.tag("groupId", "io.clientcore");
                     dependencyBlock.tag("artifactId", "annotation-processor");
-                    dependencyBlock.tag("version", "1.0.0-beta.1");
+                    dependencyBlock.tagWithInlineComment("version", "1.0.0-beta.1",
+                        "{x-version-update;io.clientcore:annotation-processor;dependency}");
                 });
             });
         });
