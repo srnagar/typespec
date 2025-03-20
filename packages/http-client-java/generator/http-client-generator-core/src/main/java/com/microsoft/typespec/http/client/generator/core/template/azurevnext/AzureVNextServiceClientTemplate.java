@@ -47,9 +47,7 @@ public class AzureVNextServiceClientTemplate extends ServiceClientTemplate {
                 constructorBlock.line(String.format("this.service = %1$s.create(%2$s.class, this.httpPipeline);",
                     ClassType.REST_PROXY.getName(), serviceClient.getProxy().getName()));
             } else {
-                String implName = JavaSettings.getInstance().getPackage() + ".implementation."
-                    + serviceClient.getProxy().getName() + "Impl";
-                constructorBlock.line("this.service = %s.getNewInstance(this.httpPipeline);", implName);
+                constructorBlock.line("this.service = %s.getNewInstance(this.httpPipeline);", ClassType.REST_PROXY.getName());
             }
         }
     }
