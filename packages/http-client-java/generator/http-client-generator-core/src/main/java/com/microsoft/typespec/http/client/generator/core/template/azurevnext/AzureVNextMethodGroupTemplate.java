@@ -21,7 +21,8 @@ public class AzureVNextMethodGroupTemplate extends MethodGroupTemplate {
             constructor.line(String.format("this.service = %1$s.create(%2$s.class, client.getHttpPipeline());",
                 ClassType.REST_PROXY.getName(), methodGroupClient.getProxy().getName()));
         } else {
-            constructor.line("this.service = %s.getNewInstance(client.getHttpPipeline());", ClassType.REST_PROXY.getName());
+            constructor.line("this.service = %s.getNewInstance(client.getHttpPipeline());",
+                methodGroupClient.getProxy().getName());
         }
 
     }
