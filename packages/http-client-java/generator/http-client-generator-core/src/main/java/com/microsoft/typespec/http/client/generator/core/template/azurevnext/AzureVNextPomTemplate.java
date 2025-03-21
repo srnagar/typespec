@@ -49,7 +49,7 @@ public class AzureVNextPomTemplate extends PomTemplate {
                     parentBlock.tag("groupId", parentGroupId);
                     parentBlock.tag("artifactId", parentArtifactId);
                     parentBlock.tagWithInlineComment("version", parentVersion,
-                        "{x-version-update;com.azure:azure-client-sdk-parent-v2;current}");
+                        "{x-version-update;com.azure.v2:azure-client-sdk-parent;current}");
                     parentBlock.tag("relativePath", pom.getParentRelativePath());
                 });
             }

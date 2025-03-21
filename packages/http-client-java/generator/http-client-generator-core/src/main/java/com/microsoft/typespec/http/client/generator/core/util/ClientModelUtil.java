@@ -373,6 +373,14 @@ public class ClientModelUtil {
             // convert package/namespace to artifact
             artifactId = settings.getPackage().toLowerCase(Locale.ROOT).replace("com.", "").replace(".", "-");
         }
+
+        if (settings.isAzureCoreV2()) {
+            artifactId = settings.getPackage()
+                .toLowerCase(Locale.ROOT)
+                .replace("com.", "")
+                .replace(".v2.", ".")
+                .replace(".", "-");
+        }
         return artifactId;
     }
 

@@ -43,7 +43,7 @@ public class Project {
     protected String serviceName;
     protected String serviceDescription;
     protected String namespace;
-    protected String groupId = AZURE_GROUP_ID;
+    protected String groupId;
     protected String artifactId;
     protected String version = "1.0.0-beta.1";
     protected final List<String> pomDependencyIdentifiers = new ArrayList<>();
@@ -112,6 +112,13 @@ public class Project {
         this.serviceName = serviceName;
         this.namespace = JavaSettings.getInstance().getPackage();
         this.artifactId = ClientModelUtil.getArtifactId();
+        if (JavaSettings.getInstance().isAzureCoreV2()) {
+            this.groupId = "com.azure.v2";
+        } else if (JavaSettings.getInstance().isBranded()) {
+            this.groupId = "com.azure";
+        } else {
+            this.groupId = "io.clientcore";
+        }
 
         this.serviceDescription = TemplateHelper.getPomProjectDescription(serviceName);
 
