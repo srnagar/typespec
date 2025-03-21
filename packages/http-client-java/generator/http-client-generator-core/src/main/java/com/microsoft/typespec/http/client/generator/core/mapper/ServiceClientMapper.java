@@ -81,42 +81,6 @@ public class ServiceClientMapper implements IMapper<CodeModel, ServiceClient> {
         return builder.build();
     }
 
-    protected Proxy.Builder getProxyBuilder() {
-        return new Proxy.Builder();
-    }
-
-    protected ClientMethodParameter createSerializerAdapterParameter() {
-        return new ClientMethodParameter.Builder().description("The serializer to serialize an object into a string")
-            .finalParameter(false)
-            .wireType(ClassType.SERIALIZER_ADAPTER)
-            .name("serializerAdapter")
-            .required(true)
-            .constant(false)
-            .fromClient(true)
-            .defaultValue(null)
-            .annotations(new ArrayList<>())
-            .build();
-    }
-
-    protected IType getHttpPipelineClassType() {
-        return ClassType.HTTP_PIPELINE;
-    }
-
-    protected void addSerializerAdapterProperty(List<ServiceClientProperty> serviceClientProperties,
-        JavaSettings settings) {
-        if (settings.isBranded()) {
-            serviceClientProperties
-                .add(new ServiceClientProperty("The serializer to serialize an object into a string.",
-                    ClassType.SERIALIZER_ADAPTER, "serializerAdapter", true, null,
-                    settings.isFluent() ? JavaVisibility.PackagePrivate : JavaVisibility.Public));
-        }
-    }
-
-    protected void addHttpPipelineProperty(List<ServiceClientProperty> serviceClientProperties) {
-        serviceClientProperties.add(new ServiceClientProperty("The HTTP pipeline to send requests through.",
-            ClassType.HTTP_PIPELINE, "httpPipeline", true, null));
-    }
-
     protected ServiceClient.Builder createClientBuilder() {
         return new ServiceClient.Builder();
     }
@@ -152,7 +116,7 @@ public class ServiceClientMapper implements IMapper<CodeModel, ServiceClient> {
         // TODO: Assume all operations share the same base url
         String baseUrl = getBaseUrl(operations.iterator().next());
         Proxy.Builder proxyBuilder
-            = getProxyBuilder().name(baseName + "Service").clientTypeName(baseName).baseURL(baseUrl);
+            = new Proxy.Builder().name(baseName + "Service").clientTypeName(baseName).baseURL(baseUrl);
         List<ProxyMethod> restAPIMethods = new ArrayList<>();
         for (Operation operation : operations) {
             if (settings.isDataPlaneClient()) {
@@ -336,8 +300,14 @@ public class ServiceClientMapper implements IMapper<CodeModel, ServiceClient> {
             .distinct()
             .collect(Collectors.toList());
 
-        addHttpPipelineProperty(serviceClientProperties);
-        addSerializerAdapterProperty(serviceClientProperties, settings);
+        serviceClientProperties.add(new ServiceClientProperty("The HTTP pipeline to send requests through.",
+            ClassType.HTTP_PIPELINE, "httpPipeline", true, null));
+        if (settings.isBranded()) {
+            serviceClientProperties
+                .add(new ServiceClientProperty("The serializer to serialize an object into a string.",
+                    ClassType.SERIALIZER_ADAPTER, "serializerAdapter", true, null,
+                    settings.isFluent() ? JavaVisibility.PackagePrivate : JavaVisibility.Public));
+        }
         if (settings.isFluent()) {
             serviceClientProperties.add(
                 new ServiceClientProperty.Builder().description("The default poll interval for long-running operation.")
@@ -364,7 +334,7 @@ public class ServiceClientMapper implements IMapper<CodeModel, ServiceClient> {
         ClientMethodParameter httpPipelineParameter
             = new ClientMethodParameter.Builder().description("The HTTP pipeline to send requests through")
                 .finalParameter(false)
-                .wireType(getHttpPipelineClassType())
+                .wireType(ClassType.HTTP_PIPELINE)
                 .name("httpPipeline")
                 .required(true)
                 .constant(false)
@@ -373,7 +343,17 @@ public class ServiceClientMapper implements IMapper<CodeModel, ServiceClient> {
                 .annotations(new ArrayList<>())
                 .build();
 
-        ClientMethodParameter serializerAdapterParameter = createSerializerAdapterParameter();
+        ClientMethodParameter serializerAdapterParameter
+            = new ClientMethodParameter.Builder().description("The serializer to serialize an object into a string")
+                .finalParameter(false)
+                .wireType(ClassType.SERIALIZER_ADAPTER)
+                .name("serializerAdapter")
+                .required(true)
+                .constant(false)
+                .fromClient(true)
+                .defaultValue(null)
+                .annotations(new ArrayList<>())
+                .build();
 
         // map security information in code model to ServiceClient.SecurityInfo
         SecurityInfo securityInfo = new SecurityInfo();
@@ -384,7 +364,16 @@ public class ServiceClientMapper implements IMapper<CodeModel, ServiceClient> {
 
             SecurityInfo securityInfoInCodeModel = new SecurityInfo();
             codeModel.getSecurity().getSchemes().forEach(securityScheme -> {
-                // hack, ignore "user_impersonation", as these non-AADToken appears in modelerfour 4.23.0+
+                // flows for OAUTH2
+                if (securityScheme.getType().equals(Scheme.SecuritySchemeType.OAUTH2)
+                    && !CoreUtils.isNullOrEmpty(securityScheme.getFlows())) {
+                    if (securityInfoInCodeModel.getFlows() == null) {
+                        securityInfoInCodeModel.setFlows(new ArrayList<>());
+                    }
+                    securityInfoInCodeModel.getFlows().addAll(securityScheme.getFlows());
+                }
+
+                // hack, ignore "user_impersonation" in OAUTH2, as these non-AADToken appears in modelerfour 4.23.0+
                 if (securityScheme.getType() == Scheme.SecuritySchemeType.OAUTH2
                     && securityScheme.getScopes().size() == 1
                     && userImpersonationScope.equals(securityScheme.getScopes().iterator().next())) {

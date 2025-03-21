@@ -14,8 +14,10 @@ model VisibilityModel {
   @visibility(Lifecycle.Read)
   readProp: string;
 
+  #suppress "@typespec/http/metadata-ignored" "For test"
   @doc("Required int32, illustrating a query property.")
   @visibility(Lifecycle.Query)
+  @query
   queryProp: int32;
 
   @doc("Required string[], illustrating a create property.")
@@ -38,23 +40,18 @@ model VisibilityModel {
 /** RoundTrip model with readonly optional properties. */
 model ReadOnlyModel {
   /** Optional readonly nullable int list. */
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   optionalNullableIntList?: int32[] | null;
 
   /** Optional readonly string dictionary. */
-  @visibility("read")
+  @visibility(Lifecycle.Read)
   optionalStringRecord?: Record<string>;
 }
 
 @scenario
 @scenarioDoc("""
   Generate and receive output model with readonly properties.
-  Expected input body:
-  ```json
-  {
-    queryProp: 123,
-  }
-  ```
+  Expected no body with `?queryProp=123`.
   
   Expected response body:
   ```json
@@ -64,7 +61,7 @@ model ReadOnlyModel {
   ```
   """)
 @get
-op getModel(@body input: VisibilityModel): {
+op getModel(@bodyRoot input: VisibilityModel): {
   @body
   output: VisibilityModel;
 };
@@ -72,15 +69,10 @@ op getModel(@body input: VisibilityModel): {
 @scenario
 @scenarioDoc("""
   Generate abd send put model with write/create properties.
-  Expected input body:
-  ```json
-  {
-    queryProp: 123,
-  }
-  ```
+  Expected no body with `?queryProp=123`.
   """)
 @head
-op headModel(@body input: VisibilityModel): OkResponse;
+op headModel(@bodyRoot input: VisibilityModel): OkResponse;
 
 @scenario
 @scenarioDoc("""

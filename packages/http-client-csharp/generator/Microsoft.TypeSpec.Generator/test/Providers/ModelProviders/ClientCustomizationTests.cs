@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.TypeSpec.Generator.Primitives;
@@ -18,7 +19,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         {
             var client = new ClientTypeProvider();
             var outputLibrary = new ClientOutputLibrary(client);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 createOutputLibrary: () => outputLibrary,
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
@@ -93,13 +94,22 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
                             new ParameterProvider("param1", $"", new FooTypeProvider("BarNamespace").Type)
                         ]),
                     Snippet.ThrowExpression(Snippet.Null), client),
+                new MethodProvider(new MethodSignature(
+                    "Method8",
+                    $"",
+                    MethodSignatureModifiers.Public,
+                    null,
+                    $"",
+                    [],
+                    ExplicitInterface: new CSharpType(typeof(IAsyncDisposable))),
+                    Snippet.ThrowExpression(Snippet.Null), client)
             };
             client.MethodProviders = methods;
 
             var csharpGen = new CSharpGen();
             await csharpGen.ExecuteAsync();
 
-            Assert.AreEqual(0, plugin.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Methods.Count);
+            Assert.AreEqual(0, mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Methods.Count);
         }
 
         [Test]
@@ -107,7 +117,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         {
             var client = new ClientTypeProvider();
             var outputLibrary = new ClientOutputLibrary(client);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 createOutputLibrary: () => outputLibrary,
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
@@ -171,7 +181,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             var csharpGen = new CSharpGen();
             await csharpGen.ExecuteAsync();
 
-            Assert.AreEqual(5, plugin.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Methods.Count);
+            Assert.AreEqual(5, mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Methods.Count);
         }
 
         [Test]
@@ -180,7 +190,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             var client = new ClientTypeProvider();
 
             var outputLibrary = new ClientOutputLibrary(client);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 createOutputLibrary: () => outputLibrary,
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
@@ -188,13 +198,13 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             {
                 // Parameter type doesn't match
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         [new ParameterProvider("param1", $"", typeof(bool))]),
                     Snippet.ThrowExpression(Snippet.Null), client),
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         [
@@ -203,7 +213,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
                         ]),
                     Snippet.ThrowExpression(Snippet.Null), client),
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         [
@@ -211,7 +221,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
                         ]),
                     Snippet.ThrowExpression(Snippet.Null), client),
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         [
@@ -224,7 +234,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             var csharpGen = new CSharpGen();
             await csharpGen.ExecuteAsync();
 
-            Assert.AreEqual(0, plugin.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Constructors.Count);
+            Assert.AreEqual(0, mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Constructors.Count);
         }
 
         [Test]
@@ -233,26 +243,26 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             var client = new ClientTypeProvider();
 
             var outputLibrary = new ClientOutputLibrary(client);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 createOutputLibrary: () => outputLibrary,
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
             var constructors = new[]
             {
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         []),
                     Snippet.ThrowExpression(Snippet.Null), client),
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         [new ParameterProvider("param1", $"", typeof(bool))]),
                     Snippet.ThrowExpression(Snippet.Null), client),
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         [
@@ -261,7 +271,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
                         ]),
                     Snippet.ThrowExpression(Snippet.Null), client),
                 new ConstructorProvider(new ConstructorSignature(
-                        new CSharpType(client, "Samples", [typeof(int)], null),
+                        client.Type,
                         $"",
                         MethodSignatureModifiers.Public,
                         [
@@ -274,7 +284,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             var csharpGen = new CSharpGen();
             await csharpGen.ExecuteAsync();
 
-            Assert.AreEqual(4, plugin.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Constructors.Count);
+            Assert.AreEqual(4, mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").Constructors.Count);
         }
 
         [Test]
@@ -283,14 +293,14 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             var client = new ClientTypeProvider();
 
             var outputLibrary = new ClientOutputLibrary(client);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 createOutputLibrary: () => outputLibrary,
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
             var csharpGen = new CSharpGen();
             await csharpGen.ExecuteAsync();
 
-            var attributes = plugin.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").CustomCodeView!.Attributes;
+            var attributes = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t.Name == "MockInputClient").CustomCodeView!.Attributes;
             Assert.AreEqual(4, attributes.Count);
             Assert.AreEqual("[global::UnbrandedTypeSpec.CodeGenSuppressAttribute(\"MockInputClient\")]\n", attributes[0].ToDisplayString());
             Assert.AreEqual("[global::UnbrandedTypeSpec.CodeGenSuppressAttribute(\"MockInputClient\", typeof(bool))]\n", attributes[1].ToDisplayString());

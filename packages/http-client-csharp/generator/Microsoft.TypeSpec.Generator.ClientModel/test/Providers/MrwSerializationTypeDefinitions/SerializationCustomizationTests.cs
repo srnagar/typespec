@@ -24,11 +24,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
             };
 
             var inputModel = InputFactory.Model("Model", properties: props, usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, serializationProvider!.Fields.Count);
@@ -47,11 +47,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop2", InputFactory.Array(InputPrimitiveType.String))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, serializationProvider!.Fields.Count);
@@ -70,11 +70,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                         InputFactory.Property("Prop2", new InputNullableType(InputPrimitiveType.String))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, serializationProvider!.Fields.Count);
@@ -92,11 +92,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop2", new InputNullableType(InputPrimitiveType.String))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, serializationProvider!.Fields.Count);
@@ -116,7 +116,7 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                 "baseModel",
                 usage: InputModelTypeUsage.Input,
                 properties: [InputFactory.Property("Prop1", InputPrimitiveType.Int32, isRequired: true)]);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [
                     InputFactory.Model(
                         "mockInputModel",
@@ -129,7 +129,7 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                 ],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.FirstOrDefault(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.FirstOrDefault(t => t is ModelProvider);
             Assert.IsNotNull(modelProvider);
             var serializationProvider = modelProvider!.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
@@ -149,11 +149,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Flavor", InputPrimitiveType.String)
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
 
             Assert.IsNotNull(modelProvider);
@@ -188,11 +188,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop1", InputFactory.Dictionary(InputPrimitiveType.Any))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, serializationProvider!.Fields.Count);
@@ -215,11 +215,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop1", InputFactory.Enum("EnumType", enumType, isExtensible: true))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync(enumType.Name));
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, serializationProvider.Fields.Count);
@@ -245,11 +245,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     ],
                 usage: InputModelTypeUsage.Json);
             var parameters = $"{enumType.Name},{value}";
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync(parameters));
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, serializationProvider.Fields.Count);
@@ -267,11 +267,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop2", new InputNullableType(InputPrimitiveType.String))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
 
@@ -287,6 +287,29 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
         }
 
         [Test]
+        public async Task CanReplaceWriteMethod()
+        {
+            var inputModel = InputFactory.Model("mockInputModel", properties: [
+                    InputFactory.Property("Prop1", InputPrimitiveType.String),
+                    InputFactory.Property("Prop2", new InputNullableType(InputPrimitiveType.String))
+                ],
+                usage: InputModelTypeUsage.Json);
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
+                inputModels: () => [inputModel],
+                compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
+
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
+            Assert.IsNotNull(serializationProvider);
+
+            var methods = serializationProvider!.Methods;
+            Assert.AreEqual(10, methods.Count);
+
+            // validate the Write method doesn't exist in the serialization provider
+            Assert.IsNull(methods.FirstOrDefault(m => m.Signature.Name == "Write"));
+        }
+
+        [Test]
         public async Task CanReplaceDeserializationMethod()
         {
             var inputModel = InputFactory.Model("mockInputModel", properties: [
@@ -294,11 +317,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop2", new InputNullableType(InputPrimitiveType.String))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
 
@@ -321,11 +344,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop1", InputPrimitiveType.String),
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync(redefineProperty.ToString()));
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             Assert.AreEqual(0, modelProvider.Properties.Count);
@@ -346,11 +369,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("Prop1", new InputNullableType(InputPrimitiveType.String))
                     ],
                 usage: InputModelTypeUsage.Json);
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
 
@@ -376,11 +399,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                         values: [InputFactory.EnumMember.String("foo", "bar")])))
                     ]);
 
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => [inputModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             var writer = new TypeProviderWriter(serializationProvider);
@@ -395,11 +418,11 @@ namespace Microsoft.TypeSpec.Generator.ClientModel.Tests.Providers.MrwSerializat
                     InputFactory.Property("prop1", InputFactory.Array(InputPrimitiveType.String))
                 ]);
 
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModels: () => new[] { inputModel },
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var modelProvider = plugin.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
+            var modelProvider = mockGenerator.Object.OutputLibrary.TypeProviders.Single(t => t is ModelProvider);
             var serializationProvider = modelProvider.SerializationProviders.Single(t => t is MrwSerializationTypeDefinition);
             Assert.IsNotNull(serializationProvider);
             var writer = new TypeProviderWriter(serializationProvider);

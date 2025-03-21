@@ -26,7 +26,7 @@ public class ExceptionTemplate implements IJavaTemplate<ClientException, JavaFil
     @Override
     public void write(ClientException exception, JavaFile javaFile) {
         Set<String> imports = new HashSet<>();
-        imports.add(getHttpResponseImport());
+        imports.add(ClassType.HTTP_RESPONSE.getFullName());
         exception.getParentType().addImportsTo(imports, false);
         javaFile.declareImport(imports);
         javaFile.javadocComment((comment) -> {
@@ -68,9 +68,5 @@ public class ExceptionTemplate implements IJavaTemplate<ClientException, JavaFil
                     methodBlock.methodReturn(String.format("(%1$s) super.getValue()", exception.getErrorName()));
                 });
             });
-    }
-
-    protected String getHttpResponseImport() {
-        return ClassType.HTTP_RESPONSE.getFullName();
     }
 }

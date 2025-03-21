@@ -12,7 +12,6 @@ import com.microsoft.typespec.http.client.generator.core.model.clientmodel.EnumT
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.IType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.PrimitiveType;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaContext;
-import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaEnum;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaFile;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaJavadocComment;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaModifier;
@@ -67,7 +66,7 @@ public class EnumTemplate implements IJavaTemplate<EnumType, JavaFile> {
     private void writeExpandableStringEnum(EnumType enumType, JavaFile javaFile, JavaSettings settings) {
         Set<String> imports = new HashSet<>();
         imports.add("java.util.Collection");
-        imports.add(getStringEnumImport());
+        imports.add(ClassType.EXPANDABLE_STRING_ENUM.getFullName());
         if (!settings.isStreamStyleSerialization()) {
             imports.add("com.fasterxml.jackson.annotation.JsonCreator");
         }
@@ -357,10 +356,6 @@ public class EnumTemplate implements IJavaTemplate<EnumType, JavaFile> {
             classBlock.method(JavaVisibility.Public, null, "int hashCode()",
                 function -> function.methodReturn("Objects.hashCode(this.value)"));
         });
-    }
-
-    protected String getStringEnumImport() {
-        return ClassType.EXPANDABLE_STRING_ENUM.getFullName();
     }
 
     /**

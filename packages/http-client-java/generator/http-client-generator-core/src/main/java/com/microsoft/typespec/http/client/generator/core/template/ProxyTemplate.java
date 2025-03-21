@@ -123,6 +123,12 @@ public class ProxyTemplate implements IJavaTemplate<Proxy, JavaClass> {
                                     .collect(Collectors.joining(", "))));
                         }
                     } else {
+                        String returnValueWireTypeCode = "";
+                        if (restAPIMethod.getReturnValueWireType() != null) {
+                            returnValueWireTypeCode
+                                = ", returnValueWireType = " + restAPIMethod.getReturnValueWireType() + ".class";
+                        }
+
                         interfaceBlock.annotation(
                             "HttpRequestInformation(method = HttpMethod." + restAPIMethod.getHttpMethod().toString()
                                 + ", path = \"" + restAPIMethod.getUrlPath() + "\", expectedStatusCodes = { "
@@ -130,7 +136,7 @@ public class ProxyTemplate implements IJavaTemplate<Proxy, JavaClass> {
                                     .stream()
                                     .map(String::valueOf)
                                     .collect(Collectors.joining(", "))
-                                + " })");
+                                + " } " + returnValueWireTypeCode + ")");
                     }
 
                     if (!settings.isDataPlaneClient()) {

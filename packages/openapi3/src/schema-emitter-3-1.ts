@@ -1,6 +1,16 @@
 import {
+  ArrayBuilder,
+  AssetEmitter,
+  createAssetEmitter,
+  EmitterOutput,
+  ObjectBuilder,
+  Placeholder,
+  TypeEmitter,
+} from "@typespec/asset-emitter";
+import {
   compilerAssert,
   Enum,
+  getDiscriminatedUnion,
   getExamples,
   getMaxValueExclusive,
   getMinValueExclusive,
@@ -15,15 +25,6 @@ import {
   Type,
   Union,
 } from "@typespec/compiler";
-import {
-  ArrayBuilder,
-  AssetEmitter,
-  createAssetEmitter,
-  EmitterOutput,
-  ObjectBuilder,
-  Placeholder,
-  TypeEmitter,
-} from "@typespec/compiler/emitter-framework";
 import { MetadataInfo } from "@typespec/http";
 import { shouldInline } from "@typespec/openapi";
 import { getOneOf } from "./decorators.js";
@@ -199,6 +200,10 @@ export class OpenAPI31SchemaEmitter extends OpenAPI3SchemaEmitterBase<OpenAPISch
 
   unionSchema(union: Union): ObjectBuilder<OpenAPISchema3_1> {
     const program = this.emitter.getProgram();
+    const [discriminated] = getDiscriminatedUnion(program, union);
+    if (discriminated) {
+      return this.discriminatedUnion(discriminated);
+    }
     if (union.variants.size === 0) {
       reportDiagnostic(program, { code: "empty-union", target: union });
       return new ObjectBuilder({});
@@ -290,8 +295,6 @@ export class OpenAPI31SchemaEmitter extends OpenAPI3SchemaEmitterBase<OpenAPISch
         wrapWithObjectBuilder(m, { mergeUnionWideConstraints: false }),
       ),
     };
-
-    this.applyDiscriminator(union, schema);
 
     return this.applyConstraints(union, schema);
   }

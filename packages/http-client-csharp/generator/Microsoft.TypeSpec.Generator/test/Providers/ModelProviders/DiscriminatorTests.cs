@@ -81,20 +81,50 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             properties: [InputFactory.Property("kind", _petEnum, isRequired: true, isDiscriminator: true)],
             discriminatedModels: new Dictionary<string, InputModelType>() { { "cat", _catEnumModel }, { "dog", _dogEnumModel } });
 
-        [Test]
-        public void BaseShouldBeAbstract()
+
+        private static IEnumerable<TestCaseData> GetBaseModels()
         {
-            MockHelpers.LoadMockPlugin();
-            var baseModel = CodeModelPlugin.Instance.TypeFactory.CreateModel(_baseModel);
+            yield return new TestCaseData(_baseModel, """
+                                                      /// <summary>
+                                                      /// pet description
+                                                      /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="Cat"/>, <see cref="Dog"/>, and <see cref="AnotherAnimal"/>.
+                                                      /// </summary>
+
+                                                      """);
+            yield return new TestCaseData(_baseEnumModel, """
+                                                          /// <summary>
+                                                          /// pet description
+                                                          /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="Cat"/> and <see cref="Dog"/>.
+                                                          /// </summary>
+
+                                                          """);
+            yield return new TestCaseData(_animalModel, """
+                                                        /// <summary>
+                                                        /// animal description
+                                                        /// Please note this is the abstract base class. The derived classes available for instantiation are: <see cref="Dinosaur"/>.
+                                                        /// </summary>
+
+                                                        """);
+        }
+
+        [TestCaseSource(nameof(GetBaseModels))]
+        public void BaseShouldBeAbstract(InputModelType inputModel, string expectedSummary)
+        {
+            MockHelpers.LoadMockGenerator();
+            var baseModel = CodeModelGenerator.Instance.TypeFactory.CreateModel(inputModel);
             Assert.IsNotNull(baseModel);
             Assert.IsTrue(baseModel!.DeclarationModifiers.HasFlag(TypeSignatureModifiers.Abstract));
+
+            // Base model description should reference derived models
+            Assert.IsNotNull(baseModel.XmlDocs.Summary);
+            Assert.AreEqual(expectedSummary, baseModel.XmlDocs.Summary!.ToDisplayString());
         }
 
         [Test]
         public void DiscriminatorPropertyShouldBeInternal()
         {
-            MockHelpers.LoadMockPlugin();
-            var baseModel = CodeModelPlugin.Instance.TypeFactory.CreateModel(_baseModel);
+            MockHelpers.LoadMockGenerator();
+            var baseModel = CodeModelGenerator.Instance.TypeFactory.CreateModel(_baseModel);
             Assert.IsNotNull(baseModel);
             var discriminator = baseModel!.Properties.FirstOrDefault(p => p.Name == "Kind");
             Assert.IsNotNull(discriminator);
@@ -104,8 +134,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void BaseConstructorShouldBePrivateProtected()
         {
-            MockHelpers.LoadMockPlugin();
-            var baseModel = CodeModelPlugin.Instance.TypeFactory.CreateModel(_baseModel);
+            MockHelpers.LoadMockGenerator();
+            var baseModel = CodeModelGenerator.Instance.TypeFactory.CreateModel(_baseModel);
             Assert.IsNotNull(baseModel);
             Assert.AreEqual(2, baseModel!.Constructors.Count);
             var ctor1 = baseModel.Constructors[0];
@@ -122,8 +152,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void DerivedPublicCtorShouldSetDiscriminator()
         {
-            MockHelpers.LoadMockPlugin();
-            var catModel = CodeModelPlugin.Instance.TypeFactory.CreateModel(_catModel);
+            MockHelpers.LoadMockGenerator();
+            var catModel = CodeModelGenerator.Instance.TypeFactory.CreateModel(_catModel);
             Assert.IsNotNull(catModel);
             Assert.AreEqual(2, catModel!.Constructors.Count);
             var publicCtor = catModel.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Public));
@@ -141,8 +171,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void DerivedPublicCtorShouldNotHaveKindParam()
         {
-            MockHelpers.LoadMockPlugin();
-            var dogModel = CodeModelPlugin.Instance.TypeFactory.CreateModel(_dogModel);
+            MockHelpers.LoadMockGenerator();
+            var dogModel = CodeModelGenerator.Instance.TypeFactory.CreateModel(_dogModel);
             Assert.IsNotNull(dogModel);
             Assert.AreEqual(2, dogModel!.Constructors.Count);
             var publicCtor = dogModel.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Public));
@@ -153,8 +183,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void DerivedCtorHasAdditionalBinaryDataPropertiesParam()
         {
-            MockHelpers.LoadMockPlugin();
-            var catModel = CodeModelPlugin.Instance.TypeFactory.CreateModel(_catModel);
+            MockHelpers.LoadMockGenerator();
+            var catModel = CodeModelGenerator.Instance.TypeFactory.CreateModel(_catModel);
             Assert.IsNotNull(catModel);
             Assert.AreEqual(2, catModel!.Constructors.Count);
             var serializationCtor = catModel.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Internal));
@@ -165,8 +195,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void CreateUnknownVariant()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseModel, _catModel, _dogModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseModel, _catModel, _dogModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var models = outputLibrary.TypeProviders.OfType<ModelProvider>();
             Assert.AreEqual(6, models.Count());
             // since each model has a discriminator, there should be 3 additional models for their unknown variants
@@ -182,8 +212,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void DiscriminatedModelWithNoSubTypesHasUnknownVariant()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_animalModel, _dinosaurModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_animalModel, _dinosaurModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var models = outputLibrary.TypeProviders.OfType<ModelProvider>();
             Assert.AreEqual(4, models.Count());
 
@@ -205,8 +235,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void UnknownVariantIsInternal()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseModel, _catModel, _dogModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseModel, _catModel, _dogModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var unknownModel = outputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "UnknownPet");
             Assert.IsNotNull(unknownModel);
             Assert.IsTrue(unknownModel!.DeclarationModifiers.HasFlag(TypeSignatureModifiers.Internal));
@@ -215,8 +245,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void UnknownVariantHasPetBase()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseModel, _catModel, _dogModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseModel, _catModel, _dogModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var unknownModel = outputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "UnknownPet");
             Assert.IsNotNull(unknownModel);
             Assert.AreEqual("Pet", unknownModel!.Type.BaseType!.Name);
@@ -251,8 +281,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void SerializationCtorForUnknownTakesDiscriminator()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseModel, _catModel, _dogModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseModel, _catModel, _dogModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var unknownModel = outputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "UnknownPet");
             Assert.IsNotNull(unknownModel);
             var serializationCtor = unknownModel!.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Internal));
@@ -263,8 +293,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void BaseDoesNotHaveDiscriminatorField()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseEnumModel, _catEnumModel, _dogEnumModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseEnumModel, _catEnumModel, _dogEnumModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var baseModel = outputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
             Assert.IsNotNull(baseModel);
             Assert.IsFalse(baseModel!.Fields.Any(f => f.Name == "_kind"));
@@ -273,8 +303,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void BaseKindPropertyIsNotVirtual()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseEnumModel, _catEnumModel, _dogEnumModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseEnumModel, _catEnumModel, _dogEnumModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var baseModel = outputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
             Assert.IsNotNull(baseModel);
             var kindProperty = baseModel!.Properties.FirstOrDefault(p => p.Name == "Kind");
@@ -285,8 +315,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void DerivedHasNoKindProperty()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseEnumModel, _catEnumModel, _dogEnumModel]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseEnumModel, _catEnumModel, _dogEnumModel]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var catModel = outputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Cat");
             Assert.IsNotNull(catModel);
             var kindProperty = catModel!.Properties.FirstOrDefault(p => p.Name == "Kind");
@@ -296,8 +326,8 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public void ModelWithNestedDiscriminators()
         {
-            MockHelpers.LoadMockPlugin(inputModelTypes: [_baseEnumModel, _dogEnumModel, _anotherAnimal]);
-            var outputLibrary = CodeModelPlugin.Instance.OutputLibrary;
+            MockHelpers.LoadMockGenerator(inputModelTypes: [_baseEnumModel, _dogEnumModel, _anotherAnimal]);
+            var outputLibrary = CodeModelGenerator.Instance.OutputLibrary;
             var anotherDogModel = outputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "AnotherAnimal");
             Assert.IsNotNull(anotherDogModel);
 
@@ -321,10 +351,10 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public async Task ModelWithCustomFixedEnumDiscriminator()
         {
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModelTypes: [_baseModel, _catModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
-            var baseModel = plugin.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
+            var baseModel = mockGenerator.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
             Assert.IsNotNull(baseModel);
 
             var primaryBaseModelCtor = baseModel!.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Protected));
@@ -333,7 +363,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             Assert.AreEqual("kind", primaryBaseModelCtor.Signature.Parameters[0].Name);
             Assert.AreEqual("CustomKind", primaryBaseModelCtor.Signature.Parameters[0].Type.Name);
 
-            var catModel = plugin.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Cat");
+            var catModel = mockGenerator.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Cat");
             Assert.IsNotNull(catModel);
 
             var catSerializationCtor = catModel!.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Internal));
@@ -358,10 +388,10 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public async Task ModelWithCustomExtensibleEnumDiscriminator()
         {
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModelTypes: [_baseModel, _catModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
-            var baseModel = plugin.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
+            var baseModel = mockGenerator.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
             Assert.IsNotNull(baseModel);
 
             var primaryBaseModelCtor = baseModel!.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Protected));
@@ -370,7 +400,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             Assert.AreEqual("kind", primaryBaseModelCtor.Signature.Parameters[0].Name);
             Assert.AreEqual("CustomKind", primaryBaseModelCtor.Signature.Parameters[0].Type.Name);
 
-            var catModel = plugin.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Cat");
+            var catModel = mockGenerator.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Cat");
             Assert.IsNotNull(catModel);
 
             var catSerializationCtor = catModel!.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Internal));
@@ -396,11 +426,11 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
         [Test]
         public async Task CanCustomizeDiscriminator()
         {
-            var plugin = await MockHelpers.LoadMockPluginAsync(
+            var mockGenerator = await MockHelpers.LoadMockGeneratorAsync(
                 inputModelTypes: [_baseModel, _catModel],
                 compilation: async () => await Helpers.GetCompilationFromDirectoryAsync());
 
-            var baseModel = plugin.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
+            var baseModel = mockGenerator.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Pet");
             Assert.IsNotNull(baseModel);
 
             var baseModelPrimaryCtor = baseModel!.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Protected));
@@ -411,7 +441,7 @@ namespace Microsoft.TypeSpec.Generator.Tests.Providers.ModelProviders
             Assert.AreEqual("customName", baseModelPrimaryCtor.Signature.Parameters[0].Name);
             Assert.IsTrue(baseModelPrimaryCtor.Signature.Parameters[0].Property?.IsDiscriminator);
 
-            var catModel = plugin.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Cat");
+            var catModel = mockGenerator.Object.OutputLibrary.TypeProviders.OfType<ModelProvider>().FirstOrDefault(t => t.Name == "Cat");
             Assert.IsNotNull(catModel);
 
             var catSerializationCtor = catModel!.Constructors.FirstOrDefault(c => c.Signature.Modifiers.HasFlag(MethodSignatureModifiers.Internal));

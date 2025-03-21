@@ -240,22 +240,21 @@ Expected body:
 - Endpoint: `post /encode/bytes/body/request/custom-content-type`
 
 When content type is a custom type(image/png here) and body is `bytes` the payload is a binary file.
-File should match packages/cadl-ranch-specs/assets/image.png
+File should match packages/http-specs/assets/image.png.
 
 ### Encode_Bytes_RequestBody_default
 
 - Endpoint: `post /encode/bytes/body/request/default`
 
-Test default encode (base64) for bytes in a json body.
-Expected body:
-"dGVzdA==" (base64 encode of test, in JSON string)
+When content type is not defined and body is `bytes` the payload is a binary stream.
+Stream should match packages/http-specs/assets/image.png file.
 
 ### Encode_Bytes_RequestBody_octetStream
 
 - Endpoint: `post /encode/bytes/body/request/octet-stream`
 
-When content type is application/octet-stream and body is `bytes` the payload is a binary file.
-File should match packages/cadl-ranch-specs/assets/image.png
+When content type is application/octet-stream and body is `bytes` the payload is a binary stream.
+Stream should match packages/http-specs/assets/image.png file.
 
 ### Encode_Bytes_ResponseBody_base64
 
@@ -278,22 +277,21 @@ Expected body:
 - Endpoint: `get /encode/bytes/body/response/custom-content-type`
 
 When content type is a custom type(image/png here) and body is `bytes` the payload is a binary file.
-File should match packages/cadl-ranch-specs/assets/image.png
+File should match packages/http-specs/assets/image.png
 
 ### Encode_Bytes_ResponseBody_default
 
 - Endpoint: `get /encode/bytes/body/response/default`
 
-Test default encode (base64) for bytes in a json body.
-Expected body:
-"dGVzdA==" (base64 encode of test, in JSON string)
+When content type is not defined and body is `bytes` the payload is a binary stream.
+Stream should match packages/http-specs/assets/image.png file.
 
 ### Encode_Bytes_ResponseBody_octetStream
 
 - Endpoint: `get /encode/bytes/body/response/octet-stream`
 
-When content type is application/octet-stream and body is `bytes` the payload is a binary file.
-File should match packages/cadl-ranch-specs/assets/image.png
+When content type is application/octet-stream and body is `bytes` the payload is a binary stream.
+Stream should match packages/http-specs/assets/image.png file.
 
 ### Encode_Datetime_Header_default
 
@@ -894,12 +892,6 @@ This test is testing sending a pipes collection format array query parameters
 
 This test is testing sending a ssv collection format array query parameters
 
-### Parameters_CollectionFormat_Query_tsv
-
-- Endpoint: `get /parameters/collection-format/query/tsv`
-
-This test is testing sending a tsv collection format array query parameters
-
 ### Parameters_Spread_Alias_spreadAsRequestBody
 
 - Endpoint: `put /parameters/spread/alias/request-body`
@@ -1309,9 +1301,9 @@ Expected request body is a string '{cat}'.
 Expect request (
 
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.4, content-type of file part shall be labeled with
-  appropriate media type, cadl-ranch will check it; content-type of other parts is optional, cadl-ranch will ignore it.
+  appropriate media type, server will check it; content-type of other parts is optional, server will ignore it.
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.2, filename of file part SHOULD be supplied.
-  If there are duplicated filename in same filedName, cadl-ranch can't parse them all.
+  If there are duplicated filename in same filedName, server can't parse them all.
   ):
 
 ```
@@ -1334,9 +1326,9 @@ Content-Type: application/octet-stream;
 Expect request (
 
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.4, content-type of file part shall be labeled with
-  appropriate media type, cadl-ranch will check it; content-type of other parts is optional, cadl-ranch will ignore it.
+  appropriate media type, server will check it; content-type of other parts is optional, server will ignore it.
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.2, filename of file part SHOULD be supplied.
-  If there are duplicated filename in same fieldName, cadl-ranch can't parse them all.
+  If there are duplicated filename in same fieldName, server can't parse them all.
   ):
 
 ```
@@ -1364,9 +1356,9 @@ Content-Type: application/octet-stream;
 Expect request (
 
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.4, content-type of file part shall be labeled with
-  appropriate media type, cadl-ranch will check it; content-type of other parts is optional, cadl-ranch will ignore it.
+  appropriate media type, server will check it; content-type of other parts is optional, server will ignore it.
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.2, filename of file part SHOULD be supplied.
-  If there are duplicated filename in same fieldName, cadl-ranch can't parse them all.
+  If there are duplicated filename in same fieldName, server can't parse them all.
   ):
 
 ```
@@ -1423,9 +1415,9 @@ Content-Type: image/jpg
 Expect request (
 
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.4, content-type of file part shall be labeled with
-  appropriate media type, cadl-ranch will check it; content-type of other parts is optional, cadl-ranch will ignore it.
+  appropriate media type, server will check it; content-type of other parts is optional, server will ignore it.
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.2, filename of file part SHOULD be supplied.
-  If there are duplicated filename in same fieldName, cadl-ranch can't parse them all.
+  If there are duplicated filename in same fieldName, server can't parse them all.
   ):
 
 ```
@@ -1533,7 +1525,7 @@ Content-Type: application/octet-stream
 
 - Endpoint: `post /multipart/form-data/complex-parts-with-httppart`
 
-For File part, filename will not be checked but it is necessary otherwise cadl-ranch can't parse it;
+For File part, filename will not be checked but it is necessary otherwise server can't parse it;
 content-type will be checked with value "application/octet-stream". Expect request:
 
 ```
@@ -1606,9 +1598,9 @@ Content-Type: text/plain
 Expect request (
 
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.4, content-type of file part shall be labeled with
-  appropriate media type, cadl-ranch will check it; content-type of other parts is optional, cadl-ranch will ignore it.
+  appropriate media type, server will check it; content-type of other parts is optional, server will ignore it.
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.2, filename of file part SHOULD be supplied.
-  If there are duplicated filename in same fieldName, cadl-ranch can't parse them all.
+  If there are duplicated filename in same fieldName, server can't parse them all.
   ):
 
 ```
@@ -1638,9 +1630,9 @@ Content-Type: application/octet-stream
 Please send request twice, first time with only profileImage, second time with both profileImage and picture(
 
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.4, content-type of file part shall be labeled with
-  appropriate media type, cadl-ranch will check it; content-type of other parts is optional, cadl-ranch will ignore it.
+  appropriate media type, server will check it; content-type of other parts is optional, server will ignore it.
 - according to https://datatracker.ietf.org/doc/html/rfc7578#section-4.2, filename of file part SHOULD be supplied.
-  If there are duplicated filename in same fieldName, cadl-ranch can't parse them all.
+  If there are duplicated filename in same fieldName, server can't parse them all.
   ):
 
 ```
@@ -1659,6 +1651,184 @@ Content-Type: application/octet-stream
 
 {…file content of .png file…}
 --abcde12345--
+```
+
+### Payload_Pageable_ServerDrivenPagination_ContinuationToken_requestHeaderResponseBody
+
+- Endpoint: `get /payload/pageable/server-driven-pagination/continuationtoken/request-header-response-body`
+
+Test case for using continuation token as pagination. Continuation token is passed in the request header and response body.
+
+Two requests need to be tested.
+
+1. Initial request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-header-response-body?bar=bar
+
+Expected request header:
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "1", "name": "dog" },
+    { "id": "2", "name": "cat" }
+  ],
+  "nextToken": "page2"
+}
+```
+
+2. Next page request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-header-response-body?bar=bar
+
+Expected request header:
+token=page2
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "3", "name": "bird" },
+    { "id": "4", "name": "fish" }
+  ]
+}
+```
+
+### Payload_Pageable_ServerDrivenPagination_ContinuationToken_requestHeaderResponseHeader
+
+- Endpoint: `get /payload/pageable/server-driven-pagination/continuationtoken/request-header-response-header`
+
+Test case for using continuation token as pagination. Continuation token is passed in the request header and response header.
+
+Two requests need to be tested.
+
+1. Initial request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-header-response-header?bar=bar
+
+Expected request header:
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "1", "name": "dog" },
+    { "id": "2", "name": "cat" }
+  ]
+}
+```
+
+Expected response header:
+next-token=page2
+
+2. Next page request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-header-response-header?bar=bar
+
+Expected request header:
+token=page2
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "3", "name": "bird" },
+    { "id": "4", "name": "fish" }
+  ]
+}
+```
+
+### Payload_Pageable_ServerDrivenPagination_ContinuationToken_requestQueryResponseBody
+
+- Endpoint: `get /payload/pageable/server-driven-pagination/continuationtoken/request-query-response-body`
+
+Test case for using continuation token as pagination. Continuation token is passed in the request query and response body.
+
+Two requests need to be tested.
+
+1. Initial request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-query-response-body?bar=bar
+
+Expected request header:
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "1", "name": "dog" },
+    { "id": "2", "name": "cat" }
+  ],
+  "nextToken": "page2"
+}
+```
+
+2. Next page request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-query-response-body?bar=bar&token=page2
+
+Expected request header:
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "3", "name": "bird" },
+    { "id": "4", "name": "fish" }
+  ]
+}
+```
+
+### Payload_Pageable_ServerDrivenPagination_ContinuationToken_requestQueryResponseHeader
+
+- Endpoint: `get /payload/pageable/server-driven-pagination/continuationtoken/request-query-response-header`
+
+Test case for using continuation token as pagination. Continuation token is passed in the request query and response header.
+
+Two requests need to be tested.
+
+1. Initial request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-query-response-header?bar=bar
+
+Expected request header:
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "1", "name": "dog" },
+    { "id": "2", "name": "cat" }
+  ]
+}
+```
+
+Expected response header:
+next-token=page2
+
+2. Next page request:
+   Expected route: /payload/pageable/server-driven-pagination/continuationtoken/request-query-response-header?bar=bar&token=page2
+
+Expected request header:
+foo=foo
+
+Expected response body:
+
+```json
+{
+  "pets": [
+    { "id": "3", "name": "bird" },
+    { "id": "4", "name": "fish" }
+  ]
+}
 ```
 
 ### Payload_Pageable_ServerDrivenPagination_link
@@ -2200,7 +2370,7 @@ Expected path: /routes/path/label/standard/record.a,1,b,2
 
 Test matrix expansion with explode: true when passed an array value.
 Param value: ["a","b"]
-Expected path: /routes/path/matrix/explode/array;a.b
+Expected path: /routes/path/matrix/explode/array;param=a;param=b
 
 ### Routes_PathParameters_MatrixExpansion_Explode_primitive
 
@@ -2208,7 +2378,7 @@ Expected path: /routes/path/matrix/explode/array;a.b
 
 Test matrix expansion with explode: true when passed a primitive value.
 Param value: "a"
-Expected path: /routes/path/matrix/explode/primitive;a
+Expected path: /routes/path/matrix/explode/primitive;param=a
 
 ### Routes_PathParameters_MatrixExpansion_Explode_record
 
@@ -2224,7 +2394,7 @@ Expected path: /routes/path/matrix/explode/record;a=1;b=2
 
 Test matrix expansion with explode: false when passed an array value.
 Param value: ["a","b"]
-Expected path: /routes/path/matrix/standard/array;a,b
+Expected path: /routes/path/matrix/standard/array;param=a;param=b
 
 ### Routes_PathParameters_MatrixExpansion_Standard_primitive
 
@@ -2232,7 +2402,7 @@ Expected path: /routes/path/matrix/standard/array;a,b
 
 Test matrix expansion with explode: false when passed a primitive value.
 Param value: "a"
-Expected path: /routes/path/matrix/standard/primitive;a
+Expected path: /routes/path/matrix/standard/primitive;param=a
 
 ### Routes_PathParameters_MatrixExpansion_Standard_record
 
@@ -2240,7 +2410,7 @@ Expected path: /routes/path/matrix/standard/primitive;a
 
 Test matrix expansion with explode: false when passed a record value.
 Param value: {a: 1, b: 2}
-Expected path: /routes/path/matrix/standard/record;a,1,b,2
+Expected path: /routes/path/matrix/standard/record;a=1;b=2
 
 ### Routes_PathParameters_PathExpansion_Explode_array
 
@@ -3358,6 +3528,18 @@ Verify that the name "with" works. Send this parameter to pass with value `ok`.
 - Endpoint: `get /special-words/parameters/yield`
 
 Verify that the name "yield" works. Send this parameter to pass with value `ok`.
+
+### Streaming_Jsonl_Basic_receive
+
+- Endpoint: `get /streaming/jsonl/basic/receive`
+
+Basic jsonl streaming for response.
+
+### Streaming_Jsonl_Basic_send
+
+- Endpoint: `post /streaming/jsonl/basic/send`
+
+Basic jsonl streaming for request.
 
 ### Type_Array_BooleanValue_get
 
@@ -5149,42 +5331,6 @@ Expected input body:
 {
   "knownProp": [{ "state": "ok" }, { "state": "ok" }],
   "prop": [{ "state": "ok" }, { "state": "ok" }]
-}
-```
-
-### Type_Property_AdditionalProperties_SpreadRecordDiscriminatedUnion_get
-
-- Endpoint: `get /type/property/additionalProperties/spreadRecordDiscriminatedUnion`
-
-Expected response body:
-
-```json
-{
-  "name": "abc",
-  "prop1": { "kind": "kind0", "fooProp": "abc" },
-  "prop2": {
-    "kind": "kind1",
-    "start": "2021-01-01T00:00:00Z",
-    "end": "2021-01-02T00:00:00Z"
-  }
-}
-```
-
-### Type_Property_AdditionalProperties_SpreadRecordDiscriminatedUnion_put
-
-- Endpoint: `put /type/property/additionalProperties/spreadRecordDiscriminatedUnion`
-
-Expected input body:
-
-```json
-{
-  "name": "abc",
-  "prop1": { "kind": "kind0", "fooProp": "abc" },
-  "prop2": {
-    "kind": "kind1",
-    "start": "2021-01-01T00:00:00Z",
-    "end": "2021-01-02T00:00:00Z"
-  }
 }
 ```
 

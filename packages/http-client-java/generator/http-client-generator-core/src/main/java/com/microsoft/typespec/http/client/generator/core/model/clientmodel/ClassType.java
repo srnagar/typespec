@@ -362,9 +362,6 @@ public class ClassType implements IType {
             + (JavaSettings.getInstance().isBranded() ? "Base64Url" : "Base64Uri") + "::new)")
         .build();
 
-    public static final ClassType ANDROID_BASE_64_URL
-        = new ClassType.Builder(false).packageName("com.azure.android.core.util").name("Base64Url").build();
-
     public static final ClassType LOCAL_DATE = new Builder(false).knownClass(java.time.LocalDate.class)
         .defaultValueExpressionConverter(
             defaultValueExpression -> "LocalDate.parse(\"" + defaultValueExpression + "\")")
@@ -375,9 +372,6 @@ public class ClassType implements IType {
         .xmlElementDeserializationMethod("getNullableElement(LocalDate::parse)")
         .xmlAttributeDeserializationTemplate("%s.getNullableAttribute(%s, %s, LocalDate::parse)")
         .build();
-
-    public static final ClassType ANDROID_LOCAL_DATE
-        = new ClassType.Builder(false).packageName("org.threeten.bp").name("LocalDate").build();
 
     public static final ClassType DATE_TIME = new Builder(false).knownClass(OffsetDateTime.class)
         .defaultValueExpressionConverter(
@@ -411,9 +405,6 @@ public class ClassType implements IType {
         .xmlAttributeDeserializationTemplate("%s.getNullableAttribute(%s, %s, Duration::parse)")
         .build();
 
-    public static final ClassType ANDROID_DURATION
-        = new ClassType.Builder(false).packageName("org.threeten.bp").name("Duration").build();
-
     public static final ClassType DATE_TIME_RFC_1123 = getClassTypeBuilder(DateTimeRfc1123.class)
         .defaultValueExpressionConverter(
             defaultValueExpression -> "new DateTimeRfc1123(\"" + defaultValueExpression + "\")")
@@ -424,9 +415,6 @@ public class ClassType implements IType {
         .xmlElementDeserializationMethod("getNullableElement(DateTimeRfc1123::new)")
         .xmlAttributeDeserializationTemplate("%s.getNullableAttribute(%s, %s, DateTimeRfc1123::new)")
         .build();
-
-    public static final ClassType ANDROID_DATE_TIME_RFC_1123
-        = new ClassType.Builder(false).packageName("com.azure.android.core.util").name("DateTimeRfc1123").build();
 
     public static final ClassType BIG_DECIMAL = new Builder(false).knownClass(BigDecimal.class)
         .defaultValueExpressionConverter(defaultValueExpression -> "new BigDecimal(\"" + defaultValueExpression + "\")")
@@ -454,11 +442,6 @@ public class ClassType implements IType {
 
     public static final ClassType TOKEN_CREDENTIAL_TRAIT = getClassTypeBuilder(TokenCredentialTrait.class).build();
 
-    public static final ClassType ANDROID_HTTP_RESPONSE_EXCEPTION
-        = new ClassType.Builder(false).packageName("com.azure.android.core.http.exception")
-            .name("HttpResponseException")
-            .build();
-
     public static final ClassType UNIX_TIME_DATE_TIME = new ClassType.Builder(false)
         .defaultValueExpressionConverter(
             defaultValueExpression -> "OffsetDateTime.parse(\"" + defaultValueExpression + "\")")
@@ -471,9 +454,6 @@ public class ClassType implements IType {
         .xmlAttributeDeserializationTemplate("%s.getNullableAttribute(%s, %s, OffsetDateTime::parse)")
         .build();
 
-    public static final ClassType ANDROID_DATE_TIME
-        = new ClassType.Builder(false).packageName("org.threeten.bp").name("OffsetDateTime").build();
-
     public static final ClassType UNIX_TIME_LONG = new ClassType.Builder(false).prototypeAsLong().build();
 
     public static final ClassType DURATION_LONG = new ClassType.Builder(false).prototypeAsLong().build();
@@ -482,22 +462,11 @@ public class ClassType implements IType {
 
     public static final ClassType HTTP_PIPELINE = getClassTypeBuilder(HttpPipeline.class).build();
 
-    public static final ClassType ANDROID_HTTP_PIPELINE
-        = new ClassType.Builder(false).packageName("com.azure.android.core.http").name("HttpPipeline").build();
-
     public static final ClassType REST_PROXY = getClassTypeBuilder(RestProxy.class).build();
-
-    public static final ClassType ANDROID_REST_PROXY
-        = new ClassType.Builder(false).packageName("com.azure.android.core.rest").name("RestProxy").build();
 
     public static final ClassType SERIALIZER_ADAPTER
         = new ClassType.Builder(false).knownClass(SerializerAdapter.class).build();
     public static final ClassType JSON_SERIALIZER = getClassTypeBuilder(JsonSerializer.class).build();
-
-    public static final ClassType ANDROID_JACKSON_SERDER
-        = new ClassType.Builder(false).packageName("com.azure.android.core.serde.jackson")
-            .name("JacksonSerder")
-            .build();
 
     public static final ClassType FUNCTION = new ClassType.Builder(false).knownClass(Function.class).build();
 
@@ -526,9 +495,6 @@ public class ClassType implements IType {
                 + TemplateUtil.getContextNone())
         .build();
 
-    public static final ClassType ANDROID_CONTEXT
-        = new ClassType.Builder(false).packageName("com.azure.android.core.util").name("Context").build();
-
     public static final ClassType CLIENT_LOGGER = ClassType.getClassTypeBuilder(ClientLogger.class).build();
     public static final ClassType LOG_LEVEL = ClassType.getClassTypeBuilder(LogLevel.class).build();
 
@@ -540,18 +506,9 @@ public class ClassType implements IType {
 
     public static final ClassType HTTP_CLIENT = getClassTypeBuilder(HttpClient.class).build();
 
-    public static final ClassType ANDROID_HTTP_CLIENT
-        = new ClassType.Builder(false).packageName("com.azure.android.core.http").name("HttpClient").build();
-
     public static final ClassType HTTP_PIPELINE_POLICY = getClassTypeBuilder(HttpPipelinePolicy.class).build();
 
-    public static final ClassType ANDROID_HTTP_PIPELINE_POLICY
-        = new ClassType.Builder(false).packageName("com.azure.android.core.http").name("HttpPipelinePolicy").build();
-
     public static final ClassType HTTP_LOG_OPTIONS = getClassTypeBuilder(HttpLogOptions.class).build();
-
-    public static final ClassType ANDROID_HTTP_LOG_OPTIONS
-        = new ClassType.Builder(false).packageName("com.azure.android.core.http.policy").name("HttpLogOptions").build();
 
     public static final ClassType CONFIGURATION = getClassTypeBuilder(Configuration.class).build();
 
@@ -575,9 +532,6 @@ public class ClassType implements IType {
         = new ClassType.Builder(false).packageName("io.clientcore.core.http.pipeline")
             .name("HttpRedirectOptions")
             .build();
-
-    public static final ClassType ANDROID_RETRY_POLICY
-        = new ClassType.Builder(false).packageName("com.azure.android.core.http.policy").name("RetryPolicy").build();
 
     public static final ClassType JSON_PATCH_DOCUMENT
         = new ClassType.Builder(false).knownClass(JsonPatchDocument.class).jsonToken("JsonToken.START_OBJECT").build();
@@ -782,7 +736,7 @@ public class ClassType implements IType {
     }
 
     public String convertToClientType(String expression) {
-        if (this == ClassType.DATE_TIME_RFC_1123 || this == ClassType.ANDROID_DATE_TIME_RFC_1123) {
+        if (this == ClassType.DATE_TIME_RFC_1123) {
             expression = expression + ".getDateTime()";
         } else if (this == ClassType.UNIX_TIME_LONG) {
             expression = "OffsetDateTime.ofInstant(Instant.ofEpochSecond(" + expression + "), ZoneOffset.UTC)";
@@ -800,7 +754,7 @@ public class ClassType implements IType {
     }
 
     public String convertFromClientType(String expression) {
-        if (this == ClassType.DATE_TIME_RFC_1123 || this == ClassType.ANDROID_DATE_TIME_RFC_1123) {
+        if (this == ClassType.DATE_TIME_RFC_1123) {
             expression = "new DateTimeRfc1123(" + expression + ")";
         } else if (this == ClassType.UNIX_TIME_LONG) {
             expression = expression + ".toEpochSecond()";

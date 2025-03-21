@@ -6,8 +6,8 @@ options:
     partial-update: true
     generate-samples: true
     generate-tests: true
-    examples-directory: "{project-root}/tsp/examples"
-    flavor: "azurev2"
+    examples-dir: "{project-root}/tsp/examples"
+    flavor: "Azure"
     dev-options:
       generate-code-model: true
       loglevel: info

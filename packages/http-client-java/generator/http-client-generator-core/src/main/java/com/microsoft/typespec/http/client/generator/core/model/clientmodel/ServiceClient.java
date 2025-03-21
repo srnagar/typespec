@@ -3,6 +3,7 @@
 
 package com.microsoft.typespec.http.client.generator.core.model.clientmodel;
 
+import com.azure.core.http.policy.UserAgentPolicy;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.util.ClientModelUtil;
 import java.util.Collections;
@@ -312,7 +313,7 @@ public class ServiceClient {
                 imports.add("com.azure.resourcemanager.resources.fluentcore.AzureServiceClient");
             }
             if (!getClientMethods().isEmpty()) {
-                addRestProxyImport(imports);
+                ClassType.REST_PROXY.addImportsTo(imports, false);
             }
 
             for (Constructor constructor : getConstructors()) {
@@ -342,8 +343,11 @@ public class ServiceClient {
                 }
             }
 
-            addPipelineBuilderImport(imports);
-            addHttpPolicyImports(imports);
+            ClassType.HTTP_PIPELINE_BUILDER.addImportsTo(imports, false);
+            ClassType.RETRY_POLICY.addImportsTo(imports, false);
+            if (JavaSettings.getInstance().isBranded()) {
+                imports.add(UserAgentPolicy.class.getName());
+            }
         }
 
         if (includeBuilderImports) {

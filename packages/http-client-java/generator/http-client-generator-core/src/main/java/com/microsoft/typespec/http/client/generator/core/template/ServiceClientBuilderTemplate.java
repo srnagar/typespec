@@ -8,6 +8,7 @@ import com.azure.core.http.policy.AddDatePolicy;
 import com.azure.core.http.policy.AddHeadersFromContextPolicy;
 import com.azure.core.http.policy.AddHeadersPolicy;
 import com.azure.core.http.policy.AzureKeyCredentialPolicy;
+import com.azure.core.http.policy.BearerTokenAuthenticationPolicy;
 import com.azure.core.http.policy.HttpPolicyProviders;
 import com.azure.core.http.policy.RequestIdPolicy;
 import com.azure.core.util.CoreUtils;
@@ -90,7 +91,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
         if (settings.isUseClientLogger()) {
             ClassType.CLIENT_LOGGER.addImportsTo(imports, false);
         }
-        addServiceClientBuilderAnnotationImport(imports);
+        Annotation.SERVICE_CLIENT_BUILDER.addImportsTo(imports);
         addHttpPolicyImports(imports);
         addImportForCoreUtils(imports);
         addSerializerImport(imports, settings);
@@ -599,7 +600,6 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
             Annotation.GENERATED.addImportsTo(imports);
         } else {
             Annotation.METADATA.addImportsTo(imports);
-            Annotation.METADATA_PROPERTIES.addImportsTo(imports);
         }
     }
 
