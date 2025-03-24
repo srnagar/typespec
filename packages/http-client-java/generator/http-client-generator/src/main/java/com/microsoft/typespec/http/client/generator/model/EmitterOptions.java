@@ -36,7 +36,7 @@ public class EmitterOptions implements JsonSerializable<EmitterOptions> {
     private Boolean arm = false;
     private String modelsSubpackage;
     private DevOptions devOptions;
-    private Boolean useRestProxy;
+    private Boolean useRestProxy = false;
 
     public String getNamespace() {
         return namespace;

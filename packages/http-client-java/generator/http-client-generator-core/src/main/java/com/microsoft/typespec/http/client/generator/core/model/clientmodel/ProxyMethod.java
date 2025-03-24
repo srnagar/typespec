@@ -128,7 +128,7 @@ public class ProxyMethod {
             .specialHeaders(specialHeaders)
             .operationId(operationId)
             .isSync(isSync)
-          .implementation(implementation)
+            .implementation(implementation)
             .customHeaderIgnored(customHeaderIgnored);
     }
 
@@ -756,10 +756,10 @@ public class ProxyMethod {
             return this;
         }
 
-      public Builder implementation(String implementation) {
-        this.implementation = implementation;
-        return this;
-      }
+        public Builder implementation(String implementation) {
+            this.implementation = implementation;
+            return this;
+        }
 
         /**
          * @return an immutable ProxyMethod instance with the configurations on this builder.

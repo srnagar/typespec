@@ -265,10 +265,10 @@ public class TypeSpecPlugin extends Javagen {
             SETTINGS_MAP.put("stream-style-serialization", options.getStreamStyleSerialization());
         }
         if (options.getUseObjectForUnknown()) {
-            SETTINGS_MAP.put("use-object-for-unknown", emitterOptions.getUseObjectForUnknown());
+            SETTINGS_MAP.put("use-object-for-unknown", options.getUseObjectForUnknown());
         }
         if (options.getUseRestProxy()) {
-            SETTINGS_MAP.put("use-rest-proxy", emitterOptions.getUseRestProxy());
+            SETTINGS_MAP.put("use-rest-proxy", options.getUseRestProxy());
         }
 
         SETTINGS_MAP.put("sdk-integration", sdkIntegration);
