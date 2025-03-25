@@ -118,7 +118,7 @@ public class MethodGroupTemplate implements IJavaTemplate<MethodGroupClient, Jav
             });
     }
 
-    private void writeServiceProxyConstruction(JavaBlock constructor, MethodGroupClient methodGroupClient) {
+    protected void writeServiceProxyConstruction(JavaBlock constructor, MethodGroupClient methodGroupClient) {
         ClassType proxyType = ClassType.REST_PROXY;
         if (JavaSettings.getInstance().isBranded()) {
             constructor.line(String.format(

@@ -1688,8 +1688,6 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
             return String.format("pagingOptions -> { %s return %s(%s); }",
                 getLogExceptionExpressionForPagingOptions(clientMethod), methodName, argumentLine);
         }
-
-        return String.format("(%s) -> %s(%s)", lambdaParameters, methodName, argumentLine);
     }
 
     private String getPagingNextPageExpression(ClientMethod clientMethod, String methodName, String argumentLine,

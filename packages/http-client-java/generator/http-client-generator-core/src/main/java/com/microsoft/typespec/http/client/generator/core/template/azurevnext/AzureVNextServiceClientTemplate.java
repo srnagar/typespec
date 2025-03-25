@@ -24,7 +24,6 @@ public class AzureVNextServiceClientTemplate extends ServiceClientTemplate {
     protected void writeMaxOverloadedDataPlaneConstructorImplementation(JavaBlock constructorBlock,
         ServiceClient serviceClient, Consumer<JavaBlock> constructorParametersCodes) {
         constructorBlock.line("this.httpPipeline = httpPipeline;");
-        writeSerializerMemberInitialization(constructorBlock);
         constructorParametersCodes.accept(constructorBlock);
 
         for (ServiceClientProperty serviceClientProperty : serviceClient.getProperties()

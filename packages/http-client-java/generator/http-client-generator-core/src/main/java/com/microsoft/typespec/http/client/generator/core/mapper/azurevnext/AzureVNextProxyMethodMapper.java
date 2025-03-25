@@ -96,12 +96,7 @@ public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
             .collect(Collectors.toList());
         builder.responseExpectedStatusCodes(expectedStatusCodes);
 
-        IType responseBodyType = MapperUtils.handleResponseSchema(operation, settings);
-        // unbranded would use the model, instead of BinaryData, as return type
-        if (settings.isDataPlaneClient() && settings.isBranded()) {
-            builder.rawResponseBodyType(responseBodyType);
-            responseBodyType = SchemaUtil.removeModelFromResponse(responseBodyType, operation);
-        }
+        IType responseBodyType = MapperUtils.getExpectedResponseBodyType(operation, settings);
         builder.responseBodyType(responseBodyType);
         IType asyncRestResponseReturnType
             = getAsyncRestResponseReturnType(operation, responseBodyType, settings.isDataPlaneClient(), settings);

@@ -36,6 +36,7 @@ import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Metho
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.MethodParameter;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.MethodPollingDetails;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.MethodTransformationDetail;
+import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ModelPropertySegment;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ParameterMapping;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.PrimitiveType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ProxyMethod;
@@ -43,7 +44,6 @@ import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Proxy
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ReturnValue;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaVisibility;
 import com.microsoft.typespec.http.client.generator.core.util.ClientModelUtil;
-import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
 import com.microsoft.typespec.http.client.generator.core.util.MethodNamer;
 import com.microsoft.typespec.http.client.generator.core.util.MethodUtil;
 import com.microsoft.typespec.http.client.generator.core.util.ReturnTypeDescriptionAssembler;
@@ -322,11 +322,12 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
                     .methodPageDetails(null);
 
                 if (isPageable) {
-                    String pageableItemName = getPageableItemName(operation.getExtensions().getXmsPageable(),
-                        proxyMethod.getRawResponseBodyType() != null
-                            ? proxyMethod.getRawResponseBodyType()
-                            : proxyMethod.getResponseBodyType());
-                    if (pageableItemName == null) {
+                    IType responseType = proxyMethod.getRawResponseBodyType() != null
+                        ? proxyMethod.getRawResponseBodyType()
+                        : proxyMethod.getResponseBodyType();
+                    ModelPropertySegment itemPropertyReference
+                        = getPageableItem(operation.getExtensions().getXmsPageable(), responseType);
+                    if (itemPropertyReference == null) {
                         // There is no pageable item name for this operation, skip it.
                         continue;
                     }
@@ -334,19 +335,12 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
                     // If the ProxyMethod is synchronous perform a complete generation of synchronous pageable APIs.
                     if (proxyMethod.isSync()) {
                         createSyncPageableClientMethods(operation, isProtocolMethod, settings, methods, builder,
-                            returnTypeHolder, proxyMethod, parameters, pageableItemName, generateOnlyRequiredParameters,
-                            defaultOverloadType);
+                            returnTypeHolder, proxyMethod, parameters, itemPropertyReference,
+                            generateOnlyRequiredParameters, defaultOverloadType);
                     } else {
-                        // Otherwise, perform a complete generation of asynchronous pageable APIs.
-                        // Then if SyncMethodsGeneration is enabled and Sync Stack is not perform synchronous pageable
-                        // API generation based on SyncMethodsGeneration configuration.
-                        createAsyncPageableClientMethods(operation, isProtocolMethod, settings, methods, builder,
-                            returnTypeHolder, proxyMethod, parameters, pageableItemName, generateOnlyRequiredParameters,
-                            defaultOverloadType);
-
                         if (settings.isGenerateSyncMethods() && !settings.isSyncStackEnabled()) {
                             createSyncPageableClientMethods(operation, isProtocolMethod, settings, methods, builder,
-                                returnTypeHolder, proxyMethod, parameters, pageableItemName,
+                                returnTypeHolder, proxyMethod, parameters, itemPropertyReference,
                                 generateOnlyRequiredParameters, defaultOverloadType);
                         }
                     }
@@ -615,15 +609,7 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
             return returnTypeHolder;
         }
 
-        IType responseBodyType = MapperUtils.handleResponseSchema(operation, settings);
-        if (isProtocolMethod && JavaSettings.getInstance().isBranded()) {
-            responseBodyType = SchemaUtil.removeModelFromResponse(responseBodyType, operation);
-        }
-
-        returnTypeHolder.asyncRestResponseReturnType = Mappers.getProxyMethodMapper()
-            .getAsyncRestResponseReturnType(operation, responseBodyType, isProtocolMethod, settings,
-                isCustomHeaderIgnored)
-            .getClientType();
+        IType responseBodyType = MapperUtils.getExpectedResponseBodyType(operation, settings);
 
         IType restAPIMethodReturnBodyClientType = responseBodyType.getClientType();
         if (responseBodyType.equals(ClassType.INPUT_STREAM)) {
@@ -681,30 +667,10 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
         }
     }
 
-    private void createAsyncPageableClientMethods(Operation operation, boolean isProtocolMethod, JavaSettings settings,
-        List<ClientMethod> methods, ClientMethod.Builder builder, ReturnTypeHolder returnTypeHolder,
-        ProxyMethod proxyMethod, List<ClientMethodParameter> parameters, String pageableItemName,
-        boolean generateClientMethodWithOnlyRequiredParameters,
-        ClientMethodMapper.MethodOverloadType defaultOverloadType) {
-
-        ReturnValue singlePageReturnValue = createPagingAsyncSinglePageReturnValue(operation,
-            returnTypeHolder.asyncRestResponseReturnType, returnTypeHolder.syncReturnType);
-        ReturnValue nextPageReturnValue = createPagingAsyncReturnValue(operation, returnTypeHolder.asyncReturnType,
-            returnTypeHolder.syncReturnType);
-        MethodVisibilityFunction visibilityFunction = (firstPage, overloadType, includesContext) -> methodVisibility(
-            firstPage ? ClientMethodType.PagingAsyncSinglePage : ClientMethodType.PagingAsync, overloadType,
-            includesContext, isProtocolMethod);
-
-        createPageableClientMethods(operation, isProtocolMethod, settings, methods, builder, proxyMethod, parameters,
-            pageableItemName, false, singlePageReturnValue, nextPageReturnValue, visibilityFunction,
-            getContextParameter(isProtocolMethod), generateClientMethodWithOnlyRequiredParameters, defaultOverloadType);
-    }
-
     private void createSyncPageableClientMethods(Operation operation, boolean isProtocolMethod, JavaSettings settings,
         List<ClientMethod> methods, ClientMethod.Builder builder, ReturnTypeHolder returnTypeHolder,
-        ProxyMethod proxyMethod, List<ClientMethodParameter> parameters, String pageableItemName,
-        boolean generateClientMethodWithOnlyRequiredParameters,
-        ClientMethodMapper.MethodOverloadType defaultOverloadType) {
+        ProxyMethod proxyMethod, List<ClientMethodParameter> parameters, ModelPropertySegment itemPropertyReference,
+        boolean generateClientMethodWithOnlyRequiredParameters, MethodOverloadType defaultOverloadType) {
 
         ReturnValue singlePageReturnValue = createPagingSyncSinglePageReturnValue(operation,
             returnTypeHolder.syncReturnWithResponse, returnTypeHolder.syncReturnType);
@@ -714,22 +680,20 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
             includesContext, isProtocolMethod);
 
         createPageableClientMethods(operation, isProtocolMethod, settings, methods, builder, proxyMethod, parameters,
-            pageableItemName, true, singlePageReturnValue, nextPageReturnValue, visibilityFunction,
+            itemPropertyReference, true, singlePageReturnValue, nextPageReturnValue, visibilityFunction,
             getContextParameter(isProtocolMethod), generateClientMethodWithOnlyRequiredParameters, defaultOverloadType);
     }
 
     private static void createPageableClientMethods(Operation operation, boolean isProtocolMethod,
         JavaSettings settings, List<ClientMethod> methods, ClientMethod.Builder builder, ProxyMethod proxyMethod,
-        List<ClientMethodParameter> parameters, String pageableItemName, boolean isSync,
+        List<ClientMethodParameter> parameters, ModelPropertySegment itemPropertyReference, boolean isSync,
         ReturnValue singlePageReturnValue, ReturnValue nextPageReturnValue, MethodVisibilityFunction visibilityFunction,
         ClientMethodParameter contextParameter, boolean generateClientMethodWithOnlyRequiredParameters,
-        ClientMethodMapper.MethodOverloadType defaultOverloadType) {
+        MethodOverloadType defaultOverloadType) {
 
         MethodNamer methodNamer = resolveMethodNamer(proxyMethod, operation.getConvenienceApi(), isProtocolMethod);
 
         Operation nextOperation = operation.getExtensions().getXmsPageable().getNextOperation();
-        String nextLinkName = operation.getExtensions().getXmsPageable().getNextLinkName();
-        String itemName = operation.getExtensions().getXmsPageable().getItemName();
         ClientMethodType nextMethodType
             = isSync ? ClientMethodType.PagingSyncSinglePage : ClientMethodType.PagingAsyncSinglePage;
 
@@ -747,13 +711,15 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
             ? null
             : nextMethods.stream().filter(m -> m.getType() == nextMethodType).findFirst().orElse(null);
 
-        IType nextLinkType = getPageableNextLinkType(operation.getExtensions().getXmsPageable(),
-            (proxyMethod.getRawResponseBodyType() != null
-                ? proxyMethod.getRawResponseBodyType()
-                : proxyMethod.getResponseBodyType()).toString());
+        IType responseType = proxyMethod.getRawResponseBodyType() != null
+            ? proxyMethod.getRawResponseBodyType()
+            : proxyMethod.getResponseBodyType();
+        ModelPropertySegment nextLinkPropertyReference
+            = getPageableNextLink(operation.getExtensions().getXmsPageable(), responseType);
 
-        MethodPageDetails details = new MethodPageDetails(CodeNamer.getPropertyName(nextLinkName), nextLinkType,
-            pageableItemName, nextMethod, lroIntermediateType, nextLinkName, itemName);
+        MethodPageDetails details = new MethodPageDetails(itemPropertyReference, nextLinkPropertyReference, nextMethod,
+            lroIntermediateType, MethodPageDetails.ContinuationToken.fromContinuationToken(
+                operation.getExtensions().getXmsPageable().getContinuationToken(), responseType));
         builder.methodPageDetails(details);
 
         String pageMethodName
@@ -806,8 +772,8 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
 
         if (generateClientMethodWithOnlyRequiredParameters) {
             methods.add(builder.onlyRequiredParameters(true)
-                .methodVisibility(visibilityFunction.methodVisibility(false,
-                    ClientMethodMapper.MethodOverloadType.OVERLOAD_MINIMUM, false))
+                .methodVisibility(
+                    visibilityFunction.methodVisibility(false, MethodOverloadType.OVERLOAD_MINIMUM, false))
                 .build());
         }
 
@@ -822,8 +788,9 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
                 .orElse(null);
 
             if (nextMethod != null) {
-                detailsWithContext = new MethodPageDetails(CodeNamer.getPropertyName(nextLinkName), nextLinkType,
-                    pageableItemName, nextMethod, lroIntermediateType, nextLinkName, itemName);
+                detailsWithContext = new MethodPageDetails(itemPropertyReference, nextLinkPropertyReference, nextMethod,
+                    lroIntermediateType, MethodPageDetails.ContinuationToken.fromContinuationToken(
+                        operation.getExtensions().getXmsPageable().getContinuationToken(), responseType));
             }
         }
 
@@ -1486,8 +1453,8 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
 
     @FunctionalInterface
     private interface MethodVisibilityFunction {
-        JavaVisibility methodVisibility(boolean isRestResponseOrIsFirstPage,
-            ClientMethodMapper.MethodOverloadType methodOverloadType, boolean hasContextParameter);
+        JavaVisibility methodVisibility(boolean isRestResponseOrIsFirstPage, MethodOverloadType methodOverloadType,
+            boolean hasContextParameter);
     }
 
     private static void addClientMethodWithContext(List<ClientMethod> methods, ClientMethod.Builder builder,
@@ -1557,19 +1524,12 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
             .orElse(null);
     }
 
-    private static IType getPageableNextLinkType(XmsPageable xmsPageable, String clientModelName) {
-        ClientModel responseBodyModel = ClientModelUtil.getClientModel(clientModelName);
-        IType nextLinkType = responseBodyModel.getProperties()
-            .stream()
-            .filter(p -> p.getSerializedName().equals(xmsPageable.getNextLinkName()))
-            .map(ClientModelProperty::getClientType)
-            .findAny()
-            .orElse(null);
-        if (nextLinkType == null && !CoreUtils.isNullOrEmpty(responseBodyModel.getParentModelName())) {
-            // try find nextLink property in parent model
-            nextLinkType = getPageableNextLinkType(xmsPageable, responseBodyModel.getParentModelName());
-        }
-        return nextLinkType;
+    private static ModelPropertySegment getPageableItem(XmsPageable xmsPageable, IType responseBodyType) {
+        return ClientModelUtil.getModelPropertySegment(responseBodyType, xmsPageable.getItemName());
+    }
+
+    private static ModelPropertySegment getPageableNextLink(XmsPageable xmsPageable, IType responseBodyType) {
+        return ClientModelUtil.getModelPropertySegment(responseBodyType, xmsPageable.getNextLinkName());
     }
 
     private IType getPollingIntermediateType(JavaSettings.PollingDetails details, IType syncReturnType) {
