@@ -17,13 +17,12 @@ import java.util.Map;
 
 public class EmitterOptions implements JsonSerializable<EmitterOptions> {
     private String namespace;
-    private String outputDir;
     private String flavor = "generic";
     private String serviceName;
     private List<String> serviceVersions;
     private Boolean generateTests = true;
     private Boolean generateSamples = true;
-    private Boolean enableSyncStack = true;
+    private Boolean enableSyncStack;
     private Boolean streamStyleSerialization = true;
     private Boolean partialUpdate;
     private String customTypes;
@@ -33,10 +32,14 @@ public class EmitterOptions implements JsonSerializable<EmitterOptions> {
     private String packageVersion;
     private Boolean useObjectForUnknown = false;
     private Map<String, JavaSettings.PollingDetails> polling = new HashMap<>();
-    private Boolean arm = false;
     private String modelsSubpackage;
     private DevOptions devOptions;
     private Boolean useRestProxy = false;
+
+    // internal
+    private String outputDir;
+    private Boolean arm = false;
+    private String licenseHeader;
 
     public String getNamespace() {
         return namespace;
@@ -132,6 +135,10 @@ public class EmitterOptions implements JsonSerializable<EmitterOptions> {
         return packageVersion;
     }
 
+    public String getLicenseHeader() {
+        return licenseHeader;
+    }
+
     public Boolean getUseRestProxy() {
         return useRestProxy;
     }
@@ -187,6 +194,8 @@ public class EmitterOptions implements JsonSerializable<EmitterOptions> {
                 options.modelsSubpackage = emptyToNull(reader.getString());
             } else if ("package-version".equals(fieldName)) {
                 options.packageVersion = emptyToNull(reader.getString());
+            } else if ("license-header".equals(fieldName)) {
+                options.licenseHeader = emptyToNull(reader.getString());
             } else if ("dev-options".equals(fieldName)) {
                 options.devOptions = DevOptions.fromJson(reader);
             } else if ("use-rest-proxy".equals(fieldName)) {
