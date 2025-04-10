@@ -1,4 +1,4 @@
-package com.microsoft.typespec.http.client.generator.core.template.azurevnext;
+package com.microsoft.typespec.http.client.generator.core.template.clientcore;
 
 import com.azure.core.annotation.ReturnType;
 import com.azure.core.http.HttpHeaderName;
@@ -43,15 +43,14 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
+public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
+    private static final ClientCoreClientMethodTemplate INSTANCE = new ClientCoreClientMethodTemplate();
 
-    private static final AzureVNextClientMethodTemplate INSTANCE = new AzureVNextClientMethodTemplate();
-
-    private AzureVNextClientMethodTemplate() {
+    private ClientCoreClientMethodTemplate() {
 
     }
 
-    public static AzureVNextClientMethodTemplate getInstance() {
+    public static ClientCoreClientMethodTemplate getInstance() {
         return INSTANCE;
     }
 
@@ -737,10 +736,8 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
                     if (clientMethod.getParameters()
                         .stream()
                         .anyMatch(param -> param.getClientType() == ClassType.REQUEST_CONTEXT)) {
-                        function.line("RequestOptions requestOptionsForNextPage = new RequestOptions();");
                         function.line(
-                            "requestOptionsForNextPage.setContext(requestOptions != null && requestOptions.getContext() != null ? requestOptions.getContext() : "
-                                + TemplateUtil.getContextNone() + ");");
+                            "RequestContext requestContextForNextPage = requestContext != null : requestContext ? RequestContext.none()");
                     }
                 }
                 function.line("return new PagedIterable<>(");
@@ -1097,6 +1094,7 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
      */
     protected void generateLongRunningAsync(ClientMethod clientMethod, JavaType typeBlock, ProxyMethod restAPIMethod,
         JavaSettings settings) {
+        throw new UnsupportedOperationException("async methods not supported");
 
     }
 
@@ -1223,13 +1221,6 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
             .replace("{final-type}", clientMethod.getMethodPollingDetails().getFinalType().toString())
             .replace(".setServiceVersion(null)", "")
             .replace(".setEndpoint(null)", "");
-    }
-
-    protected void generateSendRequestSync(ClientMethod clientMethod, JavaType typeBlock) {
-        addServiceMethodAnnotation(typeBlock, ReturnType.SINGLE);
-        writeMethod(typeBlock, clientMethod.getMethodVisibility(), clientMethod.getDeclaration(),
-            function -> function.methodReturn(
-                "this.sendRequestAsync(httpRequest).contextWrite(c -> c.putAll(FluxUtil.toReactorContext(context).readOnly())).block()"));
     }
 
     private static String getServiceVersionValue(ClientMethod clientMethod) {

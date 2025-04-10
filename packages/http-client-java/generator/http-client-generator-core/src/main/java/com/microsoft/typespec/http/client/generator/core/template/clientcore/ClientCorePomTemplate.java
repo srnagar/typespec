@@ -1,4 +1,4 @@
-package com.microsoft.typespec.http.client.generator.core.template.azurevnext;
+package com.microsoft.typespec.http.client.generator.core.template.clientcore;
 
 import com.azure.core.util.CoreUtils;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
@@ -13,11 +13,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class AzureVNextPomTemplate extends PomTemplate {
+public class ClientCorePomTemplate extends PomTemplate {
+    private static final ClientCorePomTemplate INSTANCE = new ClientCorePomTemplate();
 
-    private static final AzureVNextPomTemplate INSTANCE = new AzureVNextPomTemplate();
+    private ClientCorePomTemplate() {
 
-    public static AzureVNextPomTemplate getInstance() {
+    }
+
+    public static ClientCorePomTemplate getInstance() {
         return INSTANCE;
     }
 

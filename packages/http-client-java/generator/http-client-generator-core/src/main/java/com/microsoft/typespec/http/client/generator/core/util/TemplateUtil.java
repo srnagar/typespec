@@ -373,7 +373,7 @@ public class TemplateUtil {
         return JavaSettings.getInstance().isBranded() ? "Context.NONE" : "Context.none()";
     }
 
-    public static String getRequestOptionsNone() {
-        return "RequestOptions.none()";
+    public static String getRequestContextNone() {
+        return "RequestContext.none()";
     }
 }

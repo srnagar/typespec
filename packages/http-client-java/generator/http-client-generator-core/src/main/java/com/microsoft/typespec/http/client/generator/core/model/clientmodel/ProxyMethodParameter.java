@@ -32,6 +32,22 @@ public class ProxyMethodParameter extends MethodParameter {
         .origin(ParameterSynthesizedOrigin.REQUEST_OPTIONS)
         .build();
 
+    public static final ProxyMethodParameter REQUEST_CONTEXT_PARAMETER = new ProxyMethodParameter.Builder()
+        .description("The options to configure the HTTP request before HTTP client sends it.")
+        .wireType(ClassType.REQUEST_CONTEXT)
+        .clientType(ClassType.REQUEST_CONTEXT)
+        .name("requestContext")
+        .requestParameterLocation(RequestParameterLocation.NONE)
+        .requestParameterName("requestContext")
+        .alreadyEncoded(true)
+        .constant(false)
+        .required(false)
+        .nullable(false)
+        .fromClient(false)
+        .parameterReference("requestContext")
+        .origin(ParameterSynthesizedOrigin.REQUEST_CONTEXT)
+        .build();
+
     public static final ProxyMethodParameter CONTEXT_PARAMETER
         = new ProxyMethodParameter.Builder().description("The context to associate with this operation.")
             .wireType(ClassType.CONTEXT)

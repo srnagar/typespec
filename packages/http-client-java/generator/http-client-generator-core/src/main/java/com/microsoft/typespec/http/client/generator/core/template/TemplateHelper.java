@@ -98,7 +98,8 @@ public final class TemplateHelper {
 
         function.line("HttpPipelineBuilder httpPipelineBuilder = new HttpPipelineBuilder();");
         function.line("List<HttpPipelinePolicy> policies = new ArrayList<>();");
-        function.line("policies.add(new UserAgentPolicy(null, clientName, " + "clientVersion));");
+        function.line(
+            "policies.add(new UserAgentPolicy(new UserAgentOptions().setSdkName(clientName).setSdkVersion(clientVersion)));");
         function.line(
             "policies.add(redirectOptions == null ? new HttpRedirectPolicy() : new HttpRedirectPolicy(redirectOptions));");
         function

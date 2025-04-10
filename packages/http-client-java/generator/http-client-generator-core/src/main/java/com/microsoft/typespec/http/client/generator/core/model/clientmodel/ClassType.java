@@ -154,8 +154,6 @@ public class ClassType implements IType {
             put(HttpRequest.class, new ClassDetails(HttpRequest.class, "io.clientcore.core.http.models.HttpRequest"));
             put(HttpResponse.class,
                 new ClassDetails(HttpResponse.class, "io.clientcore.core.http.models.HttpResponse"));
-            put(RequestOptions.class,
-                new ClassDetails(RequestOptions.class, "io.clientcore.core.http.models.RequestOptions"));
             put(BinaryData.class,
                 new ClassDetails(BinaryData.class, "io.clientcore.core.models.binarydata.BinaryData"));
             put(RetryOptions.class,
@@ -524,6 +522,8 @@ public class ClassType implements IType {
 
     public static final ClassType RETRY_POLICY = getClassTypeBuilder(RetryPolicy.class).build();
     public static final ClassType USER_AGENT_POLICY = getClassTypeBuilder(UserAgentPolicy.class).build();
+    public static final ClassType USER_AGENT_OPTIONS
+        = new Builder(false).packageName("io.clientcore.core.http.pipeline").name("UserAgentOptions").build();
     public static final ClassType REDIRECT_POLICY = getClassTypeBuilder(RedirectPolicy.class).build();
     public static final ClassType HTTP_LOGGING_POLICY = getClassTypeBuilder(HttpLoggingPolicy.class).build();
 
@@ -551,6 +551,8 @@ public class ClassType implements IType {
         .build();
 
     public static final ClassType REQUEST_OPTIONS = getClassTypeBuilder(RequestOptions.class).build();
+    public static final ClassType REQUEST_CONTEXT
+        = new Builder(false).packageName("io.clientcore.core.http.models").name("RequestContext").build();
     public static final ClassType PROXY_OPTIONS = getClassTypeBuilder(ProxyOptions.class).build();
     public static final ClassType CLIENT_OPTIONS = getClassTypeBuilder(ClientOptions.class).build();
     public static final ClassType HTTP_REQUEST = getClassTypeBuilder(HttpRequest.class).build();

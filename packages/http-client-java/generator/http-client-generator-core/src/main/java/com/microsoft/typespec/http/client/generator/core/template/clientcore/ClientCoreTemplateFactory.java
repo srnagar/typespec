@@ -1,4 +1,4 @@
-package com.microsoft.typespec.http.client.generator.core.template.azurevnext;
+package com.microsoft.typespec.http.client.generator.core.template.clientcore;
 
 import com.microsoft.typespec.http.client.generator.core.template.ClientMethodTemplate;
 import com.microsoft.typespec.http.client.generator.core.template.ConvenienceSyncMethodTemplate;
@@ -11,50 +11,49 @@ import com.microsoft.typespec.http.client.generator.core.template.ServiceClientB
 import com.microsoft.typespec.http.client.generator.core.template.ServiceClientInterfaceTemplate;
 import com.microsoft.typespec.http.client.generator.core.template.ServiceClientTemplate;
 
-public class AzureVNextTemplateFactory extends DefaultTemplateFactory {
-
+public class ClientCoreTemplateFactory extends DefaultTemplateFactory {
     @Override
     public ServiceClientInterfaceTemplate getServiceClientInterfaceTemplate() {
-        return AzureVNextServiceClientInterfaceTemplate.getInstance();
+        return ClientCoreServiceClientInterfaceTemplate.getInstance();
     }
 
     @Override
     public ServiceClientTemplate getServiceClientTemplate() {
-        return AzureVNextServiceClientTemplate.getInstance();
+        return ClientCoreServiceClientTemplate.getInstance();
     }
 
     @Override
     public ServiceClientBuilderTemplate getServiceClientBuilderTemplate() {
-        return AzureVNextServiceClientBuilderTemplate.getInstance();
+        return ClientCoreServiceClientBuilderTemplate.getInstance();
     }
 
     @Override
     public ProxyTemplate getProxyTemplate() {
-        return AzureVNextProxyTemplate.getInstance();
+        return ClientCoreProxyTemplate.getInstance();
     }
 
     @Override
     public ClientMethodTemplate getClientMethodTemplate() {
-        return AzureVNextClientMethodTemplate.getInstance();
+        return ClientCoreClientMethodTemplate.getInstance();
     }
 
     @Override
     public ExceptionTemplate getExceptionTemplate() {
-        return AzureVNextExceptionTemplate.getInstance();
+        return ClientCoreExceptionTemplate.getInstance();
     }
 
     @Override
     public PomTemplate getPomTemplate() {
-        return AzureVNextPomTemplate.getInstance();
+        return ClientCorePomTemplate.getInstance();
     }
 
     @Override
     public MethodGroupTemplate getMethodGroupTemplate() {
-        return AzureVNextMethodGroupTemplate.getInstance();
+        return ClientCoreMethodGroupTemplate.getInstance();
     }
 
     @Override
     public ConvenienceSyncMethodTemplate getConvenienceSyncMethodTemplate() {
-        return AzureVNextConvenienceSyncMethodTemplate.getInstance();
+        return ClientCoreConvenienceSyncMethodTemplate.getInstance();
     }
 }

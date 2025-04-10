@@ -10,8 +10,10 @@ import com.azure.json.JsonToken;
 import com.azure.json.JsonWriter;
 import com.microsoft.typespec.http.client.generator.core.mapper.Mappers;
 import com.microsoft.typespec.http.client.generator.core.mapper.azurevnext.AzureVNextMapperFactory;
+import com.microsoft.typespec.http.client.generator.core.mapper.clientcore.ClientCoreMapperFactory;
 import com.microsoft.typespec.http.client.generator.core.template.Templates;
 import com.microsoft.typespec.http.client.generator.core.template.azurevnext.AzureVNextTemplateFactory;
+import com.microsoft.typespec.http.client.generator.core.template.clientcore.ClientCoreTemplateFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -188,6 +190,9 @@ public class JavaSettings {
         if (isAzureCoreV2()) {
             Mappers.setFactory(new AzureVNextMapperFactory());
             Templates.setFactory(new AzureVNextTemplateFactory());
+        } else if (!isBranded()) {
+            Mappers.setFactory(new ClientCoreMapperFactory());
+            Templates.setFactory(new ClientCoreTemplateFactory());
         }
 
         this.modelsSubpackage

@@ -1,4 +1,4 @@
-package com.microsoft.typespec.http.client.generator.core.mapper.azurevnext;
+package com.microsoft.typespec.http.client.generator.core.mapper.clientcore;
 
 import com.azure.core.http.HttpMethod;
 import com.azure.core.util.CoreUtils;
@@ -62,15 +62,14 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class AzureVNextClientMethodMapper extends ClientMethodMapper {
+public class ClientCoreClientMethodMapper extends ClientMethodMapper {
 
-    private static final AzureVNextClientMethodMapper INSTANCE = new AzureVNextClientMethodMapper();
+    private static final ClientCoreClientMethodMapper INSTANCE = new ClientCoreClientMethodMapper();
 
-    private AzureVNextClientMethodMapper() {
-
+    private ClientCoreClientMethodMapper() {
     }
 
-    public static AzureVNextClientMethodMapper getInstance() {
+    public static ClientCoreClientMethodMapper getInstance() {
         return INSTANCE;
     }
 
@@ -1368,8 +1367,7 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
         ReturnValue returnValue, MethodPageDetails details, ClientMethodParameter contextParameter) {
 
         List<ClientMethodParameter> updatedParams = new ArrayList<>(parameters);
-        if (JavaSettings.getInstance().isBranded()
-            || contextParameter.getClientType().equals(ClassType.REQUEST_CONTEXT)) {
+        if (contextParameter.getClientType().equals(ClassType.REQUEST_CONTEXT)) {
             updatedParams.add(contextParameter);
         }
 
@@ -1406,8 +1404,7 @@ public class AzureVNextClientMethodMapper extends ClientMethodMapper {
     protected static void addClientMethodWithContext(List<ClientMethod> methods, ClientMethod.Builder builder,
         List<ClientMethodParameter> parameters, ClientMethodParameter contextParameter) {
         List<ClientMethodParameter> updatedParams = new ArrayList<>(parameters);
-        if (JavaSettings.getInstance().isBranded()
-            || contextParameter.getClientType().equals(ClassType.REQUEST_CONTEXT)) {
+        if (contextParameter.getClientType().equals(ClassType.REQUEST_CONTEXT)) {
             updatedParams.add(contextParameter);
         }
 

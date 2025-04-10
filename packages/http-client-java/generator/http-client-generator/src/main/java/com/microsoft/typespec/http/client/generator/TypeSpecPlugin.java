@@ -22,6 +22,7 @@ import com.microsoft.typespec.http.client.generator.core.preprocessor.Preprocess
 import com.microsoft.typespec.http.client.generator.core.preprocessor.tranformer.Transformer;
 import com.microsoft.typespec.http.client.generator.core.util.ClientModelUtil;
 import com.microsoft.typespec.http.client.generator.mapper.TypeSpecAzureVNextMapperFactory;
+import com.microsoft.typespec.http.client.generator.mapper.TypeSpecClientCoreMapperFactory;
 import com.microsoft.typespec.http.client.generator.mapper.TypeSpecMapperFactory;
 import com.microsoft.typespec.http.client.generator.model.EmitterOptions;
 import com.microsoft.typespec.http.client.generator.util.FileUtil;
@@ -331,10 +332,12 @@ public class TypeSpecPlugin extends Javagen {
         LOGGER.info("Output folder: {}", options.getOutputDir());
         LOGGER.info("Namespace: {}", JavaSettings.getInstance().getPackage());
 
-        if (options.getFlavor() != null && options.getFlavor().equals("azurev2")) {
+        if (options.getFlavor() != null && options.getFlavor().equals("azure")) {
+            Mappers.setFactory(new TypeSpecMapperFactory());
+        } else if (options.getFlavor() != null && options.getFlavor().equals("azurev2")) {
             Mappers.setFactory(new TypeSpecAzureVNextMapperFactory());
         } else {
-            Mappers.setFactory(new TypeSpecMapperFactory());
+            Mappers.setFactory(new TypeSpecClientCoreMapperFactory());
         }
     }
 

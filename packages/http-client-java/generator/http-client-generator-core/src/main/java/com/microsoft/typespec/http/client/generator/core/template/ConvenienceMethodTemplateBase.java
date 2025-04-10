@@ -109,7 +109,7 @@ abstract class ConvenienceMethodTemplateBase {
             = findParametersForConvenienceMethod(convenienceMethod, protocolMethod);
 
         // RequestOptions
-        methodBlock.line("RequestOptions requestOptions = new RequestOptions();");
+        createEmptyRequestOptions(methodBlock);
 
         // parameter transformation
         final ParameterTransformations transformations = convenienceMethod.getParameterTransformations();
@@ -163,9 +163,11 @@ abstract class ConvenienceMethodTemplateBase {
                                     JavaSettings.getInstance())) {
                                 String variableName = writeParameterConversionExpressionWithJsonMergePatchEnabled(
                                     javaBlock, parameterType.toString(), parameter.getName(), expression);
-                                javaBlock.line("requestOptions.setBody(" + variableName + ");");
+                                javaBlock.line("requestContextBuilder.addRequestCallback(request -> { request.setBody("
+                                    + variableName + ");});");
                             } else {
-                                javaBlock.line("requestOptions.setBody(" + expression + ");");
+                                javaBlock.line("requestContextBuilder.addRequestCallback(request -> { request.setBody("
+                                    + expression + ");});");
                             }
                         };
                         if (!parameter.getClientMethodParameter().isRequired()) {
@@ -199,6 +201,10 @@ abstract class ConvenienceMethodTemplateBase {
         // write the invocation of protocol method, and related type conversion
         writeInvocationAndConversion(convenienceMethod, protocolMethod, invocationExpression, methodBlock,
             typeReferenceStaticClasses);
+    }
+
+    protected void createEmptyRequestOptions(JavaBlock methodBlock) {
+        methodBlock.line("RequestOptions requestOptions = new RequestOptions();");
     }
 
     /**
@@ -365,6 +371,7 @@ abstract class ConvenienceMethodTemplateBase {
         ClassType.HTTP_HEADER_NAME.addImportsTo(imports, false);
         ClassType.BINARY_DATA.addImportsTo(imports, false);
         ClassType.REQUEST_OPTIONS.addImportsTo(imports, false);
+        ClassType.REQUEST_CONTEXT.addImportsTo((imports), false);
         imports.add(Collectors.class.getName());
         imports.add(Objects.class.getName());
         imports.add(FluxUtil.class.getName());
@@ -596,7 +603,7 @@ abstract class ConvenienceMethodTemplateBase {
                 ClassType.STRING.defaultValueExpression(parameter.getSerializedName()), variable,
                 parameter.getProxyMethodParameter().getAlreadyEncoded());
         } else {
-            return String.format("requestOptions.addQueryParam(%1$s, %2$s);",
+            return String.format("requestContextBuilder.addQueryParam(%1$s, %2$s);",
                 ClassType.STRING.defaultValueExpression(parameter.getSerializedName()), variable);
         }
     }

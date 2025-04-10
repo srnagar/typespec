@@ -1,4 +1,4 @@
-package com.microsoft.typespec.http.client.generator.core.mapper.azurevnext;
+package com.microsoft.typespec.http.client.generator.core.mapper.clientcore;
 
 import com.azure.core.http.HttpMethod;
 import com.azure.core.util.CoreUtils;
@@ -43,15 +43,13 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 
-public class AzureVNextProxyMethodMapper extends ProxyMethodMapper {
+public class ClientCoreProxyMethodMapper extends ProxyMethodMapper {
+    private static final ClientCoreProxyMethodMapper INSTANCE = new ClientCoreProxyMethodMapper();
 
-    private static final AzureVNextProxyMethodMapper INSTANCE = new AzureVNextProxyMethodMapper();
-
-    private AzureVNextProxyMethodMapper() {
-
+    private ClientCoreProxyMethodMapper() {
     }
 
-    public static AzureVNextProxyMethodMapper getInstance() {
+    public static ClientCoreProxyMethodMapper getInstance() {
         return INSTANCE;
     }
 

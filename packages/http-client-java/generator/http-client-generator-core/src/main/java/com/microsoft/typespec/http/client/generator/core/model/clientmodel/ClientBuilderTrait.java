@@ -109,29 +109,31 @@ public class ClientBuilderTrait {
         httpTrait.setTraitMethods(httpClientBuilderTraitMethods);
 
         // pipeline
-        String pipelineMethodName = isBranded ? "pipeline" : "httpPipeline";
-        ServiceClientProperty pipelineProperty = new ServiceClientProperty(
-            "The HTTP pipeline to send requests " + "through.", ClassType.HTTP_PIPELINE, "pipeline", false,
-            JavaSettings.getInstance().isAzureOrFluent()
-                ? "new HttpPipelineBuilder().policies(new UserAgentPolicy(), new RetryPolicy()).build()"
-                : "createHttpPipeline()");
-        importPackages.add(ClassType.LOG_LEVEL.getFullName());
-        Consumer<JavaBlock> pipelineMethodImpl = function -> {
-            final String pipelineVarName = "pipeline";
-            if (JavaSettings.getInstance().isUseClientLogger()) {
-                function.ifBlock(String.format("this.%1$s != null && %1$s == null", pipelineVarName), ifBlock -> {
-                    function.line(addLogging(LogLevel.INFORMATIONAL,
-                        "HttpPipeline is being set to 'null' when it was previously configured."));
-                });
-            }
-            function.line(String.format("this.%1$s = %2$s;", pipelineVarName, pipelineVarName));
-            function.methodReturn("this");
-        };
-        ClientBuilderTraitMethod pipelineMethod = createTraitMethod(pipelineMethodName, "pipeline",
-            ClassType.HTTP_PIPELINE, pipelineProperty, "{@inheritDoc}", pipelineMethodImpl);
-        importPackages.add(ClassType.HTTP_PIPELINE.getFullName());
+        if (isBranded) {
+            String pipelineMethodName = "pipeline";
+            ServiceClientProperty pipelineProperty = new ServiceClientProperty(
+                "The HTTP pipeline to send requests " + "through.", ClassType.HTTP_PIPELINE, "pipeline", false,
+                JavaSettings.getInstance().isAzureOrFluent()
+                    ? "new HttpPipelineBuilder().policies(new UserAgentPolicy(), new RetryPolicy()).build()"
+                    : "createHttpPipeline()");
+            importPackages.add(ClassType.LOG_LEVEL.getFullName());
+            Consumer<JavaBlock> pipelineMethodImpl = function -> {
+                final String pipelineVarName = "pipeline";
+                if (JavaSettings.getInstance().isUseClientLogger()) {
+                    function.ifBlock(String.format("this.%1$s != null && %1$s == null", pipelineVarName), ifBlock -> {
+                        function.line(addLogging(LogLevel.INFORMATIONAL,
+                            "HttpPipeline is being set to 'null' when it was previously configured."));
+                    });
+                }
+                function.line(String.format("this.%1$s = %2$s;", pipelineVarName, pipelineVarName));
+                function.methodReturn("this");
+            };
+            ClientBuilderTraitMethod pipelineMethod = createTraitMethod(pipelineMethodName, "pipeline",
+                ClassType.HTTP_PIPELINE, pipelineProperty, "{@inheritDoc}", pipelineMethodImpl);
+            importPackages.add(ClassType.HTTP_PIPELINE.getFullName());
 
-        httpClientBuilderTraitMethods.add(pipelineMethod);
+            httpClientBuilderTraitMethods.add(pipelineMethod);
+        }
 
         // httpClient
         ServiceClientProperty httpClientProperty = new ServiceClientProperty(

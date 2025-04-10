@@ -297,9 +297,9 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
 
                     if (!settings.isBranded() || settings.isAzureCoreV2()) {
                         if (constructorArgs != null && !constructorArgs.isEmpty()) {
-                            function.line(String.format("%1$s client = new %2$s(%3$s%4$s);",
-                                serviceClient.getClassName(), serviceClient.getClassName(),
-                                getLocalBuildVariableName("pipeline"), constructorArgs));
+                            function
+                                .line(String.format("%1$s client = new %2$s(%3$s%4$s);", serviceClient.getClassName(),
+                                    serviceClient.getClassName(), "createHttpPipeline()", constructorArgs));
                         } else {
                             function.line(String.format("%1$s client = new %1$s(%2$s);", serviceClient.getClassName(),
                                 getLocalBuildVariableName("pipeline")));
@@ -512,6 +512,7 @@ public class ServiceClientBuilderTemplate implements IJavaTemplate<ClientBuilder
         ClassType.HTTP_PIPELINE_POLICY.addImportsTo(imports, false);
         ClassType.HTTP_LOGGING_POLICY.addImportsTo(imports, false);
         ClassType.USER_AGENT_POLICY.addImportsTo(imports, false);
+        ClassType.USER_AGENT_OPTIONS.addImportsTo(imports, false);
         imports.add(AddHeadersPolicy.class.getName());
         imports.add(RequestIdPolicy.class.getName());
         imports.add(AddHeadersFromContextPolicy.class.getName());
