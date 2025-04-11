@@ -1,7 +1,7 @@
 package versioning.added;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.models.binarydata.BinaryData;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
@@ -12,24 +12,21 @@ import java.io.IOException;
 /**
  * The ModelV1 model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class ModelV1 implements JsonSerializable<ModelV1> {
     /*
      * The prop property.
      */
-    @Metadata(generated = true)
     private final String prop;
 
     /*
      * The enumProp property.
      */
-    @Metadata(generated = true)
     private final EnumV1 enumProp;
 
     /*
      * The unionProp property.
      */
-    @Metadata(generated = true)
     private final BinaryData unionProp;
 
     /**
@@ -39,7 +36,6 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * @param enumProp the enumProp value to set.
      * @param unionProp the unionProp value to set.
      */
-    @Metadata(generated = true)
     public ModelV1(String prop, EnumV1 enumProp, BinaryData unionProp) {
         this.prop = prop;
         this.enumProp = enumProp;
@@ -51,7 +47,6 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * 
      * @return the prop value.
      */
-    @Metadata(generated = true)
     public String getProp() {
         return this.prop;
     }
@@ -61,7 +56,6 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * 
      * @return the enumProp value.
      */
-    @Metadata(generated = true)
     public EnumV1 getEnumProp() {
         return this.enumProp;
     }
@@ -71,7 +65,6 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * 
      * @return the unionProp value.
      */
-    @Metadata(generated = true)
     public BinaryData getUnionProp() {
         return this.unionProp;
     }
@@ -79,7 +72,6 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -99,7 +91,6 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ModelV1.
      */
-    @Metadata(generated = true)
     public static ModelV1 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String prop = null;

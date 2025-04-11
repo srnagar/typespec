@@ -1,7 +1,7 @@
 package serialization.encodedname.json.property;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,12 +11,11 @@ import java.io.IOException;
 /**
  * The JsonEncodedNameModel model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class JsonEncodedNameModel implements JsonSerializable<JsonEncodedNameModel> {
     /*
      * Pass in true
      */
-    @Metadata(generated = true)
     private final boolean defaultName;
 
     /**
@@ -24,7 +23,6 @@ public final class JsonEncodedNameModel implements JsonSerializable<JsonEncodedN
      * 
      * @param defaultName the defaultName value to set.
      */
-    @Metadata(generated = true)
     public JsonEncodedNameModel(boolean defaultName) {
         this.defaultName = defaultName;
     }
@@ -34,7 +32,6 @@ public final class JsonEncodedNameModel implements JsonSerializable<JsonEncodedN
      * 
      * @return the defaultName value.
      */
-    @Metadata(generated = true)
     public boolean isDefaultName() {
         return this.defaultName;
     }
@@ -42,7 +39,6 @@ public final class JsonEncodedNameModel implements JsonSerializable<JsonEncodedN
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -59,7 +55,6 @@ public final class JsonEncodedNameModel implements JsonSerializable<JsonEncodedN
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the JsonEncodedNameModel.
      */
-    @Metadata(generated = true)
     public static JsonEncodedNameModel fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             boolean defaultName = false;

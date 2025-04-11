@@ -1,7 +1,7 @@
 package type.property.optional;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * Model with float literal property.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class FloatLiteralProperty implements JsonSerializable<FloatLiteralProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private FloatLiteralPropertyProperty property;
 
     /**
      * Creates an instance of FloatLiteralProperty class.
      */
-    @Metadata(generated = true)
     public FloatLiteralProperty() {
     }
 
@@ -31,7 +29,6 @@ public final class FloatLiteralProperty implements JsonSerializable<FloatLiteral
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public FloatLiteralPropertyProperty getProperty() {
         return this.property;
     }
@@ -42,7 +39,6 @@ public final class FloatLiteralProperty implements JsonSerializable<FloatLiteral
      * @param property the property value to set.
      * @return the FloatLiteralProperty object itself.
      */
-    @Metadata(generated = true)
     public FloatLiteralProperty setProperty(FloatLiteralPropertyProperty property) {
         this.property = property;
         return this;
@@ -51,7 +47,6 @@ public final class FloatLiteralProperty implements JsonSerializable<FloatLiteral
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -67,7 +62,6 @@ public final class FloatLiteralProperty implements JsonSerializable<FloatLiteral
      * was pointing to JSON null.
      * @throws IOException If an error occurs while reading the FloatLiteralProperty.
      */
-    @Metadata(generated = true)
     public static FloatLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             FloatLiteralProperty deserializedFloatLiteralProperty = new FloatLiteralProperty();

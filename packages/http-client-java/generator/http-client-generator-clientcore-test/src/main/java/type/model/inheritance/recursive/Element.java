@@ -1,7 +1,7 @@
 package type.model.inheritance.recursive;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -12,18 +12,16 @@ import java.util.List;
 /**
  * element.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public class Element implements JsonSerializable<Element> {
     /*
      * The extension property.
      */
-    @Metadata(generated = true)
     private List<Extension> extension;
 
     /**
      * Creates an instance of Element class.
      */
-    @Metadata(generated = true)
     public Element() {
     }
 
@@ -32,7 +30,6 @@ public class Element implements JsonSerializable<Element> {
      * 
      * @return the extension value.
      */
-    @Metadata(generated = true)
     public List<Extension> getExtension() {
         return this.extension;
     }
@@ -43,7 +40,6 @@ public class Element implements JsonSerializable<Element> {
      * @param extension the extension value to set.
      * @return the Element object itself.
      */
-    @Metadata(generated = true)
     public Element setExtension(List<Extension> extension) {
         this.extension = extension;
         return this;
@@ -52,7 +48,6 @@ public class Element implements JsonSerializable<Element> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -68,7 +63,6 @@ public class Element implements JsonSerializable<Element> {
      * JSON null.
      * @throws IOException If an error occurs while reading the Element.
      */
-    @Metadata(generated = true)
     public static Element fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Element deserializedElement = new Element();

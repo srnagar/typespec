@@ -1,7 +1,7 @@
 package type.property.additionalproperties;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -14,18 +14,16 @@ import java.util.Map;
 /**
  * The model spread Record&lt;ModelForRecord[]&gt; with the different known property type.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public class DifferentSpreadModelArrayRecord implements JsonSerializable<DifferentSpreadModelArrayRecord> {
     /*
      * The knownProp property.
      */
-    @Metadata(generated = true)
     private final String knownProp;
 
     /*
      * The model spread Record<ModelForRecord[]> with the different known property type
      */
-    @Metadata(generated = true)
     private Map<String, List<ModelForRecord>> additionalProperties;
 
     /**
@@ -33,7 +31,6 @@ public class DifferentSpreadModelArrayRecord implements JsonSerializable<Differe
      * 
      * @param knownProp the knownProp value to set.
      */
-    @Metadata(generated = true)
     public DifferentSpreadModelArrayRecord(String knownProp) {
         this.knownProp = knownProp;
     }
@@ -43,7 +40,6 @@ public class DifferentSpreadModelArrayRecord implements JsonSerializable<Differe
      * 
      * @return the knownProp value.
      */
-    @Metadata(generated = true)
     public String getKnownProp() {
         return this.knownProp;
     }
@@ -54,7 +50,6 @@ public class DifferentSpreadModelArrayRecord implements JsonSerializable<Differe
      * 
      * @return the additionalProperties value.
      */
-    @Metadata(generated = true)
     public Map<String, List<ModelForRecord>> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -66,7 +61,6 @@ public class DifferentSpreadModelArrayRecord implements JsonSerializable<Differe
      * @param additionalProperties the additionalProperties value to set.
      * @return the DifferentSpreadModelArrayRecord object itself.
      */
-    @Metadata(generated = true)
     public DifferentSpreadModelArrayRecord
         setAdditionalProperties(Map<String, List<ModelForRecord>> additionalProperties) {
         this.additionalProperties = additionalProperties;
@@ -76,7 +70,6 @@ public class DifferentSpreadModelArrayRecord implements JsonSerializable<Differe
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -98,7 +91,6 @@ public class DifferentSpreadModelArrayRecord implements JsonSerializable<Differe
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DifferentSpreadModelArrayRecord.
      */
-    @Metadata(generated = true)
     public static DifferentSpreadModelArrayRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String knownProp = null;

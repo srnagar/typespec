@@ -1,7 +1,7 @@
 package payload.pageable.implementation;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -13,12 +13,11 @@ import payload.pageable.Pet;
 /**
  * The RequestQueryResponseHeaderResponse model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class RequestQueryResponseHeaderResponse implements JsonSerializable<RequestQueryResponseHeaderResponse> {
     /*
      * The pets property.
      */
-    @Metadata(generated = true)
     private final List<Pet> pets;
 
     /**
@@ -26,7 +25,6 @@ public final class RequestQueryResponseHeaderResponse implements JsonSerializabl
      * 
      * @param pets the pets value to set.
      */
-    @Metadata(generated = true)
     private RequestQueryResponseHeaderResponse(List<Pet> pets) {
         this.pets = pets;
     }
@@ -36,7 +34,6 @@ public final class RequestQueryResponseHeaderResponse implements JsonSerializabl
      * 
      * @return the pets value.
      */
-    @Metadata(generated = true)
     public List<Pet> getPets() {
         return this.pets;
     }
@@ -44,7 +41,6 @@ public final class RequestQueryResponseHeaderResponse implements JsonSerializabl
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -61,7 +57,6 @@ public final class RequestQueryResponseHeaderResponse implements JsonSerializabl
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the RequestQueryResponseHeaderResponse.
      */
-    @Metadata(generated = true)
     public static RequestQueryResponseHeaderResponse fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Pet> pets = null;

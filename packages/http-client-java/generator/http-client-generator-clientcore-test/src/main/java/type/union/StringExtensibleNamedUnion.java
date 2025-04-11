@@ -1,6 +1,5 @@
 package type.union;
 
-import io.clientcore.core.annotations.Metadata;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -26,13 +25,11 @@ public final class StringExtensibleNamedUnion
     /**
      * Static value b for StringExtensibleNamedUnion.
      */
-    @Metadata(generated = true)
     public static final StringExtensibleNamedUnion OPTIONB = fromValue("b");
 
     /**
      * Static value c for StringExtensibleNamedUnion.
      */
-    @Metadata(generated = true)
     public static final StringExtensibleNamedUnion C = fromValue("c");
 
     private final String value;
@@ -48,7 +45,6 @@ public final class StringExtensibleNamedUnion
      * @return the corresponding StringExtensibleNamedUnion.
      * @throws IllegalArgumentException if value is null.
      */
-    @Metadata(generated = true)
     public static StringExtensibleNamedUnion fromValue(String value) {
         if (value == null) {
             throw new IllegalArgumentException("'value' cannot be null.");
@@ -61,7 +57,6 @@ public final class StringExtensibleNamedUnion
      * 
      * @return Known StringExtensibleNamedUnion values.
      */
-    @Metadata(generated = true)
     public static Collection<StringExtensibleNamedUnion> values() {
         return new ArrayList<>(VALUES.values());
     }
@@ -71,7 +66,6 @@ public final class StringExtensibleNamedUnion
      * 
      * @return the value of the StringExtensibleNamedUnion instance.
      */
-    @Metadata(generated = true)
     @Override
     public String getValue() {
         return this.value;
@@ -80,7 +74,6 @@ public final class StringExtensibleNamedUnion
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         return jsonWriter.writeString(getValue());
@@ -95,7 +88,6 @@ public final class StringExtensibleNamedUnion
      * @throws IOException If an error occurs while reading the StringExtensibleNamedUnion.
      * @throws IllegalStateException If unexpected JSON token is found.
      */
-    @Metadata(generated = true)
     public static StringExtensibleNamedUnion fromJson(JsonReader jsonReader) throws IOException {
         JsonToken nextToken = jsonReader.nextToken();
         if (nextToken == JsonToken.NULL) {
@@ -108,19 +100,16 @@ public final class StringExtensibleNamedUnion
         return StringExtensibleNamedUnion.fromValue(jsonReader.getString());
     }
 
-    @Metadata(generated = true)
     @Override
     public String toString() {
         return Objects.toString(this.value);
     }
 
-    @Metadata(generated = true)
     @Override
     public boolean equals(Object obj) {
         return this == obj;
     }
 
-    @Metadata(generated = true)
     @Override
     public int hashCode() {
         return Objects.hashCode(this.value);

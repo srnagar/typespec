@@ -1,30 +1,28 @@
 package payload.multipart;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
-import io.clientcore.core.models.binarydata.BinaryData;
+import io.clientcore.core.annotations.MetadataProperties;
+import java.nio.ByteBuffer;
+import reactor.core.publisher.Flux;
 
 /**
  * The file details for the "profileImage" field.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class FileSpecificContentType {
     /*
      * The content of the file.
      */
-    @Metadata(generated = true)
-    private final BinaryData content;
+    private final Flux<ByteBuffer> content;
 
     /*
      * The filename of the file.
      */
-    @Metadata(generated = true)
     private final String filename;
 
     /*
      * The content-type of the file.
      */
-    @Metadata(generated = true)
     private final String contentType = "image/jpg";
 
     /**
@@ -33,8 +31,7 @@ public final class FileSpecificContentType {
      * @param content the content value to set.
      * @param filename the filename value to set.
      */
-    @Metadata(generated = true)
-    public FileSpecificContentType(BinaryData content, String filename) {
+    public FileSpecificContentType(Flux<ByteBuffer> content, String filename) {
         this.content = content;
         this.filename = filename;
     }
@@ -44,8 +41,7 @@ public final class FileSpecificContentType {
      * 
      * @return the content value.
      */
-    @Metadata(generated = true)
-    public BinaryData getContent() {
+    public Flux<ByteBuffer> getContent() {
         return this.content;
     }
 
@@ -54,7 +50,6 @@ public final class FileSpecificContentType {
      * 
      * @return the filename value.
      */
-    @Metadata(generated = true)
     public String getFilename() {
         return this.filename;
     }
@@ -64,7 +59,6 @@ public final class FileSpecificContentType {
      * 
      * @return the contentType value.
      */
-    @Metadata(generated = true)
     public String getContentType() {
         return this.contentType;
     }

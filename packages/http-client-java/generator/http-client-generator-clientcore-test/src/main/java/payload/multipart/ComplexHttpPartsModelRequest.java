@@ -1,42 +1,37 @@
 package payload.multipart;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import java.util.List;
 
 /**
  * The ComplexHttpPartsModelRequest model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class ComplexHttpPartsModelRequest {
     /*
      * The id property.
      */
-    @Metadata(generated = true)
     private final String id;
 
     /*
      * The address property.
      */
-    @Metadata(generated = true)
     private final Address address;
 
     /*
      * The profileImage property.
      */
-    @Metadata(generated = true)
     private final FileRequiredMetaData profileImage;
 
     /*
      * The previousAddresses property.
      */
-    @Metadata(generated = true)
     private final List<Address> previousAddresses;
 
     /*
      * The pictures property.
      */
-    @Metadata(generated = true)
     private final List<FileRequiredMetaData> pictures;
 
     /**
@@ -48,7 +43,6 @@ public final class ComplexHttpPartsModelRequest {
      * @param previousAddresses the previousAddresses value to set.
      * @param pictures the pictures value to set.
      */
-    @Metadata(generated = true)
     public ComplexHttpPartsModelRequest(String id, Address address, FileRequiredMetaData profileImage,
         List<Address> previousAddresses, List<FileRequiredMetaData> pictures) {
         this.id = id;
@@ -63,7 +57,6 @@ public final class ComplexHttpPartsModelRequest {
      * 
      * @return the id value.
      */
-    @Metadata(generated = true)
     public String getId() {
         return this.id;
     }
@@ -73,7 +66,6 @@ public final class ComplexHttpPartsModelRequest {
      * 
      * @return the address value.
      */
-    @Metadata(generated = true)
     public Address getAddress() {
         return this.address;
     }
@@ -83,7 +75,6 @@ public final class ComplexHttpPartsModelRequest {
      * 
      * @return the profileImage value.
      */
-    @Metadata(generated = true)
     public FileRequiredMetaData getProfileImage() {
         return this.profileImage;
     }
@@ -93,7 +84,6 @@ public final class ComplexHttpPartsModelRequest {
      * 
      * @return the previousAddresses value.
      */
-    @Metadata(generated = true)
     public List<Address> getPreviousAddresses() {
         return this.previousAddresses;
     }
@@ -103,7 +93,6 @@ public final class ComplexHttpPartsModelRequest {
      * 
      * @return the pictures value.
      */
-    @Metadata(generated = true)
     public List<FileRequiredMetaData> getPictures() {
         return this.pictures;
     }

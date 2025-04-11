@@ -1,7 +1,7 @@
 package specialwords.models;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,12 +11,11 @@ import java.io.IOException;
 /**
  * The Finally model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class Finally implements JsonSerializable<Finally> {
     /*
      * The name property.
      */
-    @Metadata(generated = true)
     private final String name;
 
     /**
@@ -24,7 +23,6 @@ public final class Finally implements JsonSerializable<Finally> {
      * 
      * @param name the name value to set.
      */
-    @Metadata(generated = true)
     public Finally(String name) {
         this.name = name;
     }
@@ -34,7 +32,6 @@ public final class Finally implements JsonSerializable<Finally> {
      * 
      * @return the name value.
      */
-    @Metadata(generated = true)
     public String getName() {
         return this.name;
     }
@@ -42,7 +39,6 @@ public final class Finally implements JsonSerializable<Finally> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -59,7 +55,6 @@ public final class Finally implements JsonSerializable<Finally> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Finally.
      */
-    @Metadata(generated = true)
     public static Finally fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

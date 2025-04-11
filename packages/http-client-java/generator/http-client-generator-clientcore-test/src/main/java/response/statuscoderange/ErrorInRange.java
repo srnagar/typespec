@@ -1,7 +1,7 @@
 package response.statuscoderange;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * The ErrorInRange model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class ErrorInRange implements JsonSerializable<ErrorInRange> {
     /*
      * The code property.
      */
-    @Metadata(generated = true)
     private final String code;
 
     /*
      * The message property.
      */
-    @Metadata(generated = true)
     private final String message;
 
     /**
@@ -31,7 +29,6 @@ public final class ErrorInRange implements JsonSerializable<ErrorInRange> {
      * @param code the code value to set.
      * @param message the message value to set.
      */
-    @Metadata(generated = true)
     private ErrorInRange(String code, String message) {
         this.code = code;
         this.message = message;
@@ -42,7 +39,6 @@ public final class ErrorInRange implements JsonSerializable<ErrorInRange> {
      * 
      * @return the code value.
      */
-    @Metadata(generated = true)
     public String getCode() {
         return this.code;
     }
@@ -52,7 +48,6 @@ public final class ErrorInRange implements JsonSerializable<ErrorInRange> {
      * 
      * @return the message value.
      */
-    @Metadata(generated = true)
     public String getMessage() {
         return this.message;
     }
@@ -60,7 +55,6 @@ public final class ErrorInRange implements JsonSerializable<ErrorInRange> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -78,7 +72,6 @@ public final class ErrorInRange implements JsonSerializable<ErrorInRange> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ErrorInRange.
      */
-    @Metadata(generated = true)
     public static ErrorInRange fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String code = null;

@@ -1,7 +1,7 @@
 package type.property.additionalproperties;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonToken;
 import io.clientcore.core.serialization.json.JsonWriter;
@@ -12,12 +12,11 @@ import java.util.Map;
 /**
  * The model extends from a model that spread Record&lt;float32&gt; with the different known property type.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecord {
     /*
      * The index property
      */
-    @Metadata(generated = true)
     private final double derivedProp;
 
     /**
@@ -26,7 +25,6 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
      * @param name the name value to set.
      * @param derivedProp the derivedProp value to set.
      */
-    @Metadata(generated = true)
     public DifferentSpreadFloatDerived(String name, double derivedProp) {
         super(name);
         this.derivedProp = derivedProp;
@@ -37,7 +35,6 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
      * 
      * @return the derivedProp value.
      */
-    @Metadata(generated = true)
     public double getDerivedProp() {
         return this.derivedProp;
     }
@@ -45,7 +42,6 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -68,7 +64,6 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DifferentSpreadFloatDerived.
      */
-    @Metadata(generated = true)
     public static DifferentSpreadFloatDerived fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

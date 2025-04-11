@@ -1,7 +1,7 @@
 package type.model.inheritance.nesteddiscriminator;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * This is base model for polymorphic multiple levels inheritance with a discriminator.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public class Fish implements JsonSerializable<Fish> {
     /*
      * Discriminator property for Fish.
      */
-    @Metadata(generated = true)
     private String kind = "Fish";
 
     /*
      * The age property.
      */
-    @Metadata(generated = true)
     private final int age;
 
     /**
@@ -30,7 +28,6 @@ public class Fish implements JsonSerializable<Fish> {
      * 
      * @param age the age value to set.
      */
-    @Metadata(generated = true)
     public Fish(int age) {
         this.age = age;
     }
@@ -40,7 +37,6 @@ public class Fish implements JsonSerializable<Fish> {
      * 
      * @return the kind value.
      */
-    @Metadata(generated = true)
     public String getKind() {
         return this.kind;
     }
@@ -50,7 +46,6 @@ public class Fish implements JsonSerializable<Fish> {
      * 
      * @return the age value.
      */
-    @Metadata(generated = true)
     public int getAge() {
         return this.age;
     }
@@ -58,7 +53,6 @@ public class Fish implements JsonSerializable<Fish> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -76,7 +70,6 @@ public class Fish implements JsonSerializable<Fish> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Fish.
      */
-    @Metadata(generated = true)
     public static Fish fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String discriminatorValue = null;
@@ -104,7 +97,6 @@ public class Fish implements JsonSerializable<Fish> {
         });
     }
 
-    @Metadata(generated = true)
     static Fish fromJsonKnownDiscriminator(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int age = 0;

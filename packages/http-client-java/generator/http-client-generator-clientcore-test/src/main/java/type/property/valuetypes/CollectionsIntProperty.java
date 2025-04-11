@@ -1,7 +1,7 @@
 package type.property.valuetypes;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -12,12 +12,11 @@ import java.util.List;
 /**
  * Model with collection int properties.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class CollectionsIntProperty implements JsonSerializable<CollectionsIntProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private final List<Integer> property;
 
     /**
@@ -25,7 +24,6 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
      * 
      * @param property the property value to set.
      */
-    @Metadata(generated = true)
     public CollectionsIntProperty(List<Integer> property) {
         this.property = property;
     }
@@ -35,7 +33,6 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public List<Integer> getProperty() {
         return this.property;
     }
@@ -43,7 +40,6 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -60,7 +56,6 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the CollectionsIntProperty.
      */
-    @Metadata(generated = true)
     public static CollectionsIntProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Integer> property = null;

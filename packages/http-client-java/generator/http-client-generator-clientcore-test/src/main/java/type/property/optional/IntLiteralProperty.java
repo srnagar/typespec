@@ -1,7 +1,7 @@
 package type.property.optional;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * Model with int literal property.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class IntLiteralProperty implements JsonSerializable<IntLiteralProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private IntLiteralPropertyProperty property;
 
     /**
      * Creates an instance of IntLiteralProperty class.
      */
-    @Metadata(generated = true)
     public IntLiteralProperty() {
     }
 
@@ -31,7 +29,6 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public IntLiteralPropertyProperty getProperty() {
         return this.property;
     }
@@ -42,7 +39,6 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
      * @param property the property value to set.
      * @return the IntLiteralProperty object itself.
      */
-    @Metadata(generated = true)
     public IntLiteralProperty setProperty(IntLiteralPropertyProperty property) {
         this.property = property;
         return this;
@@ -51,7 +47,6 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -67,7 +62,6 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
      * pointing to JSON null.
      * @throws IOException If an error occurs while reading the IntLiteralProperty.
      */
-    @Metadata(generated = true)
     public static IntLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             IntLiteralProperty deserializedIntLiteralProperty = new IntLiteralProperty();

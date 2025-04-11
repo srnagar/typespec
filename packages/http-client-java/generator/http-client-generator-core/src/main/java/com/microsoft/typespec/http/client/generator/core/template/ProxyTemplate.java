@@ -139,7 +139,7 @@ public class ProxyTemplate implements IJavaTemplate<Proxy, JavaClass> {
                                 + " } " + returnValueWireTypeCode + ")");
                     }
 
-                    if (!settings.isDataPlaneClient()) {
+                    if (settings.isBranded()) {
                         if (restAPIMethod.getReturnValueWireType() != null) {
                             interfaceBlock.annotation(String.format("ReturnValueWireType(%1$s.class)",
                                 restAPIMethod.getReturnValueWireType()));

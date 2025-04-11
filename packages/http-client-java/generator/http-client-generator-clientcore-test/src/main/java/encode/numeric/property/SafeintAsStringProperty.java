@@ -1,7 +1,7 @@
 package encode.numeric.property;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -12,12 +12,11 @@ import java.util.Objects;
 /**
  * The SafeintAsStringProperty model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class SafeintAsStringProperty implements JsonSerializable<SafeintAsStringProperty> {
     /*
      * The value property.
      */
-    @Metadata(generated = true)
     private final long value;
 
     /**
@@ -25,7 +24,6 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
      * 
      * @param value the value value to set.
      */
-    @Metadata(generated = true)
     public SafeintAsStringProperty(long value) {
         this.value = value;
     }
@@ -35,7 +33,6 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
      * 
      * @return the value value.
      */
-    @Metadata(generated = true)
     public long getValue() {
         return this.value;
     }
@@ -43,7 +40,6 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -60,7 +56,6 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SafeintAsStringProperty.
      */
-    @Metadata(generated = true)
     public static SafeintAsStringProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             long value = Long.parseLong("0");

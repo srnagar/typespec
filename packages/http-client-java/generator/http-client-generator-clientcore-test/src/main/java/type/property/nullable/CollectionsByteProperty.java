@@ -1,7 +1,7 @@
 package type.property.nullable;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -15,30 +15,25 @@ import type.property.nullable.implementation.JsonMergePatchHelper;
 /**
  * Model with collection bytes properties.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class CollectionsByteProperty implements JsonSerializable<CollectionsByteProperty> {
     /*
      * Required property
      */
-    @Metadata(generated = true)
     private String requiredProperty;
 
     /*
      * Property
      */
-    @Metadata(generated = true)
     private List<byte[]> nullableProperty;
 
     /**
      * Stores updated model property, the value is property name, not serialized name.
      */
-    @Metadata(generated = true)
     private final Set<String> updatedProperties = new HashSet<>();
 
-    @Metadata(generated = true)
     private boolean jsonMergePatch;
 
-    @Metadata(generated = true)
     private void serializeAsJsonMergePatch(boolean jsonMergePatch) {
         this.jsonMergePatch = jsonMergePatch;
     }
@@ -63,7 +58,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
     /**
      * Creates an instance of CollectionsByteProperty class.
      */
-    @Metadata(generated = true)
     public CollectionsByteProperty() {
     }
 
@@ -72,7 +66,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * 
      * @return the requiredProperty value.
      */
-    @Metadata(generated = true)
     public String getRequiredProperty() {
         return this.requiredProperty;
     }
@@ -84,7 +77,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * @param requiredProperty the requiredProperty value to set.
      * @return the CollectionsByteProperty object itself.
      */
-    @Metadata(generated = true)
     public CollectionsByteProperty setRequiredProperty(String requiredProperty) {
         this.requiredProperty = requiredProperty;
         this.updatedProperties.add("requiredProperty");
@@ -96,7 +88,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * 
      * @return the nullableProperty value.
      */
-    @Metadata(generated = true)
     public List<byte[]> getNullableProperty() {
         return this.nullableProperty;
     }
@@ -108,7 +99,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * @param nullableProperty the nullableProperty value to set.
      * @return the CollectionsByteProperty object itself.
      */
-    @Metadata(generated = true)
     public CollectionsByteProperty setNullableProperty(List<byte[]> nullableProperty) {
         this.nullableProperty = nullableProperty;
         this.updatedProperties.add("nullableProperty");
@@ -118,7 +108,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         if (jsonMergePatch) {
@@ -132,7 +121,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
         }
     }
 
-    @Metadata(generated = true)
     private JsonWriter toJsonMergePatch(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
         if (updatedProperties.contains("requiredProperty")) {
@@ -161,7 +149,6 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * was pointing to JSON null.
      * @throws IOException If an error occurs while reading the CollectionsByteProperty.
      */
-    @Metadata(generated = true)
     public static CollectionsByteProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             CollectionsByteProperty deserializedCollectionsByteProperty = new CollectionsByteProperty();

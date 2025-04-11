@@ -1,7 +1,7 @@
 package encode.bytes;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -13,12 +13,11 @@ import java.util.Objects;
 /**
  * The Base64urlBytesProperty model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class Base64urlBytesProperty implements JsonSerializable<Base64urlBytesProperty> {
     /*
      * The value property.
      */
-    @Metadata(generated = true)
     private final Base64Uri value;
 
     /**
@@ -26,7 +25,6 @@ public final class Base64urlBytesProperty implements JsonSerializable<Base64urlB
      * 
      * @param value the value value to set.
      */
-    @Metadata(generated = true)
     public Base64urlBytesProperty(byte[] value) {
         if (value == null) {
             this.value = null;
@@ -40,7 +38,6 @@ public final class Base64urlBytesProperty implements JsonSerializable<Base64urlB
      * 
      * @return the value value.
      */
-    @Metadata(generated = true)
     public byte[] getValue() {
         if (this.value == null) {
             return null;
@@ -51,7 +48,6 @@ public final class Base64urlBytesProperty implements JsonSerializable<Base64urlB
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -68,7 +64,6 @@ public final class Base64urlBytesProperty implements JsonSerializable<Base64urlB
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Base64urlBytesProperty.
      */
-    @Metadata(generated = true)
     public static Base64urlBytesProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             byte[] value = null;

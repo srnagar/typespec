@@ -1,7 +1,7 @@
 package type.property.valuetypes;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,12 +11,11 @@ import java.io.IOException;
 /**
  * Model with a boolean property.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class BooleanProperty implements JsonSerializable<BooleanProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private final boolean property;
 
     /**
@@ -24,7 +23,6 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
      * 
      * @param property the property value to set.
      */
-    @Metadata(generated = true)
     public BooleanProperty(boolean property) {
         this.property = property;
     }
@@ -34,7 +32,6 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public boolean isProperty() {
         return this.property;
     }
@@ -42,7 +39,6 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -59,7 +55,6 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the BooleanProperty.
      */
-    @Metadata(generated = true)
     public static BooleanProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             boolean property = false;

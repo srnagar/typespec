@@ -1,7 +1,7 @@
 package payload.pageable.serverdrivenpagination.implementation;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -13,18 +13,16 @@ import payload.pageable.Pet;
 /**
  * The LinkResponse model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class LinkResponse implements JsonSerializable<LinkResponse> {
     /*
      * The pets property.
      */
-    @Metadata(generated = true)
     private final List<Pet> pets;
 
     /*
      * The next property.
      */
-    @Metadata(generated = true)
     private String next;
 
     /**
@@ -32,7 +30,6 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * 
      * @param pets the pets value to set.
      */
-    @Metadata(generated = true)
     private LinkResponse(List<Pet> pets) {
         this.pets = pets;
     }
@@ -42,7 +39,6 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * 
      * @return the pets value.
      */
-    @Metadata(generated = true)
     public List<Pet> getPets() {
         return this.pets;
     }
@@ -52,7 +48,6 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * 
      * @return the next value.
      */
-    @Metadata(generated = true)
     public String getNext() {
         return this.next;
     }
@@ -60,7 +55,6 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -78,7 +72,6 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the LinkResponse.
      */
-    @Metadata(generated = true)
     public static LinkResponse fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Pet> pets = null;

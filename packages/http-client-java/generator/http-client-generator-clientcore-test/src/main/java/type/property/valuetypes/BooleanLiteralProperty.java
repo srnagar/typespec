@@ -1,7 +1,7 @@
 package type.property.valuetypes;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * Model with a boolean literal property.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class BooleanLiteralProperty implements JsonSerializable<BooleanLiteralProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private final boolean property = true;
 
     /**
      * Creates an instance of BooleanLiteralProperty class.
      */
-    @Metadata(generated = true)
     public BooleanLiteralProperty() {
     }
 
@@ -31,7 +29,6 @@ public final class BooleanLiteralProperty implements JsonSerializable<BooleanLit
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public boolean isProperty() {
         return this.property;
     }
@@ -39,7 +36,6 @@ public final class BooleanLiteralProperty implements JsonSerializable<BooleanLit
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,7 +52,6 @@ public final class BooleanLiteralProperty implements JsonSerializable<BooleanLit
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the BooleanLiteralProperty.
      */
-    @Metadata(generated = true)
     public static BooleanLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BooleanLiteralProperty deserializedBooleanLiteralProperty = new BooleanLiteralProperty();

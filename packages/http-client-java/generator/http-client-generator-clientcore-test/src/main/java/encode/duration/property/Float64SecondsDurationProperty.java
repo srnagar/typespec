@@ -1,7 +1,7 @@
 package encode.duration.property;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -12,12 +12,11 @@ import java.time.Duration;
 /**
  * The Float64SecondsDurationProperty model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class Float64SecondsDurationProperty implements JsonSerializable<Float64SecondsDurationProperty> {
     /*
      * The value property.
      */
-    @Metadata(generated = true)
     private final double value;
 
     /**
@@ -25,7 +24,6 @@ public final class Float64SecondsDurationProperty implements JsonSerializable<Fl
      * 
      * @param value the value value to set.
      */
-    @Metadata(generated = true)
     public Float64SecondsDurationProperty(Duration value) {
         if (value == null) {
             this.value = 0.0;
@@ -39,7 +37,6 @@ public final class Float64SecondsDurationProperty implements JsonSerializable<Fl
      * 
      * @return the value value.
      */
-    @Metadata(generated = true)
     public Duration getValue() {
         return Duration.ofNanos((long) (this.value * 1000_000_000L));
     }
@@ -47,7 +44,6 @@ public final class Float64SecondsDurationProperty implements JsonSerializable<Fl
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -64,7 +60,6 @@ public final class Float64SecondsDurationProperty implements JsonSerializable<Fl
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Float64SecondsDurationProperty.
      */
-    @Metadata(generated = true)
     public static Float64SecondsDurationProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Duration value = null;

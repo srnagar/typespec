@@ -1,7 +1,7 @@
 package type.union;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,12 +11,11 @@ import java.io.IOException;
 /**
  * The GetResponse1 model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class GetResponse1 implements JsonSerializable<GetResponse1> {
     /*
      * The prop property.
      */
-    @Metadata(generated = true)
     private final GetResponseProp1 prop;
 
     /**
@@ -24,7 +23,6 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
      * 
      * @param prop the prop value to set.
      */
-    @Metadata(generated = true)
     private GetResponse1(GetResponseProp1 prop) {
         this.prop = prop;
     }
@@ -34,7 +32,6 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
      * 
      * @return the prop value.
      */
-    @Metadata(generated = true)
     public GetResponseProp1 getProp() {
         return this.prop;
     }
@@ -42,7 +39,6 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -59,7 +55,6 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the GetResponse1.
      */
-    @Metadata(generated = true)
     public static GetResponse1 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             GetResponseProp1 prop = null;

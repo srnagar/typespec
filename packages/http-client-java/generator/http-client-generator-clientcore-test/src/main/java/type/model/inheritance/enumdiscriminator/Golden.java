@@ -1,7 +1,7 @@
 package type.model.inheritance.enumdiscriminator;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonToken;
 import io.clientcore.core.serialization.json.JsonWriter;
@@ -10,12 +10,11 @@ import java.io.IOException;
 /**
  * Golden dog model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class Golden extends Dog {
     /*
      * discriminator property
      */
-    @Metadata(generated = true)
     private DogKind kind = DogKind.GOLDEN;
 
     /**
@@ -23,7 +22,6 @@ public final class Golden extends Dog {
      * 
      * @param weight the weight value to set.
      */
-    @Metadata(generated = true)
     public Golden(int weight) {
         super(weight);
     }
@@ -33,7 +31,6 @@ public final class Golden extends Dog {
      * 
      * @return the kind value.
      */
-    @Metadata(generated = true)
     @Override
     public DogKind getKind() {
         return this.kind;
@@ -42,7 +39,6 @@ public final class Golden extends Dog {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -60,7 +56,6 @@ public final class Golden extends Dog {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Golden.
      */
-    @Metadata(generated = true)
     public static Golden fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int weight = 0;

@@ -95,7 +95,7 @@ public class ClientModelUtil {
                 .findAny()
                 .map(og -> getConvenienceMethods(serviceClient::getClientMethods, og))
                 .orElse(Collections.emptyList());
-            if (!JavaSettings.getInstance().isAzureCoreV2()) {
+            if (JavaSettings.getInstance().isBranded()) {
                 builder.convenienceMethods(convenienceMethods);
             }
 
@@ -130,7 +130,7 @@ public class ClientModelUtil {
                 .findAny()
                 .map(og -> getConvenienceMethods(methodGroupClient::getClientMethods, og))
                 .orElse(Collections.emptyList());
-            if (!JavaSettings.getInstance().isAzureCoreV2()) {
+            if (JavaSettings.getInstance().isBranded()) {
                 builder.convenienceMethods(convenienceMethods);
             }
 

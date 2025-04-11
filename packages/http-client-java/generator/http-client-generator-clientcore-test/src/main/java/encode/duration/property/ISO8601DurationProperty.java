@@ -1,7 +1,7 @@
 package encode.duration.property;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -13,12 +13,11 @@ import java.util.Objects;
 /**
  * The ISO8601DurationProperty model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class ISO8601DurationProperty implements JsonSerializable<ISO8601DurationProperty> {
     /*
      * The value property.
      */
-    @Metadata(generated = true)
     private final Duration value;
 
     /**
@@ -26,7 +25,6 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
      * 
      * @param value the value value to set.
      */
-    @Metadata(generated = true)
     public ISO8601DurationProperty(Duration value) {
         this.value = value;
     }
@@ -36,7 +34,6 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
      * 
      * @return the value value.
      */
-    @Metadata(generated = true)
     public Duration getValue() {
         return this.value;
     }
@@ -44,7 +41,6 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -61,7 +57,6 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ISO8601DurationProperty.
      */
-    @Metadata(generated = true)
     public static ISO8601DurationProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Duration value = null;

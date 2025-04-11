@@ -1,18 +1,17 @@
 package payload.multipart.formdata;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import payload.multipart.ProfileImageFileDetails;
 
 /**
  * The AnonymousModelRequest model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class AnonymousModelRequest {
     /*
      * The profileImage property.
      */
-    @Metadata(generated = true)
     private final ProfileImageFileDetails profileImage;
 
     /**
@@ -20,7 +19,6 @@ public final class AnonymousModelRequest {
      * 
      * @param profileImage the profileImage value to set.
      */
-    @Metadata(generated = true)
     public AnonymousModelRequest(ProfileImageFileDetails profileImage) {
         this.profileImage = profileImage;
     }
@@ -30,7 +28,6 @@ public final class AnonymousModelRequest {
      * 
      * @return the profileImage value.
      */
-    @Metadata(generated = true)
     public ProfileImageFileDetails getProfileImage() {
         return this.profileImage;
     }

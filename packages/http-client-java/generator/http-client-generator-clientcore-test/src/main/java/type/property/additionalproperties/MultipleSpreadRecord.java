@@ -1,7 +1,7 @@
 package type.property.additionalproperties;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.models.binarydata.BinaryData;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
@@ -14,18 +14,16 @@ import java.util.Map;
 /**
  * The model spread Record&lt;string&gt; and Record&lt;float32&gt;.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class MultipleSpreadRecord implements JsonSerializable<MultipleSpreadRecord> {
     /*
      * The name property
      */
-    @Metadata(generated = true)
     private final boolean flag;
 
     /*
      * The model spread Record<string> and Record<float32>
      */
-    @Metadata(generated = true)
     private Map<String, BinaryData> additionalProperties;
 
     /**
@@ -33,7 +31,6 @@ public final class MultipleSpreadRecord implements JsonSerializable<MultipleSpre
      * 
      * @param flag the flag value to set.
      */
-    @Metadata(generated = true)
     public MultipleSpreadRecord(boolean flag) {
         this.flag = flag;
     }
@@ -43,7 +40,6 @@ public final class MultipleSpreadRecord implements JsonSerializable<MultipleSpre
      * 
      * @return the flag value.
      */
-    @Metadata(generated = true)
     public boolean isFlag() {
         return this.flag;
     }
@@ -53,7 +49,6 @@ public final class MultipleSpreadRecord implements JsonSerializable<MultipleSpre
      * 
      * @return the additionalProperties value.
      */
-    @Metadata(generated = true)
     public Map<String, BinaryData> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -64,7 +59,6 @@ public final class MultipleSpreadRecord implements JsonSerializable<MultipleSpre
      * @param additionalProperties the additionalProperties value to set.
      * @return the MultipleSpreadRecord object itself.
      */
-    @Metadata(generated = true)
     public MultipleSpreadRecord setAdditionalProperties(Map<String, BinaryData> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -73,7 +67,6 @@ public final class MultipleSpreadRecord implements JsonSerializable<MultipleSpre
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -100,7 +93,6 @@ public final class MultipleSpreadRecord implements JsonSerializable<MultipleSpre
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the MultipleSpreadRecord.
      */
-    @Metadata(generated = true)
     public static MultipleSpreadRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             boolean flag = false;

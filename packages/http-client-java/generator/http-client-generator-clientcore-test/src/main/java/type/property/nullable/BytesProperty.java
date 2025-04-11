@@ -1,7 +1,7 @@
 package type.property.nullable;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -14,30 +14,25 @@ import type.property.nullable.implementation.JsonMergePatchHelper;
 /**
  * Template type for testing models with nullable property. Pass in the type of the property you are looking for.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class BytesProperty implements JsonSerializable<BytesProperty> {
     /*
      * Required property
      */
-    @Metadata(generated = true)
     private String requiredProperty;
 
     /*
      * Property
      */
-    @Metadata(generated = true)
     private byte[] nullableProperty;
 
     /**
      * Stores updated model property, the value is property name, not serialized name.
      */
-    @Metadata(generated = true)
     private final Set<String> updatedProperties = new HashSet<>();
 
-    @Metadata(generated = true)
     private boolean jsonMergePatch;
 
-    @Metadata(generated = true)
     private void serializeAsJsonMergePatch(boolean jsonMergePatch) {
         this.jsonMergePatch = jsonMergePatch;
     }
@@ -60,7 +55,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
     /**
      * Creates an instance of BytesProperty class.
      */
-    @Metadata(generated = true)
     public BytesProperty() {
     }
 
@@ -69,7 +63,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * 
      * @return the requiredProperty value.
      */
-    @Metadata(generated = true)
     public String getRequiredProperty() {
         return this.requiredProperty;
     }
@@ -81,7 +74,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * @param requiredProperty the requiredProperty value to set.
      * @return the BytesProperty object itself.
      */
-    @Metadata(generated = true)
     public BytesProperty setRequiredProperty(String requiredProperty) {
         this.requiredProperty = requiredProperty;
         this.updatedProperties.add("requiredProperty");
@@ -93,7 +85,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * 
      * @return the nullableProperty value.
      */
-    @Metadata(generated = true)
     public byte[] getNullableProperty() {
         return this.nullableProperty;
     }
@@ -105,7 +96,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * @param nullableProperty the nullableProperty value to set.
      * @return the BytesProperty object itself.
      */
-    @Metadata(generated = true)
     public BytesProperty setNullableProperty(byte[] nullableProperty) {
         this.nullableProperty = nullableProperty;
         this.updatedProperties.add("nullableProperty");
@@ -115,7 +105,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         if (jsonMergePatch) {
@@ -128,7 +117,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
         }
     }
 
-    @Metadata(generated = true)
     private JsonWriter toJsonMergePatch(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
         if (updatedProperties.contains("requiredProperty")) {
@@ -156,7 +144,6 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * pointing to JSON null.
      * @throws IOException If an error occurs while reading the BytesProperty.
      */
-    @Metadata(generated = true)
     public static BytesProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BytesProperty deserializedBytesProperty = new BytesProperty();

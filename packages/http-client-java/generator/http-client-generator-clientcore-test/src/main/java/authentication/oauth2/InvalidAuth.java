@@ -1,7 +1,7 @@
 package authentication.oauth2;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,12 +11,11 @@ import java.io.IOException;
 /**
  * The InvalidAuth model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
     /*
      * The error property.
      */
-    @Metadata(generated = true)
     private final String error;
 
     /**
@@ -24,7 +23,6 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
      * 
      * @param error the error value to set.
      */
-    @Metadata(generated = true)
     private InvalidAuth(String error) {
         this.error = error;
     }
@@ -34,7 +32,6 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
      * 
      * @return the error value.
      */
-    @Metadata(generated = true)
     public String getError() {
         return this.error;
     }
@@ -42,7 +39,6 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -59,7 +55,6 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the InvalidAuth.
      */
-    @Metadata(generated = true)
     public static InvalidAuth fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String error = null;

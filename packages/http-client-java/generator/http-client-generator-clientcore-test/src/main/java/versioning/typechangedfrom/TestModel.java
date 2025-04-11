@@ -1,7 +1,7 @@
 package versioning.typechangedfrom;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * The TestModel model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class TestModel implements JsonSerializable<TestModel> {
     /*
      * The prop property.
      */
-    @Metadata(generated = true)
     private final String prop;
 
     /*
      * The changedProp property.
      */
-    @Metadata(generated = true)
     private final String changedProp;
 
     /**
@@ -31,7 +29,6 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * @param prop the prop value to set.
      * @param changedProp the changedProp value to set.
      */
-    @Metadata(generated = true)
     public TestModel(String prop, String changedProp) {
         this.prop = prop;
         this.changedProp = changedProp;
@@ -42,7 +39,6 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * 
      * @return the prop value.
      */
-    @Metadata(generated = true)
     public String getProp() {
         return this.prop;
     }
@@ -52,7 +48,6 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * 
      * @return the changedProp value.
      */
-    @Metadata(generated = true)
     public String getChangedProp() {
         return this.changedProp;
     }
@@ -60,7 +55,6 @@ public final class TestModel implements JsonSerializable<TestModel> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -78,7 +72,6 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the TestModel.
      */
-    @Metadata(generated = true)
     public static TestModel fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String prop = null;

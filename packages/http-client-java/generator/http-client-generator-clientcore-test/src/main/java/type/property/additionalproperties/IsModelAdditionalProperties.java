@@ -1,7 +1,7 @@
 package type.property.additionalproperties;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -13,18 +13,16 @@ import java.util.Map;
 /**
  * The model is from Record&lt;ModelForRecord&gt; type.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class IsModelAdditionalProperties implements JsonSerializable<IsModelAdditionalProperties> {
     /*
      * The knownProp property.
      */
-    @Metadata(generated = true)
     private final ModelForRecord knownProp;
 
     /*
      * The model is from Record<ModelForRecord> type.
      */
-    @Metadata(generated = true)
     private Map<String, ModelForRecord> additionalProperties;
 
     /**
@@ -32,7 +30,6 @@ public final class IsModelAdditionalProperties implements JsonSerializable<IsMod
      * 
      * @param knownProp the knownProp value to set.
      */
-    @Metadata(generated = true)
     public IsModelAdditionalProperties(ModelForRecord knownProp) {
         this.knownProp = knownProp;
     }
@@ -42,7 +39,6 @@ public final class IsModelAdditionalProperties implements JsonSerializable<IsMod
      * 
      * @return the knownProp value.
      */
-    @Metadata(generated = true)
     public ModelForRecord getKnownProp() {
         return this.knownProp;
     }
@@ -52,7 +48,6 @@ public final class IsModelAdditionalProperties implements JsonSerializable<IsMod
      * 
      * @return the additionalProperties value.
      */
-    @Metadata(generated = true)
     public Map<String, ModelForRecord> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -63,7 +58,6 @@ public final class IsModelAdditionalProperties implements JsonSerializable<IsMod
      * @param additionalProperties the additionalProperties value to set.
      * @return the IsModelAdditionalProperties object itself.
      */
-    @Metadata(generated = true)
     public IsModelAdditionalProperties setAdditionalProperties(Map<String, ModelForRecord> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -72,7 +66,6 @@ public final class IsModelAdditionalProperties implements JsonSerializable<IsMod
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -94,7 +87,6 @@ public final class IsModelAdditionalProperties implements JsonSerializable<IsMod
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IsModelAdditionalProperties.
      */
-    @Metadata(generated = true)
     public static IsModelAdditionalProperties fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             ModelForRecord knownProp = null;

@@ -301,6 +301,7 @@ public class TypeSpecPlugin extends Javagen {
         }
 
         if (options.getFlavor() != null && !"azure".equalsIgnoreCase(options.getFlavor())) {
+            SETTINGS_MAP.put("data-plane", false);
             SETTINGS_MAP.put("sdk-integration", false);
 
             SETTINGS_MAP.put("sync-methods", "sync-only");
@@ -318,6 +319,7 @@ public class TypeSpecPlugin extends Javagen {
         }
 
         if (options.getFlavor() != null && "azurev2".equalsIgnoreCase(options.getFlavor())) {
+            SETTINGS_MAP.put("data-plane", false);
             SETTINGS_MAP.put("sdk-integration", false);
             SETTINGS_MAP.put("license-header", "MICROSOFT_MIT_SMALL_TYPESPEC");
             SETTINGS_MAP.put("use-default-http-status-code-to-exception-type-mapping", false);

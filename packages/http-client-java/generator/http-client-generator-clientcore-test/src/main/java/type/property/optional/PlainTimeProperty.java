@@ -1,7 +1,7 @@
 package type.property.optional;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * Model with a plainTime property.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class PlainTimeProperty implements JsonSerializable<PlainTimeProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private String property;
 
     /**
      * Creates an instance of PlainTimeProperty class.
      */
-    @Metadata(generated = true)
     public PlainTimeProperty() {
     }
 
@@ -31,7 +29,6 @@ public final class PlainTimeProperty implements JsonSerializable<PlainTimeProper
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public String getProperty() {
         return this.property;
     }
@@ -42,7 +39,6 @@ public final class PlainTimeProperty implements JsonSerializable<PlainTimeProper
      * @param property the property value to set.
      * @return the PlainTimeProperty object itself.
      */
-    @Metadata(generated = true)
     public PlainTimeProperty setProperty(String property) {
         this.property = property;
         return this;
@@ -51,7 +47,6 @@ public final class PlainTimeProperty implements JsonSerializable<PlainTimeProper
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -67,7 +62,6 @@ public final class PlainTimeProperty implements JsonSerializable<PlainTimeProper
      * pointing to JSON null.
      * @throws IOException If an error occurs while reading the PlainTimeProperty.
      */
-    @Metadata(generated = true)
     public static PlainTimeProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             PlainTimeProperty deserializedPlainTimeProperty = new PlainTimeProperty();

@@ -1,7 +1,7 @@
 package type.property.additionalproperties;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.models.binarydata.BinaryData;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -13,18 +13,16 @@ import java.util.Map;
 /**
  * The model extends from a type that is Record&lt;unknown&gt; type.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditionalProperties {
     /*
      * The index property
      */
-    @Metadata(generated = true)
     private final int index;
 
     /*
      * The age property
      */
-    @Metadata(generated = true)
     private Double age;
 
     /**
@@ -33,7 +31,6 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * @param name the name value to set.
      * @param index the index value to set.
      */
-    @Metadata(generated = true)
     public IsUnknownAdditionalPropertiesDerived(String name, int index) {
         super(name);
         this.index = index;
@@ -44,7 +41,6 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * 
      * @return the index value.
      */
-    @Metadata(generated = true)
     public int getIndex() {
         return this.index;
     }
@@ -54,7 +50,6 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * 
      * @return the age value.
      */
-    @Metadata(generated = true)
     public Double getAge() {
         return this.age;
     }
@@ -65,7 +60,6 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * @param age the age value to set.
      * @return the IsUnknownAdditionalPropertiesDerived object itself.
      */
-    @Metadata(generated = true)
     public IsUnknownAdditionalPropertiesDerived setAge(Double age) {
         this.age = age;
         return this;
@@ -74,7 +68,6 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -103,7 +96,6 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IsUnknownAdditionalPropertiesDerived.
      */
-    @Metadata(generated = true)
     public static IsUnknownAdditionalPropertiesDerived fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

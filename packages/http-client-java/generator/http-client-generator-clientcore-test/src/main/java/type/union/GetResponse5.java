@@ -1,7 +1,7 @@
 package type.union;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.models.binarydata.BinaryData;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
@@ -12,12 +12,11 @@ import java.io.IOException;
 /**
  * The GetResponse5 model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class GetResponse5 implements JsonSerializable<GetResponse5> {
     /*
      * The prop property.
      */
-    @Metadata(generated = true)
     private final BinaryData prop;
 
     /**
@@ -25,7 +24,6 @@ public final class GetResponse5 implements JsonSerializable<GetResponse5> {
      * 
      * @param prop the prop value to set.
      */
-    @Metadata(generated = true)
     private GetResponse5(BinaryData prop) {
         this.prop = prop;
     }
@@ -35,7 +33,6 @@ public final class GetResponse5 implements JsonSerializable<GetResponse5> {
      * 
      * @return the prop value.
      */
-    @Metadata(generated = true)
     public BinaryData getProp() {
         return this.prop;
     }
@@ -43,7 +40,6 @@ public final class GetResponse5 implements JsonSerializable<GetResponse5> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -61,7 +57,6 @@ public final class GetResponse5 implements JsonSerializable<GetResponse5> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the GetResponse5.
      */
-    @Metadata(generated = true)
     public static GetResponse5 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BinaryData prop = null;

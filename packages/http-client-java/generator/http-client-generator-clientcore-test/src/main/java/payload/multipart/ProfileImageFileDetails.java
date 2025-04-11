@@ -1,30 +1,28 @@
 package payload.multipart;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
-import io.clientcore.core.models.binarydata.BinaryData;
+import io.clientcore.core.annotations.MetadataProperties;
+import java.nio.ByteBuffer;
+import reactor.core.publisher.Flux;
 
 /**
  * The file details for the "profileImage" field.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class ProfileImageFileDetails {
     /*
      * The content of the file.
      */
-    @Metadata(generated = true)
-    private final BinaryData content;
+    private final Flux<ByteBuffer> content;
 
     /*
      * The filename of the file.
      */
-    @Metadata(generated = true)
     private String filename;
 
     /*
      * The content-type of the file.
      */
-    @Metadata(generated = true)
     private String contentType = "application/octet-stream";
 
     /**
@@ -32,8 +30,7 @@ public final class ProfileImageFileDetails {
      * 
      * @param content the content value to set.
      */
-    @Metadata(generated = true)
-    public ProfileImageFileDetails(BinaryData content) {
+    public ProfileImageFileDetails(Flux<ByteBuffer> content) {
         this.content = content;
     }
 
@@ -42,8 +39,7 @@ public final class ProfileImageFileDetails {
      * 
      * @return the content value.
      */
-    @Metadata(generated = true)
-    public BinaryData getContent() {
+    public Flux<ByteBuffer> getContent() {
         return this.content;
     }
 
@@ -52,7 +48,6 @@ public final class ProfileImageFileDetails {
      * 
      * @return the filename value.
      */
-    @Metadata(generated = true)
     public String getFilename() {
         return this.filename;
     }
@@ -63,7 +58,6 @@ public final class ProfileImageFileDetails {
      * @param filename the filename value to set.
      * @return the ProfileImageFileDetails object itself.
      */
-    @Metadata(generated = true)
     public ProfileImageFileDetails setFilename(String filename) {
         this.filename = filename;
         return this;
@@ -74,7 +68,6 @@ public final class ProfileImageFileDetails {
      * 
      * @return the contentType value.
      */
-    @Metadata(generated = true)
     public String getContentType() {
         return this.contentType;
     }
@@ -85,7 +78,6 @@ public final class ProfileImageFileDetails {
      * @param contentType the contentType value to set.
      * @return the ProfileImageFileDetails object itself.
      */
-    @Metadata(generated = true)
     public ProfileImageFileDetails setContentType(String contentType) {
         this.contentType = contentType;
         return this;

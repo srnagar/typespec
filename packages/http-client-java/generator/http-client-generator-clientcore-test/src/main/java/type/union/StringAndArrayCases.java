@@ -1,7 +1,7 @@
 package type.union;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.models.binarydata.BinaryData;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
@@ -12,18 +12,16 @@ import java.io.IOException;
 /**
  * The StringAndArrayCases model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class StringAndArrayCases implements JsonSerializable<StringAndArrayCases> {
     /*
      * This should be receive/send the string variant
      */
-    @Metadata(generated = true)
     private final BinaryData string;
 
     /*
      * This should be receive/send the array variant
      */
-    @Metadata(generated = true)
     private final BinaryData array;
 
     /**
@@ -32,7 +30,6 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * @param string the string value to set.
      * @param array the array value to set.
      */
-    @Metadata(generated = true)
     public StringAndArrayCases(BinaryData string, BinaryData array) {
         this.string = string;
         this.array = array;
@@ -43,7 +40,6 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * 
      * @return the string value.
      */
-    @Metadata(generated = true)
     public BinaryData getString() {
         return this.string;
     }
@@ -53,7 +49,6 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * 
      * @return the array value.
      */
-    @Metadata(generated = true)
     public BinaryData getArray() {
         return this.array;
     }
@@ -61,7 +56,6 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -81,7 +75,6 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the StringAndArrayCases.
      */
-    @Metadata(generated = true)
     public static StringAndArrayCases fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BinaryData string = null;

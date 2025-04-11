@@ -1,17 +1,16 @@
 package payload.multipart;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 
 /**
  * The FileWithHttpPartRequiredContentTypeRequest model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class FileWithHttpPartRequiredContentTypeRequest {
     /*
      * The profileImage property.
      */
-    @Metadata(generated = true)
     private final FileRequiredMetaData profileImage;
 
     /**
@@ -19,7 +18,6 @@ public final class FileWithHttpPartRequiredContentTypeRequest {
      * 
      * @param profileImage the profileImage value to set.
      */
-    @Metadata(generated = true)
     public FileWithHttpPartRequiredContentTypeRequest(FileRequiredMetaData profileImage) {
         this.profileImage = profileImage;
     }
@@ -29,7 +27,6 @@ public final class FileWithHttpPartRequiredContentTypeRequest {
      * 
      * @return the profileImage value.
      */
-    @Metadata(generated = true)
     public FileRequiredMetaData getProfileImage() {
         return this.profileImage;
     }

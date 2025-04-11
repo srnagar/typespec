@@ -1,7 +1,7 @@
 package type.property.valuetypes;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * Template type for testing models with specific properties. Pass in the type of the property you are looking for.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumValueProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private final ExtendedEnum property = ExtendedEnum.ENUM_VALUE2;
 
     /**
      * Creates an instance of UnionEnumValueProperty class.
      */
-    @Metadata(generated = true)
     public UnionEnumValueProperty() {
     }
 
@@ -31,7 +29,6 @@ public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumV
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public ExtendedEnum getProperty() {
         return this.property;
     }
@@ -39,7 +36,6 @@ public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumV
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,7 +52,6 @@ public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumV
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the UnionEnumValueProperty.
      */
-    @Metadata(generated = true)
     public static UnionEnumValueProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             UnionEnumValueProperty deserializedUnionEnumValueProperty = new UnionEnumValueProperty();

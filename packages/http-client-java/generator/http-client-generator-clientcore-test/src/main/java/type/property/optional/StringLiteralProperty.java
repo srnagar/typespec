@@ -1,7 +1,7 @@
 package type.property.optional;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * Model with string literal property.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class StringLiteralProperty implements JsonSerializable<StringLiteralProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private StringLiteralPropertyProperty property;
 
     /**
      * Creates an instance of StringLiteralProperty class.
      */
-    @Metadata(generated = true)
     public StringLiteralProperty() {
     }
 
@@ -31,7 +29,6 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public StringLiteralPropertyProperty getProperty() {
         return this.property;
     }
@@ -42,7 +39,6 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * @param property the property value to set.
      * @return the StringLiteralProperty object itself.
      */
-    @Metadata(generated = true)
     public StringLiteralProperty setProperty(StringLiteralPropertyProperty property) {
         this.property = property;
         return this;
@@ -51,7 +47,6 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -67,7 +62,6 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * was pointing to JSON null.
      * @throws IOException If an error occurs while reading the StringLiteralProperty.
      */
-    @Metadata(generated = true)
     public static StringLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             StringLiteralProperty deserializedStringLiteralProperty = new StringLiteralProperty();

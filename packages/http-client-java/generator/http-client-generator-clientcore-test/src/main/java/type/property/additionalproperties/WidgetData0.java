@@ -1,7 +1,7 @@
 package type.property.additionalproperties;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * The WidgetData0 model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class WidgetData0 implements JsonSerializable<WidgetData0> {
     /*
      * The kind property.
      */
-    @Metadata(generated = true)
     private final String kind = "kind0";
 
     /*
      * The fooProp property.
      */
-    @Metadata(generated = true)
     private final String fooProp;
 
     /**
@@ -30,7 +28,6 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * 
      * @param fooProp the fooProp value to set.
      */
-    @Metadata(generated = true)
     public WidgetData0(String fooProp) {
         this.fooProp = fooProp;
     }
@@ -40,7 +37,6 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * 
      * @return the kind value.
      */
-    @Metadata(generated = true)
     public String getKind() {
         return this.kind;
     }
@@ -50,7 +46,6 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * 
      * @return the fooProp value.
      */
-    @Metadata(generated = true)
     public String getFooProp() {
         return this.fooProp;
     }
@@ -58,7 +53,6 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -76,7 +70,6 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the WidgetData0.
      */
-    @Metadata(generated = true)
     public static WidgetData0 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String fooProp = null;

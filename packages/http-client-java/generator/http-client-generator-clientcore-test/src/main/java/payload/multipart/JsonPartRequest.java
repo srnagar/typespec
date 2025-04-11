@@ -1,23 +1,21 @@
 package payload.multipart;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 
 /**
  * The JsonPartRequest model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class JsonPartRequest {
     /*
      * The address property.
      */
-    @Metadata(generated = true)
     private final Address address;
 
     /*
      * The profileImage property.
      */
-    @Metadata(generated = true)
     private final ProfileImageFileDetails profileImage;
 
     /**
@@ -26,7 +24,6 @@ public final class JsonPartRequest {
      * @param address the address value to set.
      * @param profileImage the profileImage value to set.
      */
-    @Metadata(generated = true)
     public JsonPartRequest(Address address, ProfileImageFileDetails profileImage) {
         this.address = address;
         this.profileImage = profileImage;
@@ -37,7 +34,6 @@ public final class JsonPartRequest {
      * 
      * @return the address value.
      */
-    @Metadata(generated = true)
     public Address getAddress() {
         return this.address;
     }
@@ -47,7 +43,6 @@ public final class JsonPartRequest {
      * 
      * @return the profileImage value.
      */
-    @Metadata(generated = true)
     public ProfileImageFileDetails getProfileImage() {
         return this.profileImage;
     }

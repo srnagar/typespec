@@ -1,7 +1,7 @@
 package versioning.removed;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * The ModelV3 model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class ModelV3 implements JsonSerializable<ModelV3> {
     /*
      * The id property.
      */
-    @Metadata(generated = true)
     private final String id;
 
     /*
      * The enumProp property.
      */
-    @Metadata(generated = true)
     private final EnumV3 enumProp;
 
     /**
@@ -31,7 +29,6 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * @param id the id value to set.
      * @param enumProp the enumProp value to set.
      */
-    @Metadata(generated = true)
     public ModelV3(String id, EnumV3 enumProp) {
         this.id = id;
         this.enumProp = enumProp;
@@ -42,7 +39,6 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * 
      * @return the id value.
      */
-    @Metadata(generated = true)
     public String getId() {
         return this.id;
     }
@@ -52,7 +48,6 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * 
      * @return the enumProp value.
      */
-    @Metadata(generated = true)
     public EnumV3 getEnumProp() {
         return this.enumProp;
     }
@@ -60,7 +55,6 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -78,7 +72,6 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ModelV3.
      */
-    @Metadata(generated = true)
     public static ModelV3 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String id = null;

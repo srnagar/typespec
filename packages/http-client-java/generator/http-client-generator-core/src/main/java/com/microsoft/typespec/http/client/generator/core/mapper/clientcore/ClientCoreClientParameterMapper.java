@@ -1,6 +1,8 @@
 package com.microsoft.typespec.http.client.generator.core.mapper.clientcore;
 
+import com.microsoft.typespec.http.client.generator.core.extension.model.codemodel.Parameter;
 import com.microsoft.typespec.http.client.generator.core.mapper.ClientParameterMapper;
+import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClientMethodParameter;
 
 public class ClientCoreClientParameterMapper extends ClientParameterMapper {
     private static final ClientCoreClientParameterMapper INSTANCE = new ClientCoreClientParameterMapper();
@@ -11,5 +13,10 @@ public class ClientCoreClientParameterMapper extends ClientParameterMapper {
 
     public static ClientCoreClientParameterMapper getInstance() {
         return INSTANCE;
+    }
+
+    @Override
+    public ClientMethodParameter map(Parameter parameter) {
+        return map(parameter, false);
     }
 }

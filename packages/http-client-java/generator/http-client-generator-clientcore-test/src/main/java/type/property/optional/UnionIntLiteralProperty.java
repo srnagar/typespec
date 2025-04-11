@@ -1,7 +1,7 @@
 package type.property.optional;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
 import io.clientcore.core.serialization.json.JsonToken;
@@ -11,18 +11,16 @@ import java.io.IOException;
 /**
  * Model with union of int literal property.
  */
-@Metadata(conditions = { TypeConditions.FLUENT })
+@Metadata(properties = { MetadataProperties.FLUENT })
 public final class UnionIntLiteralProperty implements JsonSerializable<UnionIntLiteralProperty> {
     /*
      * Property
      */
-    @Metadata(generated = true)
     private UnionIntLiteralPropertyProperty property;
 
     /**
      * Creates an instance of UnionIntLiteralProperty class.
      */
-    @Metadata(generated = true)
     public UnionIntLiteralProperty() {
     }
 
@@ -31,7 +29,6 @@ public final class UnionIntLiteralProperty implements JsonSerializable<UnionIntL
      * 
      * @return the property value.
      */
-    @Metadata(generated = true)
     public UnionIntLiteralPropertyProperty getProperty() {
         return this.property;
     }
@@ -42,7 +39,6 @@ public final class UnionIntLiteralProperty implements JsonSerializable<UnionIntL
      * @param property the property value to set.
      * @return the UnionIntLiteralProperty object itself.
      */
-    @Metadata(generated = true)
     public UnionIntLiteralProperty setProperty(UnionIntLiteralPropertyProperty property) {
         this.property = property;
         return this;
@@ -51,7 +47,6 @@ public final class UnionIntLiteralProperty implements JsonSerializable<UnionIntL
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -67,7 +62,6 @@ public final class UnionIntLiteralProperty implements JsonSerializable<UnionIntL
      * was pointing to JSON null.
      * @throws IOException If an error occurs while reading the UnionIntLiteralProperty.
      */
-    @Metadata(generated = true)
     public static UnionIntLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             UnionIntLiteralProperty deserializedUnionIntLiteralProperty = new UnionIntLiteralProperty();

@@ -1,7 +1,7 @@
 package type.union;
 
 import io.clientcore.core.annotations.Metadata;
-import io.clientcore.core.annotations.TypeConditions;
+import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.models.binarydata.BinaryData;
 import io.clientcore.core.serialization.json.JsonReader;
 import io.clientcore.core.serialization.json.JsonSerializable;
@@ -12,30 +12,26 @@ import java.io.IOException;
 /**
  * The MixedLiteralsCases model.
  */
-@Metadata(conditions = { TypeConditions.IMMUTABLE })
+@Metadata(properties = { MetadataProperties.IMMUTABLE })
 public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsCases> {
     /*
      * This should be receive/send the "a" variant
      */
-    @Metadata(generated = true)
     private final BinaryData stringLiteral;
 
     /*
      * This should be receive/send the 2 variant
      */
-    @Metadata(generated = true)
     private final BinaryData intLiteral;
 
     /*
      * This should be receive/send the 3.3 variant
      */
-    @Metadata(generated = true)
     private final BinaryData floatLiteral;
 
     /*
      * This should be receive/send the true variant
      */
-    @Metadata(generated = true)
     private final BinaryData booleanLiteral;
 
     /**
@@ -46,7 +42,6 @@ public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsC
      * @param floatLiteral the floatLiteral value to set.
      * @param booleanLiteral the booleanLiteral value to set.
      */
-    @Metadata(generated = true)
     public MixedLiteralsCases(BinaryData stringLiteral, BinaryData intLiteral, BinaryData floatLiteral,
         BinaryData booleanLiteral) {
         this.stringLiteral = stringLiteral;
@@ -60,7 +55,6 @@ public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsC
      * 
      * @return the stringLiteral value.
      */
-    @Metadata(generated = true)
     public BinaryData getStringLiteral() {
         return this.stringLiteral;
     }
@@ -70,7 +64,6 @@ public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsC
      * 
      * @return the intLiteral value.
      */
-    @Metadata(generated = true)
     public BinaryData getIntLiteral() {
         return this.intLiteral;
     }
@@ -80,7 +73,6 @@ public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsC
      * 
      * @return the floatLiteral value.
      */
-    @Metadata(generated = true)
     public BinaryData getFloatLiteral() {
         return this.floatLiteral;
     }
@@ -90,7 +82,6 @@ public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsC
      * 
      * @return the booleanLiteral value.
      */
-    @Metadata(generated = true)
     public BinaryData getBooleanLiteral() {
         return this.booleanLiteral;
     }
@@ -98,7 +89,6 @@ public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsC
     /**
      * {@inheritDoc}
      */
-    @Metadata(generated = true)
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -122,7 +112,6 @@ public final class MixedLiteralsCases implements JsonSerializable<MixedLiteralsC
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the MixedLiteralsCases.
      */
-    @Metadata(generated = true)
     public static MixedLiteralsCases fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BinaryData stringLiteral = null;

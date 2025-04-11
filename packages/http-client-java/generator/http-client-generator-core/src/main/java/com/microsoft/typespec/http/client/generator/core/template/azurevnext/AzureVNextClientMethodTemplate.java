@@ -283,12 +283,23 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
                 String transformationOutputParameterModelCompositeTypeName
                     = transformationOutputParameterModelType.toString();
 
-                function.line("%s%s = new %s();",
+                List<String> requiredParams = transformation.getMappings()
+                    .stream()
+                    .filter(parameterMapping -> parameterMapping.getOutParameterProperty() != null
+                        && parameterMapping.getOutParameterProperty().isRequired())
+                    .map(requiredParameterMapping -> requiredParameterMapping.getInParameter().getName())
+                    .collect(Collectors.toList());
+
+                function.line("%s%s = new %s(%s);",
                     !conditionalAssignment ? transformation.getOutParameter().getClientType() + " " : "",
-                    outParameterName, transformationOutputParameterModelCompositeTypeName);
+                    outParameterName, transformationOutputParameterModelCompositeTypeName,
+                    String.join(", ", requiredParams));
             }
 
             for (ParameterMapping mapping : transformation.getMappings()) {
+                if (mapping.getOutParameterProperty() != null && mapping.getOutParameterProperty().isRequired()) {
+                    continue;
+                }
                 String inputPath;
                 if (mapping.getInParameterProperty() != null) {
                     inputPath = mapping.getInParameter().getName() + "."
@@ -379,13 +390,12 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
                 if (parameterClientType == ArrayType.BYTE_ARRAY) {
                     String expression = "null";
                     if (!alwaysNull) {
-                        String methodCall = (parameterWireType == ClassType.STRING)
-                            ? "new String(Base64.getEncoder().encode"
-                            : "new String(Base64.getUrlEncoder().encode";
-                        expression = methodCall + "(" + parameterName + "))";
+                        expression = (parameterWireType == ClassType.STRING)
+                            ? "new String(Base64.getEncoder().encode(" + parameterName + "))"
+                            : (ClassType.BASE_64_URL.getName() + ".encode(" + parameterName + ")");
                     }
 
-                    function.line("String  " + parameterWireName + " = " + expression + ";");
+                    function.line(parameterWireType + " " + parameterWireName + " = " + expression + ";");
                     addedConversion = true;
                 } else if (parameterClientType instanceof IterableType) {
                     boolean alreadyNullChecked
@@ -733,22 +743,18 @@ public class AzureVNextClientMethodTemplate extends ClientMethodTemplate {
         if (clientMethod.getMethodPageDetails().nonNullNextLink()) {
             writeMethod(typeBlock, clientMethod.getMethodVisibility(), clientMethod.getDeclaration(), function -> {
                 addOptionalVariables(function, clientMethod);
-                if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
-                    if (clientMethod.getParameters()
-                        .stream()
-                        .anyMatch(param -> param.getClientType() == ClassType.REQUEST_CONTEXT)) {
-                        function.line("RequestOptions requestOptionsForNextPage = new RequestOptions();");
-                        function.line(
-                            "requestOptionsForNextPage.setContext(requestOptions != null && requestOptions.getContext() != null ? requestOptions.getContext() : "
-                                + TemplateUtil.getContextNone() + ");");
-                    }
+                if (clientMethod.getParameters()
+                    .stream()
+                    .anyMatch(param -> param.getClientType() == ClassType.REQUEST_CONTEXT)) {
+                    function.line(
+                        "RequestContext requestContextForNextPage = requestContext != null ? requestContext : RequestContext.none();");
                 }
                 function.line("return new PagedIterable<>(");
 
                 String nextMethodArgs = clientMethod.getMethodPageDetails()
                     .getNextMethod()
                     .getArgumentList()
-                    .replace("requestOptions", "requestOptionsForNextPage");
+                    .replace("requestContext", "requestContextForNextPage");
                 String firstPageArgs = clientMethod.getArgumentList();
                 String effectiveNextMethodArgs = nextMethodArgs;
                 String effectiveFirstPageArgs = firstPageArgs;
