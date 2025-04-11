@@ -6,6 +6,7 @@ import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.annotations.ServiceClientBuilder;
 import io.clientcore.core.credentials.KeyCredential;
 import io.clientcore.core.credentials.oauth.OAuthTokenCredential;
+import io.clientcore.core.credentials.oauth.OAuthTokenRequestContext;
 import io.clientcore.core.http.client.HttpClient;
 import io.clientcore.core.http.models.ProxyOptions;
 import io.clientcore.core.http.pipeline.HttpInstrumentationOptions;
@@ -18,6 +19,7 @@ import io.clientcore.core.http.pipeline.HttpRedirectPolicy;
 import io.clientcore.core.http.pipeline.HttpRetryOptions;
 import io.clientcore.core.http.pipeline.HttpRetryPolicy;
 import io.clientcore.core.http.pipeline.KeyCredentialPolicy;
+import io.clientcore.core.http.pipeline.OAuthBearerTokenAuthenticationPolicy;
 import io.clientcore.core.traits.ConfigurationTrait;
 import io.clientcore.core.traits.EndpointTrait;
 import io.clientcore.core.traits.HttpTrait;
@@ -244,6 +246,11 @@ public final class UnionClientBuilder implements HttpTrait<UnionClientBuilder>, 
         this.pipelinePolicies.stream().forEach(p -> policies.add(p));
         if (keyCredential != null) {
             policies.add(new KeyCredentialPolicy("x-ms-api-key", keyCredential, null));
+        }
+        if (tokenCredential != null) {
+            policies.add(new OAuthBearerTokenAuthenticationPolicy(tokenCredential,
+                new OAuthTokenRequestContext().setParam("auth_flows",
+                    "[{\"type\":\"implicit\",\"authorizationUrl\":\"https://login.microsoftonline.com/common/oauth2/authorize\",\"scopes\":[{\"value\":\"https://security.microsoft.com/.default\"}]}]")));
         }
         policies.add(new HttpInstrumentationPolicy(localHttpInstrumentationOptions));
         policies.forEach(httpPipelineBuilder::addPolicy);

@@ -376,6 +376,7 @@ public class ClientBuilderTrait {
         Set<String> importPackages = new HashSet<>();
         ClassType.TOKEN_CREDENTIAL_TRAIT.addImportsTo(importPackages, false);
         ClassType.TOKEN_CREDENTIAL.addImportsTo(importPackages, false);
+        ClassType.OAUTH_TOKEN_REQUEST_CONTEXT.addImportsTo(importPackages, false);
         tokenCredentialTrait.setImportPackages(importPackages);
 
         List<ClientBuilderTraitMethod> clientBuilderTraitMethods = new ArrayList<>();

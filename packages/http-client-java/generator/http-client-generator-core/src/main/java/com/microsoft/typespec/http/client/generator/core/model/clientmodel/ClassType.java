@@ -71,6 +71,7 @@ import com.azure.xml.XmlWriter;
 import com.microsoft.typespec.http.client.generator.core.extension.model.extensionmodel.XmsExtensions;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.util.TemplateUtil;
+import io.clientcore.core.credentials.oauth.OAuthTokenRequestContext;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
@@ -198,7 +199,7 @@ public class ClassType implements IType {
                     "com.azure.v2.core.traits.TokenCredentialTrait"));
             put(BearerTokenAuthenticationPolicy.class,
                 new ClassDetails(BearerTokenAuthenticationPolicy.class,
-                    "io.clientcore.core.credentials.oauth.OAuthBearerTokenAuthenticationPolicy",
+                    "io.clientcore.core.http.pipeline.OAuthBearerTokenAuthenticationPolicy",
                     "com.azure.v2.core.http.pipeline.BearerTokenAuthenticationPolicy"));
             put(CoreUtils.class, new ClassDetails(CoreUtils.class, "io.clientcore.core.utils.CoreUtils"));
         }
@@ -438,6 +439,8 @@ public class ClassType implements IType {
     public static final ClassType OBJECT = new ClassType.Builder(false).knownClass(Object.class).build();
 
     public static final ClassType TOKEN_CREDENTIAL = getClassTypeBuilder(TokenCredential.class).build();
+    public static final ClassType OAUTH_TOKEN_REQUEST_CONTEXT
+        = new Builder().knownClass(OAuthTokenRequestContext.class).build();
 
     public static final ClassType TOKEN_CREDENTIAL_TRAIT = getClassTypeBuilder(TokenCredentialTrait.class).build();
 

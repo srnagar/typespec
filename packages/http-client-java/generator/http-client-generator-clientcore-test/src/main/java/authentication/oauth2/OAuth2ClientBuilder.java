@@ -5,6 +5,7 @@ import io.clientcore.core.annotations.Metadata;
 import io.clientcore.core.annotations.MetadataProperties;
 import io.clientcore.core.annotations.ServiceClientBuilder;
 import io.clientcore.core.credentials.oauth.OAuthTokenCredential;
+import io.clientcore.core.credentials.oauth.OAuthTokenRequestContext;
 import io.clientcore.core.http.client.HttpClient;
 import io.clientcore.core.http.models.ProxyOptions;
 import io.clientcore.core.http.pipeline.HttpInstrumentationOptions;
@@ -16,6 +17,7 @@ import io.clientcore.core.http.pipeline.HttpRedirectOptions;
 import io.clientcore.core.http.pipeline.HttpRedirectPolicy;
 import io.clientcore.core.http.pipeline.HttpRetryOptions;
 import io.clientcore.core.http.pipeline.HttpRetryPolicy;
+import io.clientcore.core.http.pipeline.OAuthBearerTokenAuthenticationPolicy;
 import io.clientcore.core.traits.ConfigurationTrait;
 import io.clientcore.core.traits.EndpointTrait;
 import io.clientcore.core.traits.HttpTrait;
@@ -223,6 +225,11 @@ public final class OAuth2ClientBuilder
         policies.add(redirectOptions == null ? new HttpRedirectPolicy() : new HttpRedirectPolicy(redirectOptions));
         policies.add(retryOptions == null ? new HttpRetryPolicy() : new HttpRetryPolicy(retryOptions));
         this.pipelinePolicies.stream().forEach(p -> policies.add(p));
+        if (tokenCredential != null) {
+            policies.add(new OAuthBearerTokenAuthenticationPolicy(tokenCredential,
+                new OAuthTokenRequestContext().setParam("auth_flows",
+                    "[{\"type\":\"implicit\",\"authorizationUrl\":\"https://login.microsoftonline.com/common/oauth2/authorize\",\"scopes\":[{\"value\":\"https://security.microsoft.com/.default\"}]}]")));
+        }
         policies.add(new HttpInstrumentationPolicy(localHttpInstrumentationOptions));
         policies.forEach(httpPipelineBuilder::addPolicy);
         return httpPipelineBuilder.httpClient(httpClient).build();
