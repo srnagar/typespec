@@ -4,6 +4,8 @@
 package com.microsoft.typespec.http.client.generator.core.template;
 
 import com.azure.core.util.CoreUtils;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.typespec.http.client.generator.core.Javagen;
 import com.microsoft.typespec.http.client.generator.core.extension.model.codemodel.Scheme;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
@@ -13,11 +15,15 @@ import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Pipel
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.SecurityInfo;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaBlock;
 import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
+import io.clientcore.core.serialization.json.JsonSerializer;
+import java.io.IOException;
 import org.slf4j.Logger;
 
 public final class TemplateHelper {
     private final static Logger LOGGER
         = new PluginLogger(Javagen.getPluginInstance(), ServiceClientBuilderTemplate.class);
+    private static final ObjectMapper OBJECT_MAPPER
+        = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
     public static String getPomProjectName(String serviceName) {
         return String.format(JavaSettings.getInstance().isBranded() ? "Microsoft Azure SDK for %s" : "SDK for %s",
@@ -77,6 +83,20 @@ public final class TemplateHelper {
                     : ClassType.STRING.defaultValueExpression(securityInfo.getHeaderValuePrefix());
                 function.line("policies.add(new KeyCredentialPolicy(\"" + securityInfo.getHeaderName()
                     + "\", keyCredential, " + prefixExpr + "));");
+            });
+        }
+        if (securityInfo.getSecurityTypes().contains(Scheme.SecuritySchemeType.OAUTH2)) {
+            function.ifBlock("tokenCredential != null", action -> {
+                JsonSerializer jsonSerializer = new JsonSerializer();
+                try {
+                    String authFlows = OBJECT_MAPPER.writeValueAsString(securityInfo.getFlows()).replace("\"", "\\\"");
+
+                    function.line(
+                        "policies.add(new OAuthBearerTokenAuthenticationPolicy(tokenCredential, new OAuthTokenRequestContext().setParam(\"auth_flows\", \""
+                            + authFlows + "\")));");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             });
         }
         function.line("policies.add(new HttpInstrumentationPolicy(%s));", localHttpInstrumentationOptionsName);

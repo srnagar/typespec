@@ -384,7 +384,6 @@ export class CodeModelBuilder {
         switch (scheme.type) {
           case "oauth2":
             {
-              // if (this.isBranded()) {
                 const oauth2Scheme = new OAuth2SecurityScheme({
                   scopes: [],
                 });
@@ -393,23 +392,8 @@ export class CodeModelBuilder {
                 );
                 (oauth2Scheme as any).flows = scheme.flows;
                 securitySchemes.push(oauth2Scheme);
-              // } else {
-              //   // there is no TokenCredential in clientcore, hence use Bearer Authentication directly
-              //   reportDiagnostic(this.program, {
-              //     code: "auth-scheme-not-supported",
-              //     messageId: "oauth2Unbranded",
-              //     target: serviceNamespace,
-              //   });
-
-              //   const keyScheme = new KeySecurityScheme({
-              //     name: "authorization",
-              //   });
-              //   (keyScheme as any).prefix = "Bearer";
-              //   securitySchemes.push(keyScheme);
-              // }
             }
             break;
-
           case "apiKey":
             {
               if (scheme.in === "header") {
