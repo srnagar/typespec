@@ -1,12 +1,11 @@
 package com.microsoft.typespec.http.client.generator.core.template.clientcore;
 
-import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
-import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ClassType;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.MethodGroupClient;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ServiceClient;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ServiceClientProperty;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaBlock;
 import com.microsoft.typespec.http.client.generator.core.template.ServiceClientTemplate;
+
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -42,13 +41,8 @@ public class ClientCoreServiceClientTemplate extends ServiceClientTemplate {
         }
 
         if (serviceClient.getProxy() != null) {
-            if (JavaSettings.getInstance().useRestProxy()) {
-                constructorBlock.line(String.format("this.service = %1$s.create(%2$s.class, this.httpPipeline);",
-                    ClassType.REST_PROXY.getName(), serviceClient.getProxy().getName()));
-            } else {
-                constructorBlock.line("this.service = %s.getNewInstance(this.httpPipeline);",
-                    serviceClient.getProxy().getName());
-            }
+            constructorBlock.line("this.service = %s.getNewInstance(this.httpPipeline);",
+                serviceClient.getProxy().getName());
         }
     }
 }

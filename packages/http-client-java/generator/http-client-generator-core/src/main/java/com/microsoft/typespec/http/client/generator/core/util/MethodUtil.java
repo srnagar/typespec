@@ -324,7 +324,7 @@ public class MethodUtil {
      * @param parameter the parameter
      * @return whether the parameter is "maxpagesize".
      */
-    public static boolean isMaxPageSizeParameter(Parameter parameter) {
+    private static boolean isMaxPageSizeParameter(Parameter parameter) {
         return parameter.getProtocol() != null && parameter.getProtocol().getHttp() != null
         // query parameter
             && parameter.getProtocol().getHttp().getIn() == RequestParameterLocation.QUERY

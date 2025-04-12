@@ -219,7 +219,8 @@ public class ClientCoreClientMethodMapper extends ClientMethodMapper {
                     // remove maxpagesize parameter from client method API, it would be in e.g.
                     // PagedIterable.iterableByPage(int)
                     codeModelParameters = codeModelParameters.stream()
-                        .filter(p -> !MethodUtil.isMaxPageSizeParameter(p))
+                        .filter(p -> !MethodUtil.shouldHideParameterInPageable(p,
+                            operation.getExtensions().getXmsPageable()))
                         .collect(Collectors.toList());
                 }
 

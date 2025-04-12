@@ -10,26 +10,14 @@ import com.microsoft.typespec.http.client.generator.core.template.ProxyTemplate;
 import com.microsoft.typespec.http.client.generator.core.template.ServiceClientBuilderTemplate;
 import com.microsoft.typespec.http.client.generator.core.template.ServiceClientInterfaceTemplate;
 import com.microsoft.typespec.http.client.generator.core.template.ServiceClientTemplate;
+import com.microsoft.typespec.http.client.generator.core.template.ServiceSyncClientTemplate;
+import com.microsoft.typespec.http.client.generator.core.template.WrapperClientMethodTemplate;
 
 public class ClientCoreTemplateFactory extends DefaultTemplateFactory {
-    @Override
-    public ServiceClientInterfaceTemplate getServiceClientInterfaceTemplate() {
-        return ClientCoreServiceClientInterfaceTemplate.getInstance();
-    }
 
     @Override
     public ServiceClientTemplate getServiceClientTemplate() {
         return ClientCoreServiceClientTemplate.getInstance();
-    }
-
-    @Override
-    public ServiceClientBuilderTemplate getServiceClientBuilderTemplate() {
-        return ClientCoreServiceClientBuilderTemplate.getInstance();
-    }
-
-    @Override
-    public ProxyTemplate getProxyTemplate() {
-        return ClientCoreProxyTemplate.getInstance();
     }
 
     @Override
@@ -55,5 +43,15 @@ public class ClientCoreTemplateFactory extends DefaultTemplateFactory {
     @Override
     public ConvenienceSyncMethodTemplate getConvenienceSyncMethodTemplate() {
         return ClientCoreConvenienceSyncMethodTemplate.getInstance();
+    }
+
+    @Override
+    public ServiceSyncClientTemplate getServiceSynClientTemplate() {
+        return ClientCoreServiceSyncClientTemplate.getInstance();
+    }
+
+    @Override
+    public WrapperClientMethodTemplate getWrapperClientMethodTemplate() {
+        return ClientCoreWrapperClientMethodTemplate.getInstance();
     }
 }

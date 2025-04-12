@@ -163,11 +163,9 @@ abstract class ConvenienceMethodTemplateBase {
                                     JavaSettings.getInstance())) {
                                 String variableName = writeParameterConversionExpressionWithJsonMergePatchEnabled(
                                     javaBlock, parameterType.toString(), parameter.getName(), expression);
-                                javaBlock.line("requestContextBuilder.addRequestCallback(request -> { request.setBody("
-                                    + variableName + ");});");
+                                addRequestCallback(javaBlock, variableName);
                             } else {
-                                javaBlock.line("requestContextBuilder.addRequestCallback(request -> { request.setBody("
-                                    + expression + ");});");
+                                addRequestCallback(javaBlock, expression);
                             }
                         };
                         if (!parameter.getClientMethodParameter().isRequired()) {
@@ -201,6 +199,10 @@ abstract class ConvenienceMethodTemplateBase {
         // write the invocation of protocol method, and related type conversion
         writeInvocationAndConversion(convenienceMethod, protocolMethod, invocationExpression, methodBlock,
             typeReferenceStaticClasses);
+    }
+
+    protected void addRequestCallback(JavaBlock javaBlock, String variableName) {
+        javaBlock.line("requestOptions.setBody(" + variableName + ");");
     }
 
     protected void createEmptyRequestOptions(JavaBlock methodBlock) {
@@ -563,7 +565,7 @@ abstract class ConvenienceMethodTemplateBase {
         }
     }
 
-    private static void writeQueryParam(MethodParameter parameter, JavaBlock methodBlock) {
+    protected void writeQueryParam(MethodParameter parameter, JavaBlock methodBlock) {
         Consumer<JavaBlock> writeLine;
         if (parameter.proxyMethodParameter.getExplode()
             && parameter.getClientMethodParameter().getWireType() instanceof IterableType) {
@@ -596,16 +598,10 @@ abstract class ConvenienceMethodTemplateBase {
         }
     }
 
-    private static String getAddQueryParamExpression(MethodParameter parameter, String variable) {
-        // TODO: generic not having 3rd parameter "encoded"
-        if (JavaSettings.getInstance().isBranded()) {
-            return String.format("requestOptions.addQueryParam(%1$s, %2$s, %3$s);",
-                ClassType.STRING.defaultValueExpression(parameter.getSerializedName()), variable,
-                parameter.getProxyMethodParameter().getAlreadyEncoded());
-        } else {
-            return String.format("requestContextBuilder.addQueryParam(%1$s, %2$s);",
-                ClassType.STRING.defaultValueExpression(parameter.getSerializedName()), variable);
-        }
+    protected String getAddQueryParamExpression(MethodParameter parameter, String variable) {
+        return String.format("requestOptions.addQueryParam(%1$s, %2$s, %3$s);",
+            ClassType.STRING.defaultValueExpression(parameter.getSerializedName()), variable,
+            parameter.getProxyMethodParameter().getAlreadyEncoded());
     }
 
     private static String expressionConvertToString(String name, IType type, ProxyMethodParameter parameter) {

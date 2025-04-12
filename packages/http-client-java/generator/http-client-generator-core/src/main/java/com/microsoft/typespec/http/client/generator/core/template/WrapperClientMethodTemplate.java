@@ -47,7 +47,7 @@ public class WrapperClientMethodTemplate extends ClientMethodTemplateBase {
         }
 
         ProxyMethod restAPIMethod = clientMethod.getProxyMethod();
-        if (settings.isDataPlaneClient() && !settings.isAzureCoreV2()) {
+        if (settings.isDataPlaneClient()) {
             typeBlock.javadocComment(comment -> generateProtocolMethodJavadoc(clientMethod, comment));
         } else {
             generateJavadoc(clientMethod, typeBlock, restAPIMethod);
@@ -126,11 +126,7 @@ public class WrapperClientMethodTemplate extends ClientMethodTemplateBase {
         });
     }
 
-    private void addGeneratedAnnotation(JavaType typeBlock) {
-        if (JavaSettings.getInstance().isBranded()) {
-            typeBlock.annotation(Annotation.GENERATED.getName());
-        } else {
-            typeBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
-        }
+    protected void addGeneratedAnnotation(JavaType typeBlock) {
+        typeBlock.annotation(Annotation.GENERATED.getName());
     }
 }

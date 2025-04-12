@@ -928,15 +928,11 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
         if (clientMethod.getMethodPageDetails().nonNullNextLink()) {
             writeMethod(typeBlock, clientMethod.getMethodVisibility(), clientMethod.getDeclaration(), function -> {
                 addOptionalVariables(function, clientMethod);
-                if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
-                    if (clientMethod.getParameters()
-                        .stream()
-                        .anyMatch(param -> param.getClientType() == ClassType.REQUEST_OPTIONS)) {
-                        function.line("RequestOptions requestOptionsForNextPage = new RequestOptions();");
-                        function.line(
-                            "requestOptionsForNextPage.setContext(requestOptions != null && requestOptions.getContext() != null ? requestOptions.getContext() : "
-                                + TemplateUtil.getContextNone() + ");");
-                    }
+                if (settings.isDataPlaneClient()) {
+                    function.line("RequestOptions requestOptionsForNextPage = new RequestOptions();");
+                    function.line(
+                        "requestOptionsForNextPage.setContext(requestOptions != null && requestOptions.getContext() != null ? requestOptions.getContext() : "
+                            + TemplateUtil.getContextNone() + ");");
                 }
                 function.line("return new PagedIterable<>(");
 
@@ -1184,7 +1180,7 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
             convertClientTypesToWireTypes(function, clientMethod, restAPIMethod.getParameters());
 
             boolean requestOptionsLocal = false;
-            if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
+            if (settings.isDataPlaneClient()) {
                 requestOptionsLocal = addSpecialHeadersToRequestOptions(function, clientMethod);
             }
 
@@ -1484,7 +1480,7 @@ public class ClientMethodTemplate extends ClientMethodTemplateBase {
             convertClientTypesToWireTypes(function, clientMethod, restAPIMethod.getParameters());
 
             boolean requestOptionsLocal = false;
-            if (settings.isDataPlaneClient() || settings.isAzureCoreV2()) {
+            if (settings.isDataPlaneClient()) {
                 requestOptionsLocal = addSpecialHeadersToRequestOptions(function, clientMethod);
             }
 

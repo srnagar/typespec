@@ -41,7 +41,6 @@ public class JavaSettings {
     private final String flavor;
     private final boolean noCustomHeaders;
     private final boolean disableTypedHeadersMethods;
-    private final boolean useRestProxy;
 
     static void setHeader(String value) {
         if ("MICROSOFT_MIT".equals(value)) {
@@ -307,8 +306,6 @@ public class JavaSettings {
         // Whether to generate tests.
         this.generateTests = getBooleanValue(host, "generate-tests", false);
 
-        this.useRestProxy = getBooleanValue(host, "use-rest-proxy", false);
-
         // Whether to generate the send request method.
         this.generateSendRequestMethod = false;
 
@@ -417,10 +414,6 @@ public class JavaSettings {
 
     public boolean isAzureCoreV2() {
         return "azurev2".equals(this.flavor);
-    }
-
-    public boolean useRestProxy() {
-        return this.useRestProxy;
     }
 
     private final String keyCredentialHeaderName;

@@ -282,7 +282,7 @@ export class CodeModelBuilder {
   }
 
   public async build(): Promise<CodeModel> {
-    console.log("Building code model for ", this.isBranded() ? "branded" : "unbranded", " SDK");
+    console.log("Building code model for ", this.options.flavor ?? "clientcore", " SDK");
     if (this.program.hasError()) {
       return this.codeModel;
     }
@@ -455,6 +455,10 @@ export class CodeModelBuilder {
     return this.options["flavor"]?.toLocaleLowerCase() === "azure";
   }
 
+  private isAzureV2(): boolean {
+    return this.options["flavor"]?.toLocaleLowerCase() === "azurev2";
+  }
+
   private processModels() {
     const processedSdkModels: Set<SdkModelType | SdkEnumType> = new Set();
 
@@ -579,7 +583,7 @@ export class CodeModelBuilder {
   private processClients() {
     // preprocess group-etag-headers
     
-    this.options["group-etag-headers"] = this.options["group-etag-headers"] ?? false;
+    this.options["group-etag-headers"] = this.options["group-etag-headers"] ?? true;
 
     const sdkPackage = this.sdkContext.sdkPackage;
     for (const client of sdkPackage.clients) {
@@ -1765,8 +1769,14 @@ export class CodeModelBuilder {
           ? "Specifies HTTP options for conditional requests based on modification time."
           : "Specifies HTTP options for conditional requests.";
 
-          console.log("RequestCOnditions namespace ", this.options.namespace);
         // group schema
+
+        var coreNamespace = this.options.namespace;
+        if(this.isAzureV1()) {
+          coreNamespace:  "com.azure.core.http";
+        } else if(this.isAzureV2()) {
+          coreNamespace: "com.azure.v2.core.http.models";
+        }
         const requestConditionsSchema = this.codeModel.schemas.add(
           new GroupSchema(schemaName, schemaDescription, {
             language: {
@@ -1774,7 +1784,7 @@ export class CodeModelBuilder {
                 namespace: this.namespace,
               },
               java: {
-                namespace: this.options.namespace,
+                namespace: coreNamespace,
               },
             },
           }),

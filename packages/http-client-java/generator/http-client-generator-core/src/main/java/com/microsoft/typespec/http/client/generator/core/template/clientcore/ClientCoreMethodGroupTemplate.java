@@ -20,14 +20,7 @@ public class ClientCoreMethodGroupTemplate extends MethodGroupTemplate {
 
     @Override
     protected void writeServiceProxyConstruction(JavaBlock constructor, MethodGroupClient methodGroupClient) {
-
-        if (JavaSettings.getInstance().useRestProxy()) {
-            constructor.line(String.format("this.service = %1$s.create(%2$s.class, client.getHttpPipeline());",
-                ClassType.REST_PROXY.getName(), methodGroupClient.getProxy().getName()));
-        } else {
-            constructor.line("this.service = %s.getNewInstance(client.getHttpPipeline());",
-                methodGroupClient.getProxy().getName());
-        }
-
+        constructor.line("this.service = %s.getNewInstance(client.getHttpPipeline());",
+            methodGroupClient.getProxy().getName());
     }
 }

@@ -384,33 +384,16 @@ public class EnumTemplate implements IJavaTemplate<EnumType, JavaFile> {
     }
 
     protected void addGeneratedImport(Set<String> imports) {
-        if (JavaSettings.getInstance().isDataPlaneClient()) {
-            if (JavaSettings.getInstance().isBranded()) {
-                Annotation.GENERATED.addImportsTo(imports);
-            } else {
-                Annotation.METADATA.addImportsTo(imports);
-                Annotation.METADATA_PROPERTIES.addImportsTo(imports);
-            }
-        }
+        Annotation.GENERATED.addImportsTo(imports);
+        Annotation.METADATA.addImportsTo(imports);
+        Annotation.METADATA_PROPERTIES.addImportsTo(imports);
     }
 
     protected void addGeneratedAnnotation(JavaContext classBlock) {
-        if (JavaSettings.getInstance().isDataPlaneClient()) {
-            if (JavaSettings.getInstance().isBranded()) {
-                classBlock.annotation(Annotation.GENERATED.getName());
-            } else {
-                classBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
-            }
-        }
+        classBlock.annotation(Annotation.GENERATED.getName());
     }
 
     protected void addGeneratedAnnotation(JavaEnum enumBlock) {
-        if (JavaSettings.getInstance().isDataPlaneClient()) {
-            if (JavaSettings.getInstance().isBranded()) {
-                enumBlock.annotation(Annotation.GENERATED.getName());
-            } else {
-                enumBlock.annotation(Annotation.METADATA.getName() + "(properties = {MetadataProperties.GENERATED})");
-            }
-        }
+        enumBlock.annotation(Annotation.GENERATED.getName());
     }
 }

@@ -539,7 +539,7 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
         if (repeatabilityRequestHeaders || contentTypeRequestHeaders) {
             requestOptionsLocal = true;
             function.line(
-                "RequestContext.Builder requestContextBuilder = requestContext == null ? RequestContext.builder() : requestContext.toBuilder();");
+                "RequestContext requestContext = requestContext == null ? RequestContext.none() : requestContext;");
         }
 
         // repeatability headers
@@ -557,24 +557,24 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
         // content-type headers for optional body parameter
         if (contentTypeRequestHeaders) {
             final String contentType = clientMethod.getProxyMethod().getRequestContentType();
-            function.line("requestContextBuilder.addRequestCallback(requestLocal -> {");
+            function.line("requestContext = requestContext.toBuilder().addRequestCallback(requestLocal -> {");
             function.indent(() -> function.ifBlock(
                 "requestLocal.getBody() != null && requestLocal.getHeaders().get(HttpHeaderName.CONTENT_TYPE) == null",
                 ifBlock -> function
                     .line("requestLocal.getHeaders().set(HttpHeaderName.CONTENT_TYPE, \"" + contentType + "\");")));
-            function.line("});");
+            function.line("}).build();");
         }
 
         return requestOptionsLocal;
     }
 
     private static void requestOptionsSetHeaderIfAbsent(JavaBlock function, String expression, String headerName) {
-        function.line("requestContextBuilder.addRequestCallback(requestLocal -> {");
+        function.line("requestContext = requestContext.toBuilder().addRequestCallback(requestLocal -> {");
         function.indent(() -> function.ifBlock(
             "requestLocal.getHeaders().get(HttpHeaderName.fromString(\"" + headerName + "\")) == null",
             ifBlock -> function.line("requestLocal.getHeaders().set(HttpHeaderName.fromString(\"" + headerName + "\"), "
                 + expression + ");")));
-        function.line("});");
+        function.line("}).build();");
     }
 
     protected static void writeMethod(JavaType typeBlock, JavaVisibility visibility, String methodSignature,
@@ -598,9 +598,6 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
         JavaSettings settings = JavaSettings.getInstance();
 
         ProxyMethod restAPIMethod = clientMethod.getProxyMethod();
-        // IType restAPIMethodReturnBodyClientType = restAPIMethod.getReturnType().getClientType();
-
-        // MethodPageDetails pageDetails = clientMethod.getMethodPageDetails();
 
         generateJavadoc(clientMethod, typeBlock, restAPIMethod, writingInterface);
 
@@ -610,24 +607,24 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
                 break;
 
             case PagingAsync:
-                throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
+                throw new UnsupportedOperationException("Async methods are not supported");
 
             case PagingSyncSinglePage:
                 generatePagedSinglePage(clientMethod, typeBlock, restAPIMethod.toSync(), settings);
                 break;
 
             case PagingAsyncSinglePage:
-                throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
+                throw new UnsupportedOperationException("Async methods are not supported");
 
             case LongRunningAsync:
-                throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
+                throw new UnsupportedOperationException("Async methods are not supported");
 
             case LongRunningSync:
                 generateLongRunningSync(clientMethod, typeBlock, restAPIMethod, settings);
                 break;
 
             case LongRunningBeginAsync:
-                throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
+                throw new UnsupportedOperationException("Async methods are not supported");
 
             case LongRunningBeginSync:
                 generateLongRunningBeginSync(clientMethod, typeBlock, restAPIMethod, settings);
@@ -646,16 +643,16 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
                 break;
 
             case SimpleAsyncRestResponse:
-                throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
+                throw new UnsupportedOperationException("Async methods are not supported");
 
             case SimpleAsync:
-                throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
+                throw new UnsupportedOperationException("Async methods are not supported");
 
             case SendRequestAsync:
-                throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
+                throw new UnsupportedOperationException("Async methods are not supported");
 
             case SendRequestSync:
-                throw new UnsupportedOperationException("Send request not supported in Azure VNext");
+                throw new UnsupportedOperationException("Send request not supported");
         }
     }
 
@@ -810,9 +807,6 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
                 ? "RequestContext.none()"
                 : argumentList + ", RequestContext.none()";
 
-            if (ClassType.STREAM_RESPONSE.equals(clientMethod.getReturnValue().getType())) {
-                function.text(".flatMapMany(StreamResponse::getValue);");
-            }
             if (clientMethod.getReturnValue().getType().equals(PrimitiveType.VOID)) {
                 function.line("%s(%s);", clientMethod.getProxyMethod().getSimpleRestResponseMethodName(), argumentList);
             } else {
@@ -922,10 +916,10 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
             applyParameterTransformations(function, clientMethod, settings);
             convertClientTypesToWireTypes(function, clientMethod, restAPIMethod.getParameters());
 
-            boolean requestOptionsLocal = false;
+            boolean requestContextLocal = false;
 
             String serviceMethodCall = checkAndReplaceParamNameCollision(clientMethod, restAPIMethod.toSync(),
-                requestOptionsLocal, settings);
+                requestContextLocal, settings);
             if (clientMethod.getReturnValue().getType() == ClassType.INPUT_STREAM) {
                 function.line(
                     "Iterator<ByteBufferBackedInputStream> iterator = %s(%s).map(ByteBufferBackedInputStream::new).toStream().iterator();",
@@ -1023,10 +1017,6 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
     }
 
     private static boolean responseTypeHasDeserializedHeaders(IType type) {
-        if (type instanceof GenericType && "Mono".equals(((GenericType) type).getName())) {
-            type = ((GenericType) type).getTypeArguments()[0];
-        }
-
         // TODO (alzimmer): ClassTypes should maintain reference to any super class or interface they extend/implement.
         // This code is based on the previous implementation that assume if the T type for Mono<T> is a class that
         // it has deserialized headers. This won't always be the case, but ClassType also isn't able to maintain
@@ -1038,7 +1028,7 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
     }
 
     private static String checkAndReplaceParamNameCollision(ClientMethod clientMethod, ProxyMethod restAPIMethod,
-        boolean useLocalRequestOptions, JavaSettings settings) {
+        boolean useLocalRequestContext, JavaSettings settings) {
         // Asynchronous methods will use 'FluxUtils.withContext' to infer 'Context' from the Reactor's context.
         // Only replace 'context' with 'Context.NONE' for synchronous methods that don't have a 'Context' parameter.
         boolean isSync = clientMethod.getProxyMethod().isSync();
@@ -1051,7 +1041,7 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
         boolean firstParameter = true;
         for (String proxyMethodArgument : clientMethod.getProxyMethodArguments(settings)) {
             String parameterName;
-            if (useLocalRequestOptions && "requestContext".equals(proxyMethodArgument)) {
+            if (useLocalRequestContext && "requestContext".equals(proxyMethodArgument)) {
                 // Simple static mapping for RequestOptions when 'useLocalRequestOptions' is true.
                 parameterName = "requestContextLocal";
             } else {
