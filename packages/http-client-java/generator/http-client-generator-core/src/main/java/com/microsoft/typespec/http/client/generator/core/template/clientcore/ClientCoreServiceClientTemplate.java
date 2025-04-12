@@ -5,7 +5,6 @@ import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Servi
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.ServiceClientProperty;
 import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaBlock;
 import com.microsoft.typespec.http.client.generator.core.template.ServiceClientTemplate;
-
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
