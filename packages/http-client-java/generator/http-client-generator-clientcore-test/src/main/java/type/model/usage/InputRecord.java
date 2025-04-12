@@ -16,6 +16,7 @@ public final class InputRecord implements JsonSerializable<InputRecord> {
     /*
      * The requiredProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String requiredProp;
 
     /**
@@ -23,6 +24,7 @@ public final class InputRecord implements JsonSerializable<InputRecord> {
      * 
      * @param requiredProp the requiredProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public InputRecord(String requiredProp) {
         this.requiredProp = requiredProp;
     }
@@ -32,6 +34,7 @@ public final class InputRecord implements JsonSerializable<InputRecord> {
      * 
      * @return the requiredProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getRequiredProp() {
         return this.requiredProp;
     }
@@ -39,6 +42,7 @@ public final class InputRecord implements JsonSerializable<InputRecord> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class InputRecord implements JsonSerializable<InputRecord> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the InputRecord.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static InputRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String requiredProp = null;

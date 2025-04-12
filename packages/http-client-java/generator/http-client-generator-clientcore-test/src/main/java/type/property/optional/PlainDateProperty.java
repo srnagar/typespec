@@ -18,11 +18,13 @@ public final class PlainDateProperty implements JsonSerializable<PlainDateProper
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private LocalDate property;
 
     /**
      * Creates an instance of PlainDateProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public PlainDateProperty() {
     }
 
@@ -31,6 +33,7 @@ public final class PlainDateProperty implements JsonSerializable<PlainDateProper
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public LocalDate getProperty() {
         return this.property;
     }
@@ -41,6 +44,7 @@ public final class PlainDateProperty implements JsonSerializable<PlainDateProper
      * @param property the property value to set.
      * @return the PlainDateProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public PlainDateProperty setProperty(LocalDate property) {
         this.property = property;
         return this;
@@ -49,6 +53,7 @@ public final class PlainDateProperty implements JsonSerializable<PlainDateProper
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -64,6 +69,7 @@ public final class PlainDateProperty implements JsonSerializable<PlainDateProper
      * pointing to JSON null.
      * @throws IOException If an error occurs while reading the PlainDateProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static PlainDateProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             PlainDateProperty deserializedPlainDateProperty = new PlainDateProperty();

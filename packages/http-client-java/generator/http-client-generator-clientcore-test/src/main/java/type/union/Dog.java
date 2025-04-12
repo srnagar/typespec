@@ -16,6 +16,7 @@ public final class Dog implements JsonSerializable<Dog> {
     /*
      * The bark property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String bark;
 
     /**
@@ -23,6 +24,7 @@ public final class Dog implements JsonSerializable<Dog> {
      * 
      * @param bark the bark value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Dog(String bark) {
         this.bark = bark;
     }
@@ -32,6 +34,7 @@ public final class Dog implements JsonSerializable<Dog> {
      * 
      * @return the bark value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getBark() {
         return this.bark;
     }
@@ -39,6 +42,7 @@ public final class Dog implements JsonSerializable<Dog> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class Dog implements JsonSerializable<Dog> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Dog.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Dog fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String bark = null;

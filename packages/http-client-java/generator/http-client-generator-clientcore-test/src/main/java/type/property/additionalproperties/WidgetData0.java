@@ -16,11 +16,13 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
     /*
      * The kind property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String kind = "kind0";
 
     /*
      * The fooProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String fooProp;
 
     /**
@@ -28,6 +30,7 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * 
      * @param fooProp the fooProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public WidgetData0(String fooProp) {
         this.fooProp = fooProp;
     }
@@ -37,6 +40,7 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getKind() {
         return this.kind;
     }
@@ -46,6 +50,7 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * 
      * @return the fooProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getFooProp() {
         return this.fooProp;
     }
@@ -53,6 +58,7 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -70,6 +76,7 @@ public final class WidgetData0 implements JsonSerializable<WidgetData0> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the WidgetData0.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static WidgetData0 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String fooProp = null;

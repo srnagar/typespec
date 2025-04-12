@@ -17,6 +17,7 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final long value;
 
     /**
@@ -24,6 +25,7 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
      * 
      * @param value the value value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SafeintAsStringProperty(long value) {
         this.value = value;
     }
@@ -33,6 +35,7 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public long getValue() {
         return this.value;
     }
@@ -40,6 +43,7 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class SafeintAsStringProperty implements JsonSerializable<SafeintAs
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SafeintAsStringProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SafeintAsStringProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             long value = Long.parseLong("0");

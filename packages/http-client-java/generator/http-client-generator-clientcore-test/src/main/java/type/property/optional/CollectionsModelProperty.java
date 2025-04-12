@@ -17,11 +17,13 @@ public final class CollectionsModelProperty implements JsonSerializable<Collecti
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private List<StringProperty> property;
 
     /**
      * Creates an instance of CollectionsModelProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public CollectionsModelProperty() {
     }
 
@@ -30,6 +32,7 @@ public final class CollectionsModelProperty implements JsonSerializable<Collecti
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<StringProperty> getProperty() {
         return this.property;
     }
@@ -40,6 +43,7 @@ public final class CollectionsModelProperty implements JsonSerializable<Collecti
      * @param property the property value to set.
      * @return the CollectionsModelProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public CollectionsModelProperty setProperty(List<StringProperty> property) {
         this.property = property;
         return this;
@@ -48,6 +52,7 @@ public final class CollectionsModelProperty implements JsonSerializable<Collecti
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -63,6 +68,7 @@ public final class CollectionsModelProperty implements JsonSerializable<Collecti
      * it was pointing to JSON null.
      * @throws IOException If an error occurs while reading the CollectionsModelProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static CollectionsModelProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             CollectionsModelProperty deserializedCollectionsModelProperty = new CollectionsModelProperty();

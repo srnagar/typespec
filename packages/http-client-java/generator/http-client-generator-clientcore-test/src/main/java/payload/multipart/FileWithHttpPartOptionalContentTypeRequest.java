@@ -11,6 +11,7 @@ public final class FileWithHttpPartOptionalContentTypeRequest {
     /*
      * The profileImage property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final FileOptionalContentType profileImage;
 
     /**
@@ -18,6 +19,7 @@ public final class FileWithHttpPartOptionalContentTypeRequest {
      * 
      * @param profileImage the profileImage value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FileWithHttpPartOptionalContentTypeRequest(FileOptionalContentType profileImage) {
         this.profileImage = profileImage;
     }
@@ -27,6 +29,7 @@ public final class FileWithHttpPartOptionalContentTypeRequest {
      * 
      * @return the profileImage value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FileOptionalContentType getProfileImage() {
         return this.profileImage;
     }

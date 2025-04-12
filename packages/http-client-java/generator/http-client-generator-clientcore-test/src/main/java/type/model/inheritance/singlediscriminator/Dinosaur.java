@@ -16,11 +16,13 @@ public class Dinosaur implements JsonSerializable<Dinosaur> {
     /*
      * Discriminator property for Dinosaur.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "Dinosaur";
 
     /*
      * The size property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int size;
 
     /**
@@ -28,6 +30,7 @@ public class Dinosaur implements JsonSerializable<Dinosaur> {
      * 
      * @param size the size value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     protected Dinosaur(int size) {
         this.size = size;
     }
@@ -37,6 +40,7 @@ public class Dinosaur implements JsonSerializable<Dinosaur> {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getKind() {
         return this.kind;
     }
@@ -46,6 +50,7 @@ public class Dinosaur implements JsonSerializable<Dinosaur> {
      * 
      * @return the size value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getSize() {
         return this.size;
     }
@@ -53,6 +58,7 @@ public class Dinosaur implements JsonSerializable<Dinosaur> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -70,6 +76,7 @@ public class Dinosaur implements JsonSerializable<Dinosaur> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Dinosaur.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Dinosaur fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String discriminatorValue = null;
@@ -95,6 +102,7 @@ public class Dinosaur implements JsonSerializable<Dinosaur> {
         });
     }
 
+    @Metadata(properties = { MetadataProperties.GENERATED })
     static Dinosaur fromJsonKnownDiscriminator(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int size = 0;

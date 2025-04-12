@@ -16,6 +16,7 @@ public final class GetResponse9 implements JsonSerializable<GetResponse9> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final MixedTypesCases prop;
 
     /**
@@ -23,6 +24,7 @@ public final class GetResponse9 implements JsonSerializable<GetResponse9> {
      * 
      * @param prop the prop value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private GetResponse9(MixedTypesCases prop) {
         this.prop = prop;
     }
@@ -32,6 +34,7 @@ public final class GetResponse9 implements JsonSerializable<GetResponse9> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public MixedTypesCases getProp() {
         return this.prop;
     }
@@ -39,6 +42,7 @@ public final class GetResponse9 implements JsonSerializable<GetResponse9> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class GetResponse9 implements JsonSerializable<GetResponse9> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the GetResponse9.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static GetResponse9 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             MixedTypesCases prop = null;

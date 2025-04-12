@@ -16,6 +16,7 @@ public final class DefaultError implements JsonSerializable<DefaultError> {
     /*
      * The code property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String code;
 
     /**
@@ -23,6 +24,7 @@ public final class DefaultError implements JsonSerializable<DefaultError> {
      * 
      * @param code the code value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private DefaultError(String code) {
         this.code = code;
     }
@@ -32,6 +34,7 @@ public final class DefaultError implements JsonSerializable<DefaultError> {
      * 
      * @return the code value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getCode() {
         return this.code;
     }
@@ -39,6 +42,7 @@ public final class DefaultError implements JsonSerializable<DefaultError> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class DefaultError implements JsonSerializable<DefaultError> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DefaultError.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static DefaultError fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String code = null;

@@ -16,11 +16,13 @@ public final class EnumsOnlyCases implements JsonSerializable<EnumsOnlyCases> {
     /*
      * This should be receive/send the left variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final EnumsOnlyCasesLr lr;
 
     /*
      * This should be receive/send the up variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final EnumsOnlyCasesUd ud;
 
     /**
@@ -29,6 +31,7 @@ public final class EnumsOnlyCases implements JsonSerializable<EnumsOnlyCases> {
      * @param lr the lr value to set.
      * @param ud the ud value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public EnumsOnlyCases(EnumsOnlyCasesLr lr, EnumsOnlyCasesUd ud) {
         this.lr = lr;
         this.ud = ud;
@@ -39,6 +42,7 @@ public final class EnumsOnlyCases implements JsonSerializable<EnumsOnlyCases> {
      * 
      * @return the lr value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public EnumsOnlyCasesLr getLr() {
         return this.lr;
     }
@@ -48,6 +52,7 @@ public final class EnumsOnlyCases implements JsonSerializable<EnumsOnlyCases> {
      * 
      * @return the ud value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public EnumsOnlyCasesUd getUd() {
         return this.ud;
     }
@@ -55,6 +60,7 @@ public final class EnumsOnlyCases implements JsonSerializable<EnumsOnlyCases> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class EnumsOnlyCases implements JsonSerializable<EnumsOnlyCases> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the EnumsOnlyCases.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static EnumsOnlyCases fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             EnumsOnlyCasesLr lr = null;

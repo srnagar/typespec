@@ -18,21 +18,25 @@ public final class Eagle extends Bird {
     /*
      * The kind property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "eagle";
 
     /*
      * The friends property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private List<Bird> friends;
 
     /*
      * The hate property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, Bird> hate;
 
     /*
      * The partner property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Bird partner;
 
     /**
@@ -40,6 +44,7 @@ public final class Eagle extends Bird {
      * 
      * @param wingspan the wingspan value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Eagle(int wingspan) {
         super(wingspan);
     }
@@ -49,6 +54,7 @@ public final class Eagle extends Bird {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getKind() {
         return this.kind;
@@ -59,6 +65,7 @@ public final class Eagle extends Bird {
      * 
      * @return the friends value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Bird> getFriends() {
         return this.friends;
     }
@@ -69,6 +76,7 @@ public final class Eagle extends Bird {
      * @param friends the friends value to set.
      * @return the Eagle object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Eagle setFriends(List<Bird> friends) {
         this.friends = friends;
         return this;
@@ -79,6 +87,7 @@ public final class Eagle extends Bird {
      * 
      * @return the hate value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, Bird> getHate() {
         return this.hate;
     }
@@ -89,6 +98,7 @@ public final class Eagle extends Bird {
      * @param hate the hate value to set.
      * @return the Eagle object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Eagle setHate(Map<String, Bird> hate) {
         this.hate = hate;
         return this;
@@ -99,6 +109,7 @@ public final class Eagle extends Bird {
      * 
      * @return the partner value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Bird getPartner() {
         return this.partner;
     }
@@ -109,6 +120,7 @@ public final class Eagle extends Bird {
      * @param partner the partner value to set.
      * @return the Eagle object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Eagle setPartner(Bird partner) {
         this.partner = partner;
         return this;
@@ -117,6 +129,7 @@ public final class Eagle extends Bird {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -137,6 +150,7 @@ public final class Eagle extends Bird {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Eagle.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Eagle fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int wingspan = 0;

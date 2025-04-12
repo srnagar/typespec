@@ -15,6 +15,7 @@ public final class TRex extends Dinosaur {
     /*
      * Discriminator property for Dinosaur.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "t-rex";
 
     /**
@@ -22,6 +23,7 @@ public final class TRex extends Dinosaur {
      * 
      * @param size the size value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private TRex(int size) {
         super(size);
     }
@@ -31,6 +33,7 @@ public final class TRex extends Dinosaur {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getKind() {
         return this.kind;
@@ -39,6 +42,7 @@ public final class TRex extends Dinosaur {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class TRex extends Dinosaur {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the TRex.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static TRex fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int size = 0;

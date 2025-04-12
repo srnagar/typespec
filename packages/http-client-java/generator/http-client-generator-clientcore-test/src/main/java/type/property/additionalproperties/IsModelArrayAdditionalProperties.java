@@ -19,11 +19,13 @@ public final class IsModelArrayAdditionalProperties implements JsonSerializable<
     /*
      * The knownProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<ModelForRecord> knownProp;
 
     /*
      * The model is from Record<ModelForRecord[]> type.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, List<ModelForRecord>> additionalProperties;
 
     /**
@@ -31,6 +33,7 @@ public final class IsModelArrayAdditionalProperties implements JsonSerializable<
      * 
      * @param knownProp the knownProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsModelArrayAdditionalProperties(List<ModelForRecord> knownProp) {
         this.knownProp = knownProp;
     }
@@ -40,6 +43,7 @@ public final class IsModelArrayAdditionalProperties implements JsonSerializable<
      * 
      * @return the knownProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<ModelForRecord> getKnownProp() {
         return this.knownProp;
     }
@@ -49,6 +53,7 @@ public final class IsModelArrayAdditionalProperties implements JsonSerializable<
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, List<ModelForRecord>> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -59,6 +64,7 @@ public final class IsModelArrayAdditionalProperties implements JsonSerializable<
      * @param additionalProperties the additionalProperties value to set.
      * @return the IsModelArrayAdditionalProperties object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsModelArrayAdditionalProperties
         setAdditionalProperties(Map<String, List<ModelForRecord>> additionalProperties) {
         this.additionalProperties = additionalProperties;
@@ -68,6 +74,7 @@ public final class IsModelArrayAdditionalProperties implements JsonSerializable<
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -89,6 +96,7 @@ public final class IsModelArrayAdditionalProperties implements JsonSerializable<
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IsModelArrayAdditionalProperties.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static IsModelArrayAdditionalProperties fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<ModelForRecord> knownProp = null;

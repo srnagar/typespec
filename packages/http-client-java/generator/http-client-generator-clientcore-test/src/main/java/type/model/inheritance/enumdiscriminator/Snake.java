@@ -16,11 +16,13 @@ public class Snake implements JsonSerializable<Snake> {
     /*
      * discriminator property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private SnakeKind kind;
 
     /*
      * Length of the snake
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int length;
 
     /**
@@ -28,6 +30,7 @@ public class Snake implements JsonSerializable<Snake> {
      * 
      * @param length the length value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Snake(int length) {
         this.length = length;
     }
@@ -37,6 +40,7 @@ public class Snake implements JsonSerializable<Snake> {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SnakeKind getKind() {
         return this.kind;
     }
@@ -46,6 +50,7 @@ public class Snake implements JsonSerializable<Snake> {
      * 
      * @return the length value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getLength() {
         return this.length;
     }
@@ -53,6 +58,7 @@ public class Snake implements JsonSerializable<Snake> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -70,6 +76,7 @@ public class Snake implements JsonSerializable<Snake> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Snake.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Snake fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String discriminatorValue = null;
@@ -95,6 +102,7 @@ public class Snake implements JsonSerializable<Snake> {
         });
     }
 
+    @Metadata(properties = { MetadataProperties.GENERATED })
     static Snake fromJsonKnownDiscriminator(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int length = 0;

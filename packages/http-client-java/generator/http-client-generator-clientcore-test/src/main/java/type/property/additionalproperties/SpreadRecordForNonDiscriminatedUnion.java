@@ -20,11 +20,13 @@ public final class SpreadRecordForNonDiscriminatedUnion
     /*
      * The name property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /*
      * The model spread Record<WidgetData0 | WidgetData1>
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, BinaryData> additionalProperties;
 
     /**
@@ -32,6 +34,7 @@ public final class SpreadRecordForNonDiscriminatedUnion
      * 
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadRecordForNonDiscriminatedUnion(String name) {
         this.name = name;
     }
@@ -41,6 +44,7 @@ public final class SpreadRecordForNonDiscriminatedUnion
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -50,6 +54,7 @@ public final class SpreadRecordForNonDiscriminatedUnion
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, BinaryData> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -60,6 +65,7 @@ public final class SpreadRecordForNonDiscriminatedUnion
      * @param additionalProperties the additionalProperties value to set.
      * @return the SpreadRecordForNonDiscriminatedUnion object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadRecordForNonDiscriminatedUnion setAdditionalProperties(Map<String, BinaryData> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -68,6 +74,7 @@ public final class SpreadRecordForNonDiscriminatedUnion
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -94,6 +101,7 @@ public final class SpreadRecordForNonDiscriminatedUnion
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SpreadRecordForNonDiscriminatedUnion.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SpreadRecordForNonDiscriminatedUnion fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

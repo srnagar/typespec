@@ -16,11 +16,13 @@ public final class WidgetData2 implements JsonSerializable<WidgetData2> {
     /*
      * The kind property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String kind = "kind1";
 
     /*
      * The start property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String start;
 
     /**
@@ -28,6 +30,7 @@ public final class WidgetData2 implements JsonSerializable<WidgetData2> {
      * 
      * @param start the start value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public WidgetData2(String start) {
         this.start = start;
     }
@@ -37,6 +40,7 @@ public final class WidgetData2 implements JsonSerializable<WidgetData2> {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getKind() {
         return this.kind;
     }
@@ -46,6 +50,7 @@ public final class WidgetData2 implements JsonSerializable<WidgetData2> {
      * 
      * @return the start value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getStart() {
         return this.start;
     }
@@ -53,6 +58,7 @@ public final class WidgetData2 implements JsonSerializable<WidgetData2> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -70,6 +76,7 @@ public final class WidgetData2 implements JsonSerializable<WidgetData2> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the WidgetData2.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static WidgetData2 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String start = null;

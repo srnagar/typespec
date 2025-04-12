@@ -17,6 +17,7 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
     /*
      * The index property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final double derivedProp;
 
     /**
@@ -25,6 +26,7 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
      * @param name the name value to set.
      * @param derivedProp the derivedProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DifferentSpreadFloatDerived(String name, double derivedProp) {
         super(name);
         this.derivedProp = derivedProp;
@@ -35,6 +37,7 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
      * 
      * @return the derivedProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public double getDerivedProp() {
         return this.derivedProp;
     }
@@ -42,6 +45,7 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -64,6 +68,7 @@ public final class DifferentSpreadFloatDerived extends DifferentSpreadFloatRecor
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DifferentSpreadFloatDerived.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static DifferentSpreadFloatDerived fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

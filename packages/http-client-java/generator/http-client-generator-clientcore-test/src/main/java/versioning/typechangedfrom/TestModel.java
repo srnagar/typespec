@@ -16,11 +16,13 @@ public final class TestModel implements JsonSerializable<TestModel> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String prop;
 
     /*
      * The changedProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String changedProp;
 
     /**
@@ -29,6 +31,7 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * @param prop the prop value to set.
      * @param changedProp the changedProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public TestModel(String prop, String changedProp) {
         this.prop = prop;
         this.changedProp = changedProp;
@@ -39,6 +42,7 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getProp() {
         return this.prop;
     }
@@ -48,6 +52,7 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * 
      * @return the changedProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getChangedProp() {
         return this.changedProp;
     }
@@ -55,6 +60,7 @@ public final class TestModel implements JsonSerializable<TestModel> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class TestModel implements JsonSerializable<TestModel> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the TestModel.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static TestModel fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String prop = null;

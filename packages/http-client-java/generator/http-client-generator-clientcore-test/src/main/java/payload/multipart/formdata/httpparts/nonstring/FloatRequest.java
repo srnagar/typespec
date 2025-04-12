@@ -11,6 +11,7 @@ public final class FloatRequest {
     /*
      * The temperature property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final double temperature;
 
     /**
@@ -18,6 +19,7 @@ public final class FloatRequest {
      * 
      * @param temperature the temperature value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FloatRequest(double temperature) {
         this.temperature = temperature;
     }
@@ -27,6 +29,7 @@ public final class FloatRequest {
      * 
      * @return the temperature value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public double getTemperature() {
         return this.temperature;
     }

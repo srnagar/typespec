@@ -15,11 +15,13 @@ public final class GoblinShark extends Shark {
     /*
      * Discriminator property for Fish.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "shark";
 
     /*
      * The sharktype property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String sharktype = "goblin";
 
     /**
@@ -27,6 +29,7 @@ public final class GoblinShark extends Shark {
      * 
      * @param age the age value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public GoblinShark(int age) {
         super(age);
     }
@@ -36,6 +39,7 @@ public final class GoblinShark extends Shark {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getKind() {
         return this.kind;
@@ -46,6 +50,7 @@ public final class GoblinShark extends Shark {
      * 
      * @return the sharktype value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getSharktype() {
         return this.sharktype;
@@ -54,6 +59,7 @@ public final class GoblinShark extends Shark {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class GoblinShark extends Shark {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the GoblinShark.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static GoblinShark fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int age = 0;

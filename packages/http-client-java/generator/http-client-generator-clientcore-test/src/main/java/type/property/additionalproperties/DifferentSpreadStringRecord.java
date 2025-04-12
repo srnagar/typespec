@@ -18,11 +18,13 @@ public class DifferentSpreadStringRecord implements JsonSerializable<DifferentSp
     /*
      * The name property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final double id;
 
     /*
      * The model spread Record<string> with the different known property type
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, String> additionalProperties;
 
     /**
@@ -30,6 +32,7 @@ public class DifferentSpreadStringRecord implements JsonSerializable<DifferentSp
      * 
      * @param id the id value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DifferentSpreadStringRecord(double id) {
         this.id = id;
     }
@@ -39,6 +42,7 @@ public class DifferentSpreadStringRecord implements JsonSerializable<DifferentSp
      * 
      * @return the id value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public double getId() {
         return this.id;
     }
@@ -49,6 +53,7 @@ public class DifferentSpreadStringRecord implements JsonSerializable<DifferentSp
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, String> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -60,6 +65,7 @@ public class DifferentSpreadStringRecord implements JsonSerializable<DifferentSp
      * @param additionalProperties the additionalProperties value to set.
      * @return the DifferentSpreadStringRecord object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DifferentSpreadStringRecord setAdditionalProperties(Map<String, String> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -68,6 +74,7 @@ public class DifferentSpreadStringRecord implements JsonSerializable<DifferentSp
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -89,6 +96,7 @@ public class DifferentSpreadStringRecord implements JsonSerializable<DifferentSp
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DifferentSpreadStringRecord.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static DifferentSpreadStringRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             double id = 0.0;

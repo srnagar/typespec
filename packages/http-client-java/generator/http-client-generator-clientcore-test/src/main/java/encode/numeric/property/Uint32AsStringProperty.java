@@ -17,11 +17,13 @@ public final class Uint32AsStringProperty implements JsonSerializable<Uint32AsSt
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Integer value;
 
     /**
      * Creates an instance of Uint32AsStringProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Uint32AsStringProperty() {
     }
 
@@ -30,6 +32,7 @@ public final class Uint32AsStringProperty implements JsonSerializable<Uint32AsSt
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Integer getValue() {
         return this.value;
     }
@@ -40,6 +43,7 @@ public final class Uint32AsStringProperty implements JsonSerializable<Uint32AsSt
      * @param value the value value to set.
      * @return the Uint32AsStringProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Uint32AsStringProperty setValue(Integer value) {
         this.value = value;
         return this;
@@ -48,6 +52,7 @@ public final class Uint32AsStringProperty implements JsonSerializable<Uint32AsSt
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -63,6 +68,7 @@ public final class Uint32AsStringProperty implements JsonSerializable<Uint32AsSt
      * was pointing to JSON null.
      * @throws IOException If an error occurs while reading the Uint32AsStringProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Uint32AsStringProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Uint32AsStringProperty deserializedUint32AsStringProperty = new Uint32AsStringProperty();

@@ -16,11 +16,13 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String property = "hello";
 
     /**
      * Creates an instance of StringLiteralProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringLiteralProperty() {
     }
 
@@ -29,6 +31,7 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getProperty() {
         return this.property;
     }
@@ -36,6 +39,7 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -52,6 +56,7 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the StringLiteralProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static StringLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             StringLiteralProperty deserializedStringLiteralProperty = new StringLiteralProperty();

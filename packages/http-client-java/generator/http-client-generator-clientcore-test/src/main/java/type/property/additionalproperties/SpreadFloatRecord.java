@@ -18,11 +18,13 @@ public final class SpreadFloatRecord implements JsonSerializable<SpreadFloatReco
     /*
      * The id property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final double id;
 
     /*
      * The model spread Record<float32> with the same known property type
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, Double> additionalProperties;
 
     /**
@@ -30,6 +32,7 @@ public final class SpreadFloatRecord implements JsonSerializable<SpreadFloatReco
      * 
      * @param id the id value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadFloatRecord(double id) {
         this.id = id;
     }
@@ -39,6 +42,7 @@ public final class SpreadFloatRecord implements JsonSerializable<SpreadFloatReco
      * 
      * @return the id value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public double getId() {
         return this.id;
     }
@@ -48,6 +52,7 @@ public final class SpreadFloatRecord implements JsonSerializable<SpreadFloatReco
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, Double> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -58,6 +63,7 @@ public final class SpreadFloatRecord implements JsonSerializable<SpreadFloatReco
      * @param additionalProperties the additionalProperties value to set.
      * @return the SpreadFloatRecord object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadFloatRecord setAdditionalProperties(Map<String, Double> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -66,6 +72,7 @@ public final class SpreadFloatRecord implements JsonSerializable<SpreadFloatReco
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -87,6 +94,7 @@ public final class SpreadFloatRecord implements JsonSerializable<SpreadFloatReco
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SpreadFloatRecord.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SpreadFloatRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             double id = 0.0;

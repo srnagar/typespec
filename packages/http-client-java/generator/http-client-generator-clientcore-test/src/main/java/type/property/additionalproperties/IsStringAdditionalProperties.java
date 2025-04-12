@@ -18,11 +18,13 @@ public final class IsStringAdditionalProperties implements JsonSerializable<IsSt
     /*
      * The name property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /*
      * The model is from Record<string> type.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, String> additionalProperties;
 
     /**
@@ -30,6 +32,7 @@ public final class IsStringAdditionalProperties implements JsonSerializable<IsSt
      * 
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsStringAdditionalProperties(String name) {
         this.name = name;
     }
@@ -39,6 +42,7 @@ public final class IsStringAdditionalProperties implements JsonSerializable<IsSt
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -48,6 +52,7 @@ public final class IsStringAdditionalProperties implements JsonSerializable<IsSt
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, String> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -58,6 +63,7 @@ public final class IsStringAdditionalProperties implements JsonSerializable<IsSt
      * @param additionalProperties the additionalProperties value to set.
      * @return the IsStringAdditionalProperties object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsStringAdditionalProperties setAdditionalProperties(Map<String, String> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -66,6 +72,7 @@ public final class IsStringAdditionalProperties implements JsonSerializable<IsSt
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -87,6 +94,7 @@ public final class IsStringAdditionalProperties implements JsonSerializable<IsSt
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IsStringAdditionalProperties.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static IsStringAdditionalProperties fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

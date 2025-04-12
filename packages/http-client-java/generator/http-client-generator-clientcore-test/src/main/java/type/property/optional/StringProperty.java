@@ -16,11 +16,13 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String property;
 
     /**
      * Creates an instance of StringProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringProperty() {
     }
 
@@ -29,6 +31,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * @param property the property value to set.
      * @return the StringProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringProperty setProperty(String property) {
         this.property = property;
         return this;
@@ -47,6 +51,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -62,6 +67,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * pointing to JSON null.
      * @throws IOException If an error occurs while reading the StringProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static StringProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             StringProperty deserializedStringProperty = new StringProperty();

@@ -15,6 +15,7 @@ public final class Siamese extends Cat {
     /*
      * The smart property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final boolean smart;
 
     /**
@@ -24,6 +25,7 @@ public final class Siamese extends Cat {
      * @param age the age value to set.
      * @param smart the smart value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Siamese(String name, int age, boolean smart) {
         super(name, age);
         this.smart = smart;
@@ -34,6 +36,7 @@ public final class Siamese extends Cat {
      * 
      * @return the smart value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public boolean isSmart() {
         return this.smart;
     }
@@ -41,6 +44,7 @@ public final class Siamese extends Cat {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -59,6 +63,7 @@ public final class Siamese extends Cat {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Siamese.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Siamese fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

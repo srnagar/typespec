@@ -16,11 +16,13 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int property = 42;
 
     /**
      * Creates an instance of IntLiteralProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IntLiteralProperty() {
     }
 
@@ -29,6 +31,7 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getProperty() {
         return this.property;
     }
@@ -36,6 +39,7 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -52,6 +56,7 @@ public final class IntLiteralProperty implements JsonSerializable<IntLiteralProp
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IntLiteralProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static IntLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             IntLiteralProperty deserializedIntLiteralProperty = new IntLiteralProperty();

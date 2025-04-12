@@ -16,11 +16,13 @@ public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumV
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final ExtendedEnum property = ExtendedEnum.ENUM_VALUE2;
 
     /**
      * Creates an instance of UnionEnumValueProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public UnionEnumValueProperty() {
     }
 
@@ -29,6 +31,7 @@ public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumV
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ExtendedEnum getProperty() {
         return this.property;
     }
@@ -36,6 +39,7 @@ public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumV
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -52,6 +56,7 @@ public final class UnionEnumValueProperty implements JsonSerializable<UnionEnumV
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the UnionEnumValueProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static UnionEnumValueProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             UnionEnumValueProperty deserializedUnionEnumValueProperty = new UnionEnumValueProperty();

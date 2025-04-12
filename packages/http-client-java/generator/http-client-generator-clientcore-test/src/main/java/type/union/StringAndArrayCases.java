@@ -17,11 +17,13 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
     /*
      * This should be receive/send the string variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData string;
 
     /*
      * This should be receive/send the array variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData array;
 
     /**
@@ -30,6 +32,7 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * @param string the string value to set.
      * @param array the array value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringAndArrayCases(BinaryData string, BinaryData array) {
         this.string = string;
         this.array = array;
@@ -40,6 +43,7 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * 
      * @return the string value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getString() {
         return this.string;
     }
@@ -49,6 +53,7 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * 
      * @return the array value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getArray() {
         return this.array;
     }
@@ -56,6 +61,7 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -75,6 +81,7 @@ public final class StringAndArrayCases implements JsonSerializable<StringAndArra
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the StringAndArrayCases.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static StringAndArrayCases fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BinaryData string = null;

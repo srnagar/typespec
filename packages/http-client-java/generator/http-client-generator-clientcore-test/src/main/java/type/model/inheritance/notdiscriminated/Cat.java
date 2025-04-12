@@ -15,6 +15,7 @@ public class Cat extends Pet {
     /*
      * The age property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int age;
 
     /**
@@ -23,6 +24,7 @@ public class Cat extends Pet {
      * @param name the name value to set.
      * @param age the age value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Cat(String name, int age) {
         super(name);
         this.age = age;
@@ -33,6 +35,7 @@ public class Cat extends Pet {
      * 
      * @return the age value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getAge() {
         return this.age;
     }
@@ -40,6 +43,7 @@ public class Cat extends Pet {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -57,6 +61,7 @@ public class Cat extends Pet {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Cat.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Cat fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

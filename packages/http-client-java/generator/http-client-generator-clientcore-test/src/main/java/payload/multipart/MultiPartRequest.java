@@ -11,11 +11,13 @@ public final class MultiPartRequest {
     /*
      * The id property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String id;
 
     /*
      * The profileImage property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final ProfileImageFileDetails profileImage;
 
     /**
@@ -24,6 +26,7 @@ public final class MultiPartRequest {
      * @param id the id value to set.
      * @param profileImage the profileImage value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public MultiPartRequest(String id, ProfileImageFileDetails profileImage) {
         this.id = id;
         this.profileImage = profileImage;
@@ -34,6 +37,7 @@ public final class MultiPartRequest {
      * 
      * @return the id value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getId() {
         return this.id;
     }
@@ -43,6 +47,7 @@ public final class MultiPartRequest {
      * 
      * @return the profileImage value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ProfileImageFileDetails getProfileImage() {
         return this.profileImage;
     }

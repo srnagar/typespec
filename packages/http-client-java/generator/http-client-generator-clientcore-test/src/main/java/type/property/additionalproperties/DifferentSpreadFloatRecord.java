@@ -18,11 +18,13 @@ public class DifferentSpreadFloatRecord implements JsonSerializable<DifferentSpr
     /*
      * The id property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /*
      * The model spread Record<float32> with the different known property type
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, Double> additionalProperties;
 
     /**
@@ -30,6 +32,7 @@ public class DifferentSpreadFloatRecord implements JsonSerializable<DifferentSpr
      * 
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DifferentSpreadFloatRecord(String name) {
         this.name = name;
     }
@@ -39,6 +42,7 @@ public class DifferentSpreadFloatRecord implements JsonSerializable<DifferentSpr
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -49,6 +53,7 @@ public class DifferentSpreadFloatRecord implements JsonSerializable<DifferentSpr
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, Double> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -60,6 +65,7 @@ public class DifferentSpreadFloatRecord implements JsonSerializable<DifferentSpr
      * @param additionalProperties the additionalProperties value to set.
      * @return the DifferentSpreadFloatRecord object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DifferentSpreadFloatRecord setAdditionalProperties(Map<String, Double> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -68,6 +74,7 @@ public class DifferentSpreadFloatRecord implements JsonSerializable<DifferentSpr
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -89,6 +96,7 @@ public class DifferentSpreadFloatRecord implements JsonSerializable<DifferentSpr
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DifferentSpreadFloatRecord.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static DifferentSpreadFloatRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

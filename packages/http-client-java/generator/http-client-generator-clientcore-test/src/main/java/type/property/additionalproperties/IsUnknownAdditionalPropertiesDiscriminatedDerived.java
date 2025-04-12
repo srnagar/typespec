@@ -19,16 +19,19 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
     /*
      * The discriminator
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "derived";
 
     /*
      * The index property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int index;
 
     /*
      * The age property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Double age;
 
     /**
@@ -37,6 +40,7 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
      * @param name the name value to set.
      * @param index the index value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsUnknownAdditionalPropertiesDiscriminatedDerived(String name, int index) {
         super(name);
         this.index = index;
@@ -47,6 +51,7 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getKind() {
         return this.kind;
@@ -57,6 +62,7 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
      * 
      * @return the index value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getIndex() {
         return this.index;
     }
@@ -66,6 +72,7 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
      * 
      * @return the age value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Double getAge() {
         return this.age;
     }
@@ -76,6 +83,7 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
      * @param age the age value to set.
      * @return the IsUnknownAdditionalPropertiesDiscriminatedDerived object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsUnknownAdditionalPropertiesDiscriminatedDerived setAge(Double age) {
         this.age = age;
         return this;
@@ -84,6 +92,7 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -113,6 +122,7 @@ public final class IsUnknownAdditionalPropertiesDiscriminatedDerived
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IsUnknownAdditionalPropertiesDiscriminatedDerived.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static IsUnknownAdditionalPropertiesDiscriminatedDerived fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

@@ -18,11 +18,13 @@ public final class RequestQueryResponseBodyResponse implements JsonSerializable<
     /*
      * The pets property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<Pet> pets;
 
     /*
      * The nextToken property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String nextToken;
 
     /**
@@ -30,6 +32,7 @@ public final class RequestQueryResponseBodyResponse implements JsonSerializable<
      * 
      * @param pets the pets value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private RequestQueryResponseBodyResponse(List<Pet> pets) {
         this.pets = pets;
     }
@@ -39,6 +42,7 @@ public final class RequestQueryResponseBodyResponse implements JsonSerializable<
      * 
      * @return the pets value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Pet> getPets() {
         return this.pets;
     }
@@ -48,6 +52,7 @@ public final class RequestQueryResponseBodyResponse implements JsonSerializable<
      * 
      * @return the nextToken value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getNextToken() {
         return this.nextToken;
     }
@@ -55,6 +60,7 @@ public final class RequestQueryResponseBodyResponse implements JsonSerializable<
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class RequestQueryResponseBodyResponse implements JsonSerializable<
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the RequestQueryResponseBodyResponse.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static RequestQueryResponseBodyResponse fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Pet> pets = null;

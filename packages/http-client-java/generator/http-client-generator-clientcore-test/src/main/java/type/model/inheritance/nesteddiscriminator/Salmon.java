@@ -18,21 +18,25 @@ public final class Salmon extends Fish {
     /*
      * Discriminator property for Fish.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "salmon";
 
     /*
      * The friends property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private List<Fish> friends;
 
     /*
      * The hate property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, Fish> hate;
 
     /*
      * The partner property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Fish partner;
 
     /**
@@ -40,6 +44,7 @@ public final class Salmon extends Fish {
      * 
      * @param age the age value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Salmon(int age) {
         super(age);
     }
@@ -49,6 +54,7 @@ public final class Salmon extends Fish {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getKind() {
         return this.kind;
@@ -59,6 +65,7 @@ public final class Salmon extends Fish {
      * 
      * @return the friends value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Fish> getFriends() {
         return this.friends;
     }
@@ -69,6 +76,7 @@ public final class Salmon extends Fish {
      * @param friends the friends value to set.
      * @return the Salmon object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Salmon setFriends(List<Fish> friends) {
         this.friends = friends;
         return this;
@@ -79,6 +87,7 @@ public final class Salmon extends Fish {
      * 
      * @return the hate value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, Fish> getHate() {
         return this.hate;
     }
@@ -89,6 +98,7 @@ public final class Salmon extends Fish {
      * @param hate the hate value to set.
      * @return the Salmon object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Salmon setHate(Map<String, Fish> hate) {
         this.hate = hate;
         return this;
@@ -99,6 +109,7 @@ public final class Salmon extends Fish {
      * 
      * @return the partner value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Fish getPartner() {
         return this.partner;
     }
@@ -109,6 +120,7 @@ public final class Salmon extends Fish {
      * @param partner the partner value to set.
      * @return the Salmon object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Salmon setPartner(Fish partner) {
         this.partner = partner;
         return this;
@@ -117,6 +129,7 @@ public final class Salmon extends Fish {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -137,6 +150,7 @@ public final class Salmon extends Fish {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Salmon.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Salmon fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int age = 0;

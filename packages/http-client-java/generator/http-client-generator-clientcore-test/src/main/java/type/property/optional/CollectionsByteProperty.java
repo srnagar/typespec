@@ -17,11 +17,13 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private List<byte[]> property;
 
     /**
      * Creates an instance of CollectionsByteProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public CollectionsByteProperty() {
     }
 
@@ -30,6 +32,7 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<byte[]> getProperty() {
         return this.property;
     }
@@ -40,6 +43,7 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * @param property the property value to set.
      * @return the CollectionsByteProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public CollectionsByteProperty setProperty(List<byte[]> property) {
         this.property = property;
         return this;
@@ -48,6 +52,7 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -63,6 +68,7 @@ public final class CollectionsByteProperty implements JsonSerializable<Collectio
      * was pointing to JSON null.
      * @throws IOException If an error occurs while reading the CollectionsByteProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static CollectionsByteProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             CollectionsByteProperty deserializedCollectionsByteProperty = new CollectionsByteProperty();

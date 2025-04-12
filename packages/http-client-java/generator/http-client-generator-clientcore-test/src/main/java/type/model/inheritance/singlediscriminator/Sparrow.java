@@ -15,6 +15,7 @@ public final class Sparrow extends Bird {
     /*
      * The kind property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "sparrow";
 
     /**
@@ -22,6 +23,7 @@ public final class Sparrow extends Bird {
      * 
      * @param wingspan the wingspan value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Sparrow(int wingspan) {
         super(wingspan);
     }
@@ -31,6 +33,7 @@ public final class Sparrow extends Bird {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getKind() {
         return this.kind;
@@ -39,6 +42,7 @@ public final class Sparrow extends Bird {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class Sparrow extends Bird {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Sparrow.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Sparrow fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int wingspan = 0;

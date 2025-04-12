@@ -16,11 +16,13 @@ public class Dog implements JsonSerializable<Dog> {
     /*
      * discriminator property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private DogKind kind = DogKind.fromValue("Dog");
 
     /*
      * Weight of the dog
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int weight;
 
     /**
@@ -28,6 +30,7 @@ public class Dog implements JsonSerializable<Dog> {
      * 
      * @param weight the weight value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Dog(int weight) {
         this.weight = weight;
     }
@@ -37,6 +40,7 @@ public class Dog implements JsonSerializable<Dog> {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DogKind getKind() {
         return this.kind;
     }
@@ -46,6 +50,7 @@ public class Dog implements JsonSerializable<Dog> {
      * 
      * @return the weight value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getWeight() {
         return this.weight;
     }
@@ -53,6 +58,7 @@ public class Dog implements JsonSerializable<Dog> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -70,6 +76,7 @@ public class Dog implements JsonSerializable<Dog> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Dog.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Dog fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String discriminatorValue = null;
@@ -95,6 +102,7 @@ public class Dog implements JsonSerializable<Dog> {
         });
     }
 
+    @Metadata(properties = { MetadataProperties.GENERATED })
     static Dog fromJsonKnownDiscriminator(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int weight = 0;

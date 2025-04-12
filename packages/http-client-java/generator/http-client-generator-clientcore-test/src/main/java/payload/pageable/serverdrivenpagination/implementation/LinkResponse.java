@@ -18,11 +18,13 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
     /*
      * The pets property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<Pet> pets;
 
     /*
      * The next property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String next;
 
     /**
@@ -30,6 +32,7 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * 
      * @param pets the pets value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private LinkResponse(List<Pet> pets) {
         this.pets = pets;
     }
@@ -39,6 +42,7 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * 
      * @return the pets value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Pet> getPets() {
         return this.pets;
     }
@@ -48,6 +52,7 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * 
      * @return the next value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getNext() {
         return this.next;
     }
@@ -55,6 +60,7 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class LinkResponse implements JsonSerializable<LinkResponse> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the LinkResponse.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static LinkResponse fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Pet> pets = null;

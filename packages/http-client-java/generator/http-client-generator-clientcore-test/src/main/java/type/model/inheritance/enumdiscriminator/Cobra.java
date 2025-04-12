@@ -15,6 +15,7 @@ public final class Cobra extends Snake {
     /*
      * discriminator property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private SnakeKind kind = SnakeKind.COBRA;
 
     /**
@@ -22,6 +23,7 @@ public final class Cobra extends Snake {
      * 
      * @param length the length value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Cobra(int length) {
         super(length);
     }
@@ -31,6 +33,7 @@ public final class Cobra extends Snake {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public SnakeKind getKind() {
         return this.kind;
@@ -39,6 +42,7 @@ public final class Cobra extends Snake {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class Cobra extends Snake {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Cobra.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Cobra fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int length = 0;

@@ -19,20 +19,25 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
     /*
      * Required property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String requiredProperty;
 
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String nullableProperty;
 
     /**
      * Stores updated model property, the value is property name, not serialized name.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final Set<String> updatedProperties = new HashSet<>();
 
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private boolean jsonMergePatch;
 
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private void serializeAsJsonMergePatch(boolean jsonMergePatch) {
         this.jsonMergePatch = jsonMergePatch;
     }
@@ -55,6 +60,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
     /**
      * Creates an instance of StringProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringProperty() {
     }
 
@@ -63,6 +69,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * 
      * @return the requiredProperty value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getRequiredProperty() {
         return this.requiredProperty;
     }
@@ -74,6 +81,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * @param requiredProperty the requiredProperty value to set.
      * @return the StringProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringProperty setRequiredProperty(String requiredProperty) {
         this.requiredProperty = requiredProperty;
         this.updatedProperties.add("requiredProperty");
@@ -85,6 +93,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * 
      * @return the nullableProperty value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getNullableProperty() {
         return this.nullableProperty;
     }
@@ -96,6 +105,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * @param nullableProperty the nullableProperty value to set.
      * @return the StringProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringProperty setNullableProperty(String nullableProperty) {
         this.nullableProperty = nullableProperty;
         this.updatedProperties.add("nullableProperty");
@@ -105,6 +115,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         if (jsonMergePatch) {
@@ -117,6 +128,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
         }
     }
 
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private JsonWriter toJsonMergePatch(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
         if (updatedProperties.contains("requiredProperty")) {
@@ -144,6 +156,7 @@ public final class StringProperty implements JsonSerializable<StringProperty> {
      * pointing to JSON null.
      * @throws IOException If an error occurs while reading the StringProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static StringProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             StringProperty deserializedStringProperty = new StringProperty();

@@ -18,6 +18,7 @@ public final class DefaultDurationProperty implements JsonSerializable<DefaultDu
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final Duration value;
 
     /**
@@ -25,6 +26,7 @@ public final class DefaultDurationProperty implements JsonSerializable<DefaultDu
      * 
      * @param value the value value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DefaultDurationProperty(Duration value) {
         this.value = value;
     }
@@ -34,6 +36,7 @@ public final class DefaultDurationProperty implements JsonSerializable<DefaultDu
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Duration getValue() {
         return this.value;
     }
@@ -41,6 +44,7 @@ public final class DefaultDurationProperty implements JsonSerializable<DefaultDu
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -57,6 +61,7 @@ public final class DefaultDurationProperty implements JsonSerializable<DefaultDu
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DefaultDurationProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static DefaultDurationProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Duration value = null;

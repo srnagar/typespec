@@ -18,26 +18,31 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
     /*
      * This should be receive/send the Cat variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData model;
 
     /*
      * This should be receive/send the "a" variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData literal;
 
     /*
      * This should be receive/send the int variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData intProperty;
 
     /*
      * This should be receive/send the boolean variant
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData booleanProperty;
 
     /*
      * This should be receive/send 4 element with Cat, "a", int, and boolean
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<BinaryData> array;
 
     /**
@@ -49,6 +54,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
      * @param booleanProperty the booleanProperty value to set.
      * @param array the array value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public MixedTypesCases(BinaryData model, BinaryData literal, BinaryData intProperty, BinaryData booleanProperty,
         List<BinaryData> array) {
         this.model = model;
@@ -63,6 +69,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
      * 
      * @return the model value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getModel() {
         return this.model;
     }
@@ -72,6 +79,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
      * 
      * @return the literal value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getLiteral() {
         return this.literal;
     }
@@ -81,6 +89,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
      * 
      * @return the intProperty value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getIntProperty() {
         return this.intProperty;
     }
@@ -90,6 +99,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
      * 
      * @return the booleanProperty value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getBooleanProperty() {
         return this.booleanProperty;
     }
@@ -99,6 +109,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
      * 
      * @return the array value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<BinaryData> getArray() {
         return this.array;
     }
@@ -106,6 +117,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -131,6 +143,7 @@ public final class MixedTypesCases implements JsonSerializable<MixedTypesCases> 
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the MixedTypesCases.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static MixedTypesCases fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BinaryData model = null;

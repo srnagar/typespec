@@ -15,6 +15,7 @@ public final class SeaGull extends Bird {
     /*
      * The kind property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "seagull";
 
     /**
@@ -22,6 +23,7 @@ public final class SeaGull extends Bird {
      * 
      * @param wingspan the wingspan value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SeaGull(int wingspan) {
         super(wingspan);
     }
@@ -31,6 +33,7 @@ public final class SeaGull extends Bird {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public String getKind() {
         return this.kind;
@@ -39,6 +42,7 @@ public final class SeaGull extends Bird {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class SeaGull extends Bird {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SeaGull.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SeaGull fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int wingspan = 0;

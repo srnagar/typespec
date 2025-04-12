@@ -17,6 +17,7 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<Integer> property;
 
     /**
@@ -24,6 +25,7 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public CollectionsIntProperty(List<Integer> property) {
         this.property = property;
     }
@@ -33,6 +35,7 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Integer> getProperty() {
         return this.property;
     }
@@ -40,6 +43,7 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class CollectionsIntProperty implements JsonSerializable<Collection
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the CollectionsIntProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static CollectionsIntProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Integer> property = null;

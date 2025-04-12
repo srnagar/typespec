@@ -16,6 +16,7 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final GetResponseProp1 prop;
 
     /**
@@ -23,6 +24,7 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
      * 
      * @param prop the prop value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private GetResponse1(GetResponseProp1 prop) {
         this.prop = prop;
     }
@@ -32,6 +34,7 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public GetResponseProp1 getProp() {
         return this.prop;
     }
@@ -39,6 +42,7 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class GetResponse1 implements JsonSerializable<GetResponse1> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the GetResponse1.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static GetResponse1 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             GetResponseProp1 prop = null;

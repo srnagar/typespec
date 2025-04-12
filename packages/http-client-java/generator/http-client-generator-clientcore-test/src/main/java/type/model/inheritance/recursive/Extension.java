@@ -16,6 +16,7 @@ public final class Extension extends Element {
     /*
      * The level property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int level;
 
     /**
@@ -23,6 +24,7 @@ public final class Extension extends Element {
      * 
      * @param level the level value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Extension(int level) {
         this.level = level;
     }
@@ -32,6 +34,7 @@ public final class Extension extends Element {
      * 
      * @return the level value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getLevel() {
         return this.level;
     }
@@ -39,6 +42,7 @@ public final class Extension extends Element {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public Extension setExtension(List<Extension> extension) {
         super.setExtension(extension);
@@ -48,6 +52,7 @@ public final class Extension extends Element {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -65,6 +70,7 @@ public final class Extension extends Element {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Extension.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Extension fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Extension> extension = null;

@@ -11,6 +11,7 @@ public final class FileWithHttpPartRequiredContentTypeRequest {
     /*
      * The profileImage property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final FileRequiredMetaData profileImage;
 
     /**
@@ -18,6 +19,7 @@ public final class FileWithHttpPartRequiredContentTypeRequest {
      * 
      * @param profileImage the profileImage value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FileWithHttpPartRequiredContentTypeRequest(FileRequiredMetaData profileImage) {
         this.profileImage = profileImage;
     }
@@ -27,6 +29,7 @@ public final class FileWithHttpPartRequiredContentTypeRequest {
      * 
      * @return the profileImage value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FileRequiredMetaData getProfileImage() {
         return this.profileImage;
     }

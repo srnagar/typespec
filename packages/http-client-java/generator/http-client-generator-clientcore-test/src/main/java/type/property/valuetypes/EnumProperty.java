@@ -16,6 +16,7 @@ public final class EnumProperty implements JsonSerializable<EnumProperty> {
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final FixedInnerEnum property;
 
     /**
@@ -23,6 +24,7 @@ public final class EnumProperty implements JsonSerializable<EnumProperty> {
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public EnumProperty(FixedInnerEnum property) {
         this.property = property;
     }
@@ -32,6 +34,7 @@ public final class EnumProperty implements JsonSerializable<EnumProperty> {
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FixedInnerEnum getProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class EnumProperty implements JsonSerializable<EnumProperty> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class EnumProperty implements JsonSerializable<EnumProperty> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the EnumProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static EnumProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             FixedInnerEnum property = null;

@@ -12,16 +12,19 @@ public final class FileSpecificContentType {
     /*
      * The content of the file.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData content;
 
     /*
      * The filename of the file.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String filename;
 
     /*
      * The content-type of the file.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String contentType = "image/jpg";
 
     /**
@@ -30,6 +33,7 @@ public final class FileSpecificContentType {
      * @param content the content value to set.
      * @param filename the filename value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FileSpecificContentType(BinaryData content, String filename) {
         this.content = content;
         this.filename = filename;
@@ -40,6 +44,7 @@ public final class FileSpecificContentType {
      * 
      * @return the content value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getContent() {
         return this.content;
     }
@@ -49,6 +54,7 @@ public final class FileSpecificContentType {
      * 
      * @return the filename value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getFilename() {
         return this.filename;
     }
@@ -58,6 +64,7 @@ public final class FileSpecificContentType {
      * 
      * @return the contentType value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getContentType() {
         return this.contentType;
     }

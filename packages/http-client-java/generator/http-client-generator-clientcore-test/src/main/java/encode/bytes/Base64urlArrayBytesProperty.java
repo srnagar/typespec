@@ -19,6 +19,7 @@ public final class Base64urlArrayBytesProperty implements JsonSerializable<Base6
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<Base64Uri> value;
 
     /**
@@ -26,6 +27,7 @@ public final class Base64urlArrayBytesProperty implements JsonSerializable<Base6
      * 
      * @param value the value value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Base64urlArrayBytesProperty(List<byte[]> value) {
         if (value == null) {
             this.value = null;
@@ -39,6 +41,7 @@ public final class Base64urlArrayBytesProperty implements JsonSerializable<Base6
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<byte[]> getValue() {
         if (this.value == null) {
             return null;
@@ -49,6 +52,7 @@ public final class Base64urlArrayBytesProperty implements JsonSerializable<Base6
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -66,6 +70,7 @@ public final class Base64urlArrayBytesProperty implements JsonSerializable<Base6
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Base64urlArrayBytesProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Base64urlArrayBytesProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<byte[]> value = null;

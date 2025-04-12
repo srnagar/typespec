@@ -16,6 +16,7 @@ public final class ModelForRecord implements JsonSerializable<ModelForRecord> {
     /*
      * The state property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String state;
 
     /**
@@ -23,6 +24,7 @@ public final class ModelForRecord implements JsonSerializable<ModelForRecord> {
      * 
      * @param state the state value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ModelForRecord(String state) {
         this.state = state;
     }
@@ -32,6 +34,7 @@ public final class ModelForRecord implements JsonSerializable<ModelForRecord> {
      * 
      * @return the state value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getState() {
         return this.state;
     }
@@ -39,6 +42,7 @@ public final class ModelForRecord implements JsonSerializable<ModelForRecord> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class ModelForRecord implements JsonSerializable<ModelForRecord> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ModelForRecord.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ModelForRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String state = null;

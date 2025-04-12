@@ -16,11 +16,13 @@ public final class NotFoundError implements JsonSerializable<NotFoundError> {
     /*
      * The code property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String code;
 
     /*
      * The resourceId property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String resourceId;
 
     /**
@@ -29,6 +31,7 @@ public final class NotFoundError implements JsonSerializable<NotFoundError> {
      * @param code the code value to set.
      * @param resourceId the resourceId value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private NotFoundError(String code, String resourceId) {
         this.code = code;
         this.resourceId = resourceId;
@@ -39,6 +42,7 @@ public final class NotFoundError implements JsonSerializable<NotFoundError> {
      * 
      * @return the code value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getCode() {
         return this.code;
     }
@@ -48,6 +52,7 @@ public final class NotFoundError implements JsonSerializable<NotFoundError> {
      * 
      * @return the resourceId value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getResourceId() {
         return this.resourceId;
     }
@@ -55,6 +60,7 @@ public final class NotFoundError implements JsonSerializable<NotFoundError> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class NotFoundError implements JsonSerializable<NotFoundError> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the NotFoundError.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static NotFoundError fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String code = null;

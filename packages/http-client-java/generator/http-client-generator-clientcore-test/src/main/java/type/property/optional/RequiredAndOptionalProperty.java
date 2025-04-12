@@ -16,11 +16,13 @@ public final class RequiredAndOptionalProperty implements JsonSerializable<Requi
     /*
      * optional string property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String optionalProperty;
 
     /*
      * required int property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int requiredProperty;
 
     /**
@@ -28,6 +30,7 @@ public final class RequiredAndOptionalProperty implements JsonSerializable<Requi
      * 
      * @param requiredProperty the requiredProperty value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public RequiredAndOptionalProperty(int requiredProperty) {
         this.requiredProperty = requiredProperty;
     }
@@ -37,6 +40,7 @@ public final class RequiredAndOptionalProperty implements JsonSerializable<Requi
      * 
      * @return the optionalProperty value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getOptionalProperty() {
         return this.optionalProperty;
     }
@@ -47,6 +51,7 @@ public final class RequiredAndOptionalProperty implements JsonSerializable<Requi
      * @param optionalProperty the optionalProperty value to set.
      * @return the RequiredAndOptionalProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public RequiredAndOptionalProperty setOptionalProperty(String optionalProperty) {
         this.optionalProperty = optionalProperty;
         return this;
@@ -57,6 +62,7 @@ public final class RequiredAndOptionalProperty implements JsonSerializable<Requi
      * 
      * @return the requiredProperty value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getRequiredProperty() {
         return this.requiredProperty;
     }
@@ -64,6 +70,7 @@ public final class RequiredAndOptionalProperty implements JsonSerializable<Requi
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -81,6 +88,7 @@ public final class RequiredAndOptionalProperty implements JsonSerializable<Requi
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the RequiredAndOptionalProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static RequiredAndOptionalProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int requiredProperty = 0;

@@ -12,6 +12,7 @@ public final class AnonymousModelRequest {
     /*
      * The profileImage property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final ProfileImageFileDetails profileImage;
 
     /**
@@ -19,6 +20,7 @@ public final class AnonymousModelRequest {
      * 
      * @param profileImage the profileImage value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public AnonymousModelRequest(ProfileImageFileDetails profileImage) {
         this.profileImage = profileImage;
     }
@@ -28,6 +30,7 @@ public final class AnonymousModelRequest {
      * 
      * @return the profileImage value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ProfileImageFileDetails getProfileImage() {
         return this.profileImage;
     }

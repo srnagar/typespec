@@ -16,6 +16,7 @@ public final class Address implements JsonSerializable<Address> {
     /*
      * The city property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String city;
 
     /**
@@ -23,6 +24,7 @@ public final class Address implements JsonSerializable<Address> {
      * 
      * @param city the city value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Address(String city) {
         this.city = city;
     }
@@ -32,6 +34,7 @@ public final class Address implements JsonSerializable<Address> {
      * 
      * @return the city value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getCity() {
         return this.city;
     }
@@ -39,6 +42,7 @@ public final class Address implements JsonSerializable<Address> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class Address implements JsonSerializable<Address> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Address.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Address fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String city = null;

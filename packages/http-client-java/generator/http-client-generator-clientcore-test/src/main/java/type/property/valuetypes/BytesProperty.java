@@ -16,6 +16,7 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final byte[] property;
 
     /**
@@ -23,6 +24,7 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BytesProperty(byte[] property) {
         this.property = property;
     }
@@ -32,6 +34,7 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public byte[] getProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class BytesProperty implements JsonSerializable<BytesProperty> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the BytesProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static BytesProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             byte[] property = null;

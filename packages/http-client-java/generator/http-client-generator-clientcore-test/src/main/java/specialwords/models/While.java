@@ -16,6 +16,7 @@ public final class While implements JsonSerializable<While> {
     /*
      * The name property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /**
@@ -23,6 +24,7 @@ public final class While implements JsonSerializable<While> {
      * 
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public While(String name) {
         this.name = name;
     }
@@ -32,6 +34,7 @@ public final class While implements JsonSerializable<While> {
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -39,6 +42,7 @@ public final class While implements JsonSerializable<While> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class While implements JsonSerializable<While> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the While.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static While fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

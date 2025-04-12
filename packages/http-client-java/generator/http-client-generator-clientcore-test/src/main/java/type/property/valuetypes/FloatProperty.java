@@ -16,6 +16,7 @@ public final class FloatProperty implements JsonSerializable<FloatProperty> {
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final double property;
 
     /**
@@ -23,6 +24,7 @@ public final class FloatProperty implements JsonSerializable<FloatProperty> {
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FloatProperty(double property) {
         this.property = property;
     }
@@ -32,6 +34,7 @@ public final class FloatProperty implements JsonSerializable<FloatProperty> {
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public double getProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class FloatProperty implements JsonSerializable<FloatProperty> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class FloatProperty implements JsonSerializable<FloatProperty> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the FloatProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static FloatProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             double property = 0.0;

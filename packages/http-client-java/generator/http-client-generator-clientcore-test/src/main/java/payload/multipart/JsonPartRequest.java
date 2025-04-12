@@ -11,11 +11,13 @@ public final class JsonPartRequest {
     /*
      * The address property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final Address address;
 
     /*
      * The profileImage property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final ProfileImageFileDetails profileImage;
 
     /**
@@ -24,6 +26,7 @@ public final class JsonPartRequest {
      * @param address the address value to set.
      * @param profileImage the profileImage value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public JsonPartRequest(Address address, ProfileImageFileDetails profileImage) {
         this.address = address;
         this.profileImage = profileImage;
@@ -34,6 +37,7 @@ public final class JsonPartRequest {
      * 
      * @return the address value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Address getAddress() {
         return this.address;
     }
@@ -43,6 +47,7 @@ public final class JsonPartRequest {
      * 
      * @return the profileImage value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ProfileImageFileDetails getProfileImage() {
         return this.profileImage;
     }

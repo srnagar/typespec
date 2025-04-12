@@ -16,6 +16,7 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
     /*
      * The error property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String error;
 
     /**
@@ -23,6 +24,7 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
      * 
      * @param error the error value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private InvalidAuth(String error) {
         this.error = error;
     }
@@ -32,6 +34,7 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
      * 
      * @return the error value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getError() {
         return this.error;
     }
@@ -39,6 +42,7 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class InvalidAuth implements JsonSerializable<InvalidAuth> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the InvalidAuth.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static InvalidAuth fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String error = null;

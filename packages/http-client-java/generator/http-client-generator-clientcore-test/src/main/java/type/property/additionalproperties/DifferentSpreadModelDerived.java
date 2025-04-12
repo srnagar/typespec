@@ -17,6 +17,7 @@ public final class DifferentSpreadModelDerived extends DifferentSpreadModelRecor
     /*
      * The index property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final ModelForRecord derivedProp;
 
     /**
@@ -25,6 +26,7 @@ public final class DifferentSpreadModelDerived extends DifferentSpreadModelRecor
      * @param knownProp the knownProp value to set.
      * @param derivedProp the derivedProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DifferentSpreadModelDerived(String knownProp, ModelForRecord derivedProp) {
         super(knownProp);
         this.derivedProp = derivedProp;
@@ -35,6 +37,7 @@ public final class DifferentSpreadModelDerived extends DifferentSpreadModelRecor
      * 
      * @return the derivedProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ModelForRecord getDerivedProp() {
         return this.derivedProp;
     }
@@ -42,6 +45,7 @@ public final class DifferentSpreadModelDerived extends DifferentSpreadModelRecor
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -64,6 +68,7 @@ public final class DifferentSpreadModelDerived extends DifferentSpreadModelRecor
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DifferentSpreadModelDerived.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static DifferentSpreadModelDerived fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String knownProp = null;

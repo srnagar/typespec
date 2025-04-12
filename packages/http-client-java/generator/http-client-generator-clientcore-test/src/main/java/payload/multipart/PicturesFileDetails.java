@@ -12,16 +12,19 @@ public final class PicturesFileDetails {
     /*
      * The content of the file.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData content;
 
     /*
      * The filename of the file.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String filename;
 
     /*
      * The content-type of the file.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String contentType = "application/octet-stream";
 
     /**
@@ -29,6 +32,7 @@ public final class PicturesFileDetails {
      * 
      * @param content the content value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public PicturesFileDetails(BinaryData content) {
         this.content = content;
     }
@@ -38,6 +42,7 @@ public final class PicturesFileDetails {
      * 
      * @return the content value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getContent() {
         return this.content;
     }
@@ -47,6 +52,7 @@ public final class PicturesFileDetails {
      * 
      * @return the filename value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getFilename() {
         return this.filename;
     }
@@ -57,6 +63,7 @@ public final class PicturesFileDetails {
      * @param filename the filename value to set.
      * @return the PicturesFileDetails object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public PicturesFileDetails setFilename(String filename) {
         this.filename = filename;
         return this;
@@ -67,6 +74,7 @@ public final class PicturesFileDetails {
      * 
      * @return the contentType value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getContentType() {
         return this.contentType;
     }
@@ -77,6 +85,7 @@ public final class PicturesFileDetails {
      * @param contentType the contentType value to set.
      * @return the PicturesFileDetails object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public PicturesFileDetails setContentType(String contentType) {
         this.contentType = contentType;
         return this;

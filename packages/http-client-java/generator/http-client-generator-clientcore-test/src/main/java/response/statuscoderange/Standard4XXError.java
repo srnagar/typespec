@@ -16,6 +16,7 @@ public final class Standard4XXError implements JsonSerializable<Standard4XXError
     /*
      * The code property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String code;
 
     /**
@@ -23,6 +24,7 @@ public final class Standard4XXError implements JsonSerializable<Standard4XXError
      * 
      * @param code the code value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Standard4XXError(String code) {
         this.code = code;
     }
@@ -32,6 +34,7 @@ public final class Standard4XXError implements JsonSerializable<Standard4XXError
      * 
      * @return the code value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getCode() {
         return this.code;
     }
@@ -39,6 +42,7 @@ public final class Standard4XXError implements JsonSerializable<Standard4XXError
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class Standard4XXError implements JsonSerializable<Standard4XXError
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Standard4XXError.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Standard4XXError fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String code = null;

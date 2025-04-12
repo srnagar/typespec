@@ -18,11 +18,13 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
     /*
      * The index property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int index;
 
     /*
      * The age property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Double age;
 
     /**
@@ -31,6 +33,7 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * @param name the name value to set.
      * @param index the index value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsUnknownAdditionalPropertiesDerived(String name, int index) {
         super(name);
         this.index = index;
@@ -41,6 +44,7 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * 
      * @return the index value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getIndex() {
         return this.index;
     }
@@ -50,6 +54,7 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * 
      * @return the age value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Double getAge() {
         return this.age;
     }
@@ -60,6 +65,7 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * @param age the age value to set.
      * @return the IsUnknownAdditionalPropertiesDerived object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsUnknownAdditionalPropertiesDerived setAge(Double age) {
         this.age = age;
         return this;
@@ -68,6 +74,7 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -96,6 +103,7 @@ public final class IsUnknownAdditionalPropertiesDerived extends IsUnknownAdditio
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IsUnknownAdditionalPropertiesDerived.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static IsUnknownAdditionalPropertiesDerived fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

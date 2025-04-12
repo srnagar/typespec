@@ -16,11 +16,13 @@ public final class Pet implements JsonSerializable<Pet> {
     /*
      * The id property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String id;
 
     /*
      * The name property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /**
@@ -29,6 +31,7 @@ public final class Pet implements JsonSerializable<Pet> {
      * @param id the id value to set.
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Pet(String id, String name) {
         this.id = id;
         this.name = name;
@@ -39,6 +42,7 @@ public final class Pet implements JsonSerializable<Pet> {
      * 
      * @return the id value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getId() {
         return this.id;
     }
@@ -48,6 +52,7 @@ public final class Pet implements JsonSerializable<Pet> {
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -55,6 +60,7 @@ public final class Pet implements JsonSerializable<Pet> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class Pet implements JsonSerializable<Pet> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Pet.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Pet fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String id = null;

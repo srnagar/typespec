@@ -18,21 +18,25 @@ public final class SpreadWithMultipleParametersRequest
     /*
      * required string
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String requiredString;
 
     /*
      * optional int
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Integer optionalInt;
 
     /*
      * required int
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<Integer> requiredIntList;
 
     /*
      * optional string
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private List<String> optionalStringList;
 
     /**
@@ -41,6 +45,7 @@ public final class SpreadWithMultipleParametersRequest
      * @param requiredString the requiredString value to set.
      * @param requiredIntList the requiredIntList value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadWithMultipleParametersRequest(String requiredString, List<Integer> requiredIntList) {
         this.requiredString = requiredString;
         this.requiredIntList = requiredIntList;
@@ -51,6 +56,7 @@ public final class SpreadWithMultipleParametersRequest
      * 
      * @return the requiredString value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getRequiredString() {
         return this.requiredString;
     }
@@ -60,6 +66,7 @@ public final class SpreadWithMultipleParametersRequest
      * 
      * @return the optionalInt value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Integer getOptionalInt() {
         return this.optionalInt;
     }
@@ -70,6 +77,7 @@ public final class SpreadWithMultipleParametersRequest
      * @param optionalInt the optionalInt value to set.
      * @return the SpreadWithMultipleParametersRequest object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadWithMultipleParametersRequest setOptionalInt(Integer optionalInt) {
         this.optionalInt = optionalInt;
         return this;
@@ -80,6 +88,7 @@ public final class SpreadWithMultipleParametersRequest
      * 
      * @return the requiredIntList value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Integer> getRequiredIntList() {
         return this.requiredIntList;
     }
@@ -89,6 +98,7 @@ public final class SpreadWithMultipleParametersRequest
      * 
      * @return the optionalStringList value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<String> getOptionalStringList() {
         return this.optionalStringList;
     }
@@ -99,6 +109,7 @@ public final class SpreadWithMultipleParametersRequest
      * @param optionalStringList the optionalStringList value to set.
      * @return the SpreadWithMultipleParametersRequest object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadWithMultipleParametersRequest setOptionalStringList(List<String> optionalStringList) {
         this.optionalStringList = optionalStringList;
         return this;
@@ -107,6 +118,7 @@ public final class SpreadWithMultipleParametersRequest
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -128,6 +140,7 @@ public final class SpreadWithMultipleParametersRequest
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SpreadWithMultipleParametersRequest.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SpreadWithMultipleParametersRequest fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String requiredString = null;

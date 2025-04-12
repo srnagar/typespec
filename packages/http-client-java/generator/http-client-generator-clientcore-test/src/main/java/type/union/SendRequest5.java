@@ -17,6 +17,7 @@ public final class SendRequest5 implements JsonSerializable<SendRequest5> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData prop;
 
     /**
@@ -24,6 +25,7 @@ public final class SendRequest5 implements JsonSerializable<SendRequest5> {
      * 
      * @param prop the prop value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SendRequest5(BinaryData prop) {
         this.prop = prop;
     }
@@ -33,6 +35,7 @@ public final class SendRequest5 implements JsonSerializable<SendRequest5> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getProp() {
         return this.prop;
     }
@@ -40,6 +43,7 @@ public final class SendRequest5 implements JsonSerializable<SendRequest5> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -57,6 +61,7 @@ public final class SendRequest5 implements JsonSerializable<SendRequest5> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SendRequest5.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SendRequest5 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BinaryData prop = null;

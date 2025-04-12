@@ -16,6 +16,7 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final boolean property;
 
     /**
@@ -23,6 +24,7 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BooleanProperty(boolean property) {
         this.property = property;
     }
@@ -32,6 +34,7 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public boolean isProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class BooleanProperty implements JsonSerializable<BooleanProperty> 
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the BooleanProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static BooleanProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             boolean property = false;

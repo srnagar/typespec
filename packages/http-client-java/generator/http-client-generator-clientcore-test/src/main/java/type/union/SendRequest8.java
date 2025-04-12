@@ -16,6 +16,7 @@ public final class SendRequest8 implements JsonSerializable<SendRequest8> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final MixedLiteralsCases prop;
 
     /**
@@ -23,6 +24,7 @@ public final class SendRequest8 implements JsonSerializable<SendRequest8> {
      * 
      * @param prop the prop value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SendRequest8(MixedLiteralsCases prop) {
         this.prop = prop;
     }
@@ -32,6 +34,7 @@ public final class SendRequest8 implements JsonSerializable<SendRequest8> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public MixedLiteralsCases getProp() {
         return this.prop;
     }
@@ -39,6 +42,7 @@ public final class SendRequest8 implements JsonSerializable<SendRequest8> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class SendRequest8 implements JsonSerializable<SendRequest8> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SendRequest8.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SendRequest8 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             MixedLiteralsCases prop = null;

@@ -17,16 +17,19 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String prop;
 
     /*
      * The enumProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final EnumV1 enumProp;
 
     /*
      * The unionProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData unionProp;
 
     /**
@@ -36,6 +39,7 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * @param enumProp the enumProp value to set.
      * @param unionProp the unionProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ModelV1(String prop, EnumV1 enumProp, BinaryData unionProp) {
         this.prop = prop;
         this.enumProp = enumProp;
@@ -47,6 +51,7 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getProp() {
         return this.prop;
     }
@@ -56,6 +61,7 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * 
      * @return the enumProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public EnumV1 getEnumProp() {
         return this.enumProp;
     }
@@ -65,6 +71,7 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * 
      * @return the unionProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getUnionProp() {
         return this.unionProp;
     }
@@ -72,6 +79,7 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -91,6 +99,7 @@ public final class ModelV1 implements JsonSerializable<ModelV1> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ModelV1.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ModelV1 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String prop = null;

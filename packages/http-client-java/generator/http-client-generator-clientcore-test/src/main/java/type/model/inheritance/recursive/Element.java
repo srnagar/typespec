@@ -17,11 +17,13 @@ public class Element implements JsonSerializable<Element> {
     /*
      * The extension property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private List<Extension> extension;
 
     /**
      * Creates an instance of Element class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Element() {
     }
 
@@ -30,6 +32,7 @@ public class Element implements JsonSerializable<Element> {
      * 
      * @return the extension value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Extension> getExtension() {
         return this.extension;
     }
@@ -40,6 +43,7 @@ public class Element implements JsonSerializable<Element> {
      * @param extension the extension value to set.
      * @return the Element object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Element setExtension(List<Extension> extension) {
         this.extension = extension;
         return this;
@@ -48,6 +52,7 @@ public class Element implements JsonSerializable<Element> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -63,6 +68,7 @@ public class Element implements JsonSerializable<Element> {
      * JSON null.
      * @throws IOException If an error occurs while reading the Element.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Element fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Element deserializedElement = new Element();

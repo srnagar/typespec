@@ -18,6 +18,7 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final Duration value;
 
     /**
@@ -25,6 +26,7 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
      * 
      * @param value the value value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ISO8601DurationProperty(Duration value) {
         this.value = value;
     }
@@ -34,6 +36,7 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Duration getValue() {
         return this.value;
     }
@@ -41,6 +44,7 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -57,6 +61,7 @@ public final class ISO8601DurationProperty implements JsonSerializable<ISO8601Du
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ISO8601DurationProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ISO8601DurationProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Duration value = null;

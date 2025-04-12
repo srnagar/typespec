@@ -12,11 +12,13 @@ public final class BinaryArrayPartsRequest {
     /*
      * The id property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String id;
 
     /*
      * The pictures property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<PicturesFileDetails> pictures;
 
     /**
@@ -25,6 +27,7 @@ public final class BinaryArrayPartsRequest {
      * @param id the id value to set.
      * @param pictures the pictures value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryArrayPartsRequest(String id, List<PicturesFileDetails> pictures) {
         this.id = id;
         this.pictures = pictures;
@@ -35,6 +38,7 @@ public final class BinaryArrayPartsRequest {
      * 
      * @return the id value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getId() {
         return this.id;
     }
@@ -44,6 +48,7 @@ public final class BinaryArrayPartsRequest {
      * 
      * @return the pictures value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<PicturesFileDetails> getPictures() {
         return this.pictures;
     }

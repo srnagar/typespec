@@ -16,11 +16,13 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private StringLiteralPropertyProperty property;
 
     /**
      * Creates an instance of StringLiteralProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringLiteralProperty() {
     }
 
@@ -29,6 +31,7 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringLiteralPropertyProperty getProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * @param property the property value to set.
      * @return the StringLiteralProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringLiteralProperty setProperty(StringLiteralPropertyProperty property) {
         this.property = property;
         return this;
@@ -47,6 +51,7 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -62,6 +67,7 @@ public final class StringLiteralProperty implements JsonSerializable<StringLiter
      * was pointing to JSON null.
      * @throws IOException If an error occurs while reading the StringLiteralProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static StringLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             StringLiteralProperty deserializedStringLiteralProperty = new StringLiteralProperty();

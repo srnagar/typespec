@@ -18,16 +18,19 @@ public final class ReadOnlyModel implements JsonSerializable<ReadOnlyModel> {
     /*
      * Optional readonly nullable int list.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private List<Integer> optionalNullableIntList;
 
     /*
      * Optional readonly string dictionary.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, String> optionalStringRecord;
 
     /**
      * Creates an instance of ReadOnlyModel class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ReadOnlyModel() {
     }
 
@@ -36,6 +39,7 @@ public final class ReadOnlyModel implements JsonSerializable<ReadOnlyModel> {
      * 
      * @return the optionalNullableIntList value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Integer> getOptionalNullableIntList() {
         return this.optionalNullableIntList;
     }
@@ -45,6 +49,7 @@ public final class ReadOnlyModel implements JsonSerializable<ReadOnlyModel> {
      * 
      * @return the optionalStringRecord value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, String> getOptionalStringRecord() {
         return this.optionalStringRecord;
     }
@@ -52,6 +57,7 @@ public final class ReadOnlyModel implements JsonSerializable<ReadOnlyModel> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -66,6 +72,7 @@ public final class ReadOnlyModel implements JsonSerializable<ReadOnlyModel> {
      * pointing to JSON null.
      * @throws IOException If an error occurs while reading the ReadOnlyModel.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ReadOnlyModel fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             ReadOnlyModel deserializedReadOnlyModel = new ReadOnlyModel();

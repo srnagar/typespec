@@ -16,6 +16,7 @@ public final class GetResponse6 implements JsonSerializable<GetResponse6> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final EnumsOnlyCases prop;
 
     /**
@@ -23,6 +24,7 @@ public final class GetResponse6 implements JsonSerializable<GetResponse6> {
      * 
      * @param prop the prop value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private GetResponse6(EnumsOnlyCases prop) {
         this.prop = prop;
     }
@@ -32,6 +34,7 @@ public final class GetResponse6 implements JsonSerializable<GetResponse6> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public EnumsOnlyCases getProp() {
         return this.prop;
     }
@@ -39,6 +42,7 @@ public final class GetResponse6 implements JsonSerializable<GetResponse6> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class GetResponse6 implements JsonSerializable<GetResponse6> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the GetResponse6.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static GetResponse6 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             EnumsOnlyCases prop = null;

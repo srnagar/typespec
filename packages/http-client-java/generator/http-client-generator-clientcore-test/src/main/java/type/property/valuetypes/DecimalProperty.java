@@ -17,6 +17,7 @@ public final class DecimalProperty implements JsonSerializable<DecimalProperty> 
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BigDecimal property;
 
     /**
@@ -24,6 +25,7 @@ public final class DecimalProperty implements JsonSerializable<DecimalProperty> 
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public DecimalProperty(BigDecimal property) {
         this.property = property;
     }
@@ -33,6 +35,7 @@ public final class DecimalProperty implements JsonSerializable<DecimalProperty> 
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BigDecimal getProperty() {
         return this.property;
     }
@@ -40,6 +43,7 @@ public final class DecimalProperty implements JsonSerializable<DecimalProperty> 
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class DecimalProperty implements JsonSerializable<DecimalProperty> 
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the DecimalProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static DecimalProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BigDecimal property = null;

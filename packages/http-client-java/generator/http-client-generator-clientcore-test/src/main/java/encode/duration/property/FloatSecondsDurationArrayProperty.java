@@ -18,6 +18,7 @@ public final class FloatSecondsDurationArrayProperty implements JsonSerializable
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<Double> value;
 
     /**
@@ -25,6 +26,7 @@ public final class FloatSecondsDurationArrayProperty implements JsonSerializable
      * 
      * @param value the value value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public FloatSecondsDurationArrayProperty(List<Duration> value) {
         if (value == null) {
             this.value = null;
@@ -40,6 +42,7 @@ public final class FloatSecondsDurationArrayProperty implements JsonSerializable
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Duration> getValue() {
         if (this.value == null) {
             return null;
@@ -52,6 +55,7 @@ public final class FloatSecondsDurationArrayProperty implements JsonSerializable
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -68,6 +72,7 @@ public final class FloatSecondsDurationArrayProperty implements JsonSerializable
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the FloatSecondsDurationArrayProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static FloatSecondsDurationArrayProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<Duration> value = null;

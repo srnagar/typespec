@@ -15,6 +15,7 @@ public final class Golden extends Dog {
     /*
      * discriminator property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private DogKind kind = DogKind.GOLDEN;
 
     /**
@@ -22,6 +23,7 @@ public final class Golden extends Dog {
      * 
      * @param weight the weight value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Golden(int weight) {
         super(weight);
     }
@@ -31,6 +33,7 @@ public final class Golden extends Dog {
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public DogKind getKind() {
         return this.kind;
@@ -39,6 +42,7 @@ public final class Golden extends Dog {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class Golden extends Dog {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Golden.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Golden fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int weight = 0;

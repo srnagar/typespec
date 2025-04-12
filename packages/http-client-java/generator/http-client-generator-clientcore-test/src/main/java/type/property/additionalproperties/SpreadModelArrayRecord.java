@@ -19,11 +19,13 @@ public final class SpreadModelArrayRecord implements JsonSerializable<SpreadMode
     /*
      * The knownProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<ModelForRecord> knownProp;
 
     /*
      * Additional properties
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, List<ModelForRecord>> additionalProperties;
 
     /**
@@ -31,6 +33,7 @@ public final class SpreadModelArrayRecord implements JsonSerializable<SpreadMode
      * 
      * @param knownProp the knownProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadModelArrayRecord(List<ModelForRecord> knownProp) {
         this.knownProp = knownProp;
     }
@@ -40,6 +43,7 @@ public final class SpreadModelArrayRecord implements JsonSerializable<SpreadMode
      * 
      * @return the knownProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<ModelForRecord> getKnownProp() {
         return this.knownProp;
     }
@@ -49,6 +53,7 @@ public final class SpreadModelArrayRecord implements JsonSerializable<SpreadMode
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, List<ModelForRecord>> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -59,6 +64,7 @@ public final class SpreadModelArrayRecord implements JsonSerializable<SpreadMode
      * @param additionalProperties the additionalProperties value to set.
      * @return the SpreadModelArrayRecord object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadModelArrayRecord setAdditionalProperties(Map<String, List<ModelForRecord>> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -67,6 +73,7 @@ public final class SpreadModelArrayRecord implements JsonSerializable<SpreadMode
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -88,6 +95,7 @@ public final class SpreadModelArrayRecord implements JsonSerializable<SpreadMode
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SpreadModelArrayRecord.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SpreadModelArrayRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             List<ModelForRecord> knownProp = null;

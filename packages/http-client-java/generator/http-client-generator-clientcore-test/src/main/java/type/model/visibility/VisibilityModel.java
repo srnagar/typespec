@@ -17,21 +17,25 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
     /*
      * Required string, illustrating a readonly property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String readProp;
 
     /*
      * Required string[], illustrating a create property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<String> createProp;
 
     /*
      * Required int32[], illustrating a update property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final List<Integer> updateProp;
 
     /*
      * Required bool, illustrating a delete property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final Boolean deleteProp;
 
     /**
@@ -41,6 +45,7 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
      * @param updateProp the updateProp value to set.
      * @param deleteProp the deleteProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public VisibilityModel(List<String> createProp, List<Integer> updateProp, Boolean deleteProp) {
         this.createProp = createProp;
         this.updateProp = updateProp;
@@ -52,6 +57,7 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
      * 
      * @return the readProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getReadProp() {
         return this.readProp;
     }
@@ -61,6 +67,7 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
      * 
      * @return the createProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<String> getCreateProp() {
         return this.createProp;
     }
@@ -70,6 +77,7 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
      * 
      * @return the updateProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public List<Integer> getUpdateProp() {
         return this.updateProp;
     }
@@ -79,6 +87,7 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
      * 
      * @return the deleteProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Boolean isDeleteProp() {
         return this.deleteProp;
     }
@@ -86,6 +95,7 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -104,6 +114,7 @@ public final class VisibilityModel implements JsonSerializable<VisibilityModel> 
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the VisibilityModel.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static VisibilityModel fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String readProp = null;

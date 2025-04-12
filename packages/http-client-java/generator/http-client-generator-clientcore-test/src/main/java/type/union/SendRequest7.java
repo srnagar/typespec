@@ -16,6 +16,7 @@ public final class SendRequest7 implements JsonSerializable<SendRequest7> {
     /*
      * The prop property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final StringAndArrayCases prop;
 
     /**
@@ -23,6 +24,7 @@ public final class SendRequest7 implements JsonSerializable<SendRequest7> {
      * 
      * @param prop the prop value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SendRequest7(StringAndArrayCases prop) {
         this.prop = prop;
     }
@@ -32,6 +34,7 @@ public final class SendRequest7 implements JsonSerializable<SendRequest7> {
      * 
      * @return the prop value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public StringAndArrayCases getProp() {
         return this.prop;
     }
@@ -39,6 +42,7 @@ public final class SendRequest7 implements JsonSerializable<SendRequest7> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class SendRequest7 implements JsonSerializable<SendRequest7> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SendRequest7.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SendRequest7 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             StringAndArrayCases prop = null;

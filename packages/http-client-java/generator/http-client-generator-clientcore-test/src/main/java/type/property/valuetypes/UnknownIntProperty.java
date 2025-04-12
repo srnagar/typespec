@@ -17,6 +17,7 @@ public final class UnknownIntProperty implements JsonSerializable<UnknownIntProp
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final BinaryData property;
 
     /**
@@ -24,6 +25,7 @@ public final class UnknownIntProperty implements JsonSerializable<UnknownIntProp
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public UnknownIntProperty(BinaryData property) {
         this.property = property;
     }
@@ -33,6 +35,7 @@ public final class UnknownIntProperty implements JsonSerializable<UnknownIntProp
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public BinaryData getProperty() {
         return this.property;
     }
@@ -40,6 +43,7 @@ public final class UnknownIntProperty implements JsonSerializable<UnknownIntProp
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -57,6 +61,7 @@ public final class UnknownIntProperty implements JsonSerializable<UnknownIntProp
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the UnknownIntProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static UnknownIntProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             BinaryData property = null;

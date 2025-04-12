@@ -17,6 +17,7 @@ public final class Uint8AsStringProperty implements JsonSerializable<Uint8AsStri
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final int value;
 
     /**
@@ -24,6 +25,7 @@ public final class Uint8AsStringProperty implements JsonSerializable<Uint8AsStri
      * 
      * @param value the value value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Uint8AsStringProperty(int value) {
         this.value = value;
     }
@@ -33,6 +35,7 @@ public final class Uint8AsStringProperty implements JsonSerializable<Uint8AsStri
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public int getValue() {
         return this.value;
     }
@@ -40,6 +43,7 @@ public final class Uint8AsStringProperty implements JsonSerializable<Uint8AsStri
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -56,6 +60,7 @@ public final class Uint8AsStringProperty implements JsonSerializable<Uint8AsStri
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Uint8AsStringProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Uint8AsStringProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             int value = Integer.parseInt("0");

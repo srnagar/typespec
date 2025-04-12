@@ -20,16 +20,19 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
     /*
      * The discriminator
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private String kind = "ExtendsUnknownAdditionalPropertiesDiscriminated";
 
     /*
      * The name property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /*
      * The model extends from Record<unknown> with a discriminator.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, BinaryData> additionalProperties;
 
     /**
@@ -37,6 +40,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
      * 
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ExtendsUnknownAdditionalPropertiesDiscriminated(String name) {
         this.name = name;
     }
@@ -46,6 +50,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
      * 
      * @return the kind value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getKind() {
         return this.kind;
     }
@@ -55,6 +60,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -64,6 +70,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, BinaryData> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -74,6 +81,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
      * @param additionalProperties the additionalProperties value to set.
      * @return the ExtendsUnknownAdditionalPropertiesDiscriminated object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ExtendsUnknownAdditionalPropertiesDiscriminated
         setAdditionalProperties(Map<String, BinaryData> additionalProperties) {
         this.additionalProperties = additionalProperties;
@@ -83,6 +91,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -110,6 +119,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ExtendsUnknownAdditionalPropertiesDiscriminated.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ExtendsUnknownAdditionalPropertiesDiscriminated fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String discriminatorValue = null;
@@ -135,6 +145,7 @@ public class ExtendsUnknownAdditionalPropertiesDiscriminated
         });
     }
 
+    @Metadata(properties = { MetadataProperties.GENERATED })
     static ExtendsUnknownAdditionalPropertiesDiscriminated fromJsonKnownDiscriminator(JsonReader jsonReader)
         throws IOException {
         return jsonReader.readObject(reader -> {

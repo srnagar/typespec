@@ -18,11 +18,13 @@ public final class SpreadStringRecord implements JsonSerializable<SpreadStringRe
     /*
      * The name property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /*
      * The model spread Record<string> with the same known property type
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, String> additionalProperties;
 
     /**
@@ -30,6 +32,7 @@ public final class SpreadStringRecord implements JsonSerializable<SpreadStringRe
      * 
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadStringRecord(String name) {
         this.name = name;
     }
@@ -39,6 +42,7 @@ public final class SpreadStringRecord implements JsonSerializable<SpreadStringRe
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -48,6 +52,7 @@ public final class SpreadStringRecord implements JsonSerializable<SpreadStringRe
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, String> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -58,6 +63,7 @@ public final class SpreadStringRecord implements JsonSerializable<SpreadStringRe
      * @param additionalProperties the additionalProperties value to set.
      * @return the SpreadStringRecord object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadStringRecord setAdditionalProperties(Map<String, String> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -66,6 +72,7 @@ public final class SpreadStringRecord implements JsonSerializable<SpreadStringRe
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -87,6 +94,7 @@ public final class SpreadStringRecord implements JsonSerializable<SpreadStringRe
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SpreadStringRecord.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SpreadStringRecord fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

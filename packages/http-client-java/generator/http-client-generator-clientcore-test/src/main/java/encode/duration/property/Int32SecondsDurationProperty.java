@@ -17,6 +17,7 @@ public final class Int32SecondsDurationProperty implements JsonSerializable<Int3
     /*
      * The value property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final long value;
 
     /**
@@ -24,6 +25,7 @@ public final class Int32SecondsDurationProperty implements JsonSerializable<Int3
      * 
      * @param value the value value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Int32SecondsDurationProperty(Duration value) {
         if (value == null) {
             this.value = 0L;
@@ -37,6 +39,7 @@ public final class Int32SecondsDurationProperty implements JsonSerializable<Int3
      * 
      * @return the value value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Duration getValue() {
         return Duration.ofSeconds(this.value);
     }
@@ -44,6 +47,7 @@ public final class Int32SecondsDurationProperty implements JsonSerializable<Int3
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -60,6 +64,7 @@ public final class Int32SecondsDurationProperty implements JsonSerializable<Int3
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the Int32SecondsDurationProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static Int32SecondsDurationProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             Duration value = null;

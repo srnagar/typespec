@@ -16,11 +16,13 @@ public final class UnionStringLiteralProperty implements JsonSerializable<UnionS
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private UnionStringLiteralPropertyProperty property;
 
     /**
      * Creates an instance of UnionStringLiteralProperty class.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public UnionStringLiteralProperty() {
     }
 
@@ -29,6 +31,7 @@ public final class UnionStringLiteralProperty implements JsonSerializable<UnionS
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public UnionStringLiteralPropertyProperty getProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class UnionStringLiteralProperty implements JsonSerializable<UnionS
      * @param property the property value to set.
      * @return the UnionStringLiteralProperty object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public UnionStringLiteralProperty setProperty(UnionStringLiteralPropertyProperty property) {
         this.property = property;
         return this;
@@ -47,6 +51,7 @@ public final class UnionStringLiteralProperty implements JsonSerializable<UnionS
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -62,6 +67,7 @@ public final class UnionStringLiteralProperty implements JsonSerializable<UnionS
      * it was pointing to JSON null.
      * @throws IOException If an error occurs while reading the UnionStringLiteralProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static UnionStringLiteralProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             UnionStringLiteralProperty deserializedUnionStringLiteralProperty = new UnionStringLiteralProperty();

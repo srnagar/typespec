@@ -19,11 +19,13 @@ public final class SpreadRecordForUnion implements JsonSerializable<SpreadRecord
     /*
      * The name property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final boolean flag;
 
     /*
      * The model spread Record<string | float32>
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, BinaryData> additionalProperties;
 
     /**
@@ -31,6 +33,7 @@ public final class SpreadRecordForUnion implements JsonSerializable<SpreadRecord
      * 
      * @param flag the flag value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadRecordForUnion(boolean flag) {
         this.flag = flag;
     }
@@ -40,6 +43,7 @@ public final class SpreadRecordForUnion implements JsonSerializable<SpreadRecord
      * 
      * @return the flag value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public boolean isFlag() {
         return this.flag;
     }
@@ -49,6 +53,7 @@ public final class SpreadRecordForUnion implements JsonSerializable<SpreadRecord
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, BinaryData> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -59,6 +64,7 @@ public final class SpreadRecordForUnion implements JsonSerializable<SpreadRecord
      * @param additionalProperties the additionalProperties value to set.
      * @return the SpreadRecordForUnion object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public SpreadRecordForUnion setAdditionalProperties(Map<String, BinaryData> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -67,6 +73,7 @@ public final class SpreadRecordForUnion implements JsonSerializable<SpreadRecord
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -93,6 +100,7 @@ public final class SpreadRecordForUnion implements JsonSerializable<SpreadRecord
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the SpreadRecordForUnion.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static SpreadRecordForUnion fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             boolean flag = false;

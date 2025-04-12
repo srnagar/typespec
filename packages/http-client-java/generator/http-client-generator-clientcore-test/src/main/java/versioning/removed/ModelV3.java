@@ -16,11 +16,13 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
     /*
      * The id property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String id;
 
     /*
      * The enumProp property.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final EnumV3 enumProp;
 
     /**
@@ -29,6 +31,7 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * @param id the id value to set.
      * @param enumProp the enumProp value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ModelV3(String id, EnumV3 enumProp) {
         this.id = id;
         this.enumProp = enumProp;
@@ -39,6 +42,7 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * 
      * @return the id value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getId() {
         return this.id;
     }
@@ -48,6 +52,7 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * 
      * @return the enumProp value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public EnumV3 getEnumProp() {
         return this.enumProp;
     }
@@ -55,6 +60,7 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -72,6 +78,7 @@ public final class ModelV3 implements JsonSerializable<ModelV3> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ModelV3.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ModelV3 fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String id = null;

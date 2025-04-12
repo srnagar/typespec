@@ -16,6 +16,7 @@ public final class ModelProperty implements JsonSerializable<ModelProperty> {
     /*
      * Property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final InnerModel property;
 
     /**
@@ -23,6 +24,7 @@ public final class ModelProperty implements JsonSerializable<ModelProperty> {
      * 
      * @param property the property value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ModelProperty(InnerModel property) {
         this.property = property;
     }
@@ -32,6 +34,7 @@ public final class ModelProperty implements JsonSerializable<ModelProperty> {
      * 
      * @return the property value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public InnerModel getProperty() {
         return this.property;
     }
@@ -39,6 +42,7 @@ public final class ModelProperty implements JsonSerializable<ModelProperty> {
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -55,6 +59,7 @@ public final class ModelProperty implements JsonSerializable<ModelProperty> {
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ModelProperty.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ModelProperty fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             InnerModel property = null;

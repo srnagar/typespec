@@ -19,11 +19,13 @@ public class IsUnknownAdditionalProperties implements JsonSerializable<IsUnknown
     /*
      * The name property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final String name;
 
     /*
      * The model is from Record<unknown> type.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, BinaryData> additionalProperties;
 
     /**
@@ -31,6 +33,7 @@ public class IsUnknownAdditionalProperties implements JsonSerializable<IsUnknown
      * 
      * @param name the name value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsUnknownAdditionalProperties(String name) {
         this.name = name;
     }
@@ -40,6 +43,7 @@ public class IsUnknownAdditionalProperties implements JsonSerializable<IsUnknown
      * 
      * @return the name value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public String getName() {
         return this.name;
     }
@@ -49,6 +53,7 @@ public class IsUnknownAdditionalProperties implements JsonSerializable<IsUnknown
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, BinaryData> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -59,6 +64,7 @@ public class IsUnknownAdditionalProperties implements JsonSerializable<IsUnknown
      * @param additionalProperties the additionalProperties value to set.
      * @return the IsUnknownAdditionalProperties object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public IsUnknownAdditionalProperties setAdditionalProperties(Map<String, BinaryData> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -67,6 +73,7 @@ public class IsUnknownAdditionalProperties implements JsonSerializable<IsUnknown
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -93,6 +100,7 @@ public class IsUnknownAdditionalProperties implements JsonSerializable<IsUnknown
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the IsUnknownAdditionalProperties.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static IsUnknownAdditionalProperties fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String name = null;

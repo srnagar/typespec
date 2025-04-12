@@ -18,11 +18,13 @@ public final class ExtendsFloatAdditionalProperties implements JsonSerializable<
     /*
      * The id property
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private final double id;
 
     /*
      * The model extends from Record<float32> type.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     private Map<String, Double> additionalProperties;
 
     /**
@@ -30,6 +32,7 @@ public final class ExtendsFloatAdditionalProperties implements JsonSerializable<
      * 
      * @param id the id value to set.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ExtendsFloatAdditionalProperties(double id) {
         this.id = id;
     }
@@ -39,6 +42,7 @@ public final class ExtendsFloatAdditionalProperties implements JsonSerializable<
      * 
      * @return the id value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public double getId() {
         return this.id;
     }
@@ -48,6 +52,7 @@ public final class ExtendsFloatAdditionalProperties implements JsonSerializable<
      * 
      * @return the additionalProperties value.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public Map<String, Double> getAdditionalProperties() {
         return this.additionalProperties;
     }
@@ -58,6 +63,7 @@ public final class ExtendsFloatAdditionalProperties implements JsonSerializable<
      * @param additionalProperties the additionalProperties value to set.
      * @return the ExtendsFloatAdditionalProperties object itself.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public ExtendsFloatAdditionalProperties setAdditionalProperties(Map<String, Double> additionalProperties) {
         this.additionalProperties = additionalProperties;
         return this;
@@ -66,6 +72,7 @@ public final class ExtendsFloatAdditionalProperties implements JsonSerializable<
     /**
      * {@inheritDoc}
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     @Override
     public JsonWriter toJson(JsonWriter jsonWriter) throws IOException {
         jsonWriter.writeStartObject();
@@ -87,6 +94,7 @@ public final class ExtendsFloatAdditionalProperties implements JsonSerializable<
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
      * @throws IOException If an error occurs while reading the ExtendsFloatAdditionalProperties.
      */
+    @Metadata(properties = { MetadataProperties.GENERATED })
     public static ExtendsFloatAdditionalProperties fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             double id = 0.0;
