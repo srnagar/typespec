@@ -9,6 +9,7 @@ import io.clientcore.core.annotations.ServiceMethod;
 import io.clientcore.core.http.models.HttpResponseException;
 import io.clientcore.core.http.models.RequestContext;
 import io.clientcore.core.http.models.Response;
+import io.clientcore.core.models.binarydata.BinaryData;
 
 /**
  * Initializes a new instance of the synchronous BytesClient type.
@@ -26,6 +27,104 @@ public final class RequestBodyClient {
     @Metadata(properties = { MetadataProperties.GENERATED })
     RequestBodyClient(RequestBodiesImpl serviceClient) {
         this.serviceClient = serviceClient;
+    }
+
+    /**
+     * The defaultMethod operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> defaultMethodWithResponse(BinaryData value, long contentLength,
+        RequestContext requestContext) {
+        return this.serviceClient.defaultMethodWithResponse(value, contentLength, requestContext);
+    }
+
+    /**
+     * The defaultMethod operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void defaultMethod(BinaryData value, long contentLength) {
+        this.serviceClient.defaultMethod(value, contentLength);
+    }
+
+    /**
+     * The octetStream operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> octetStreamWithResponse(BinaryData value, long contentLength, RequestContext requestContext) {
+        return this.serviceClient.octetStreamWithResponse(value, contentLength, requestContext);
+    }
+
+    /**
+     * The octetStream operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void octetStream(BinaryData value, long contentLength) {
+        this.serviceClient.octetStream(value, contentLength);
+    }
+
+    /**
+     * The customContentType operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> customContentTypeWithResponse(BinaryData value, long contentLength,
+        RequestContext requestContext) {
+        return this.serviceClient.customContentTypeWithResponse(value, contentLength, requestContext);
+    }
+
+    /**
+     * The customContentType operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the request is rejected by server.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @Metadata(properties = { MetadataProperties.GENERATED })
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void customContentType(BinaryData value, long contentLength) {
+        this.serviceClient.customContentType(value, contentLength);
     }
 
     /**

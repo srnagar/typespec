@@ -2,8 +2,7 @@ package payload.multipart;
 
 import io.clientcore.core.annotations.Metadata;
 import io.clientcore.core.annotations.MetadataProperties;
-import java.nio.ByteBuffer;
-import reactor.core.publisher.Flux;
+import io.clientcore.core.models.binarydata.BinaryData;
 
 /**
  * The file details for the "pictures" field.
@@ -13,7 +12,7 @@ public final class PicturesFileDetails {
     /*
      * The content of the file.
      */
-    private final Flux<ByteBuffer> content;
+    private final BinaryData content;
 
     /*
      * The filename of the file.
@@ -30,7 +29,7 @@ public final class PicturesFileDetails {
      * 
      * @param content the content value to set.
      */
-    public PicturesFileDetails(Flux<ByteBuffer> content) {
+    public PicturesFileDetails(BinaryData content) {
         this.content = content;
     }
 
@@ -39,7 +38,7 @@ public final class PicturesFileDetails {
      * 
      * @return the content value.
      */
-    public Flux<ByteBuffer> getContent() {
+    public BinaryData getContent() {
         return this.content;
     }
 

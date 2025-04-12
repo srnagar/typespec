@@ -12,12 +12,12 @@ public class EmptyModelTests {
 
     @Test
     public void testEmptyModel() {
-        EmptyOutput output = client.getEmpty();
+        Object output = client.getEmpty();
         Assertions.assertNotNull(output);
 
-        client.putEmpty(new EmptyInput());
+        client.putEmpty(new Object());
 
-        EmptyInputOutput inputOutput = client.postRoundTripEmpty(new EmptyInputOutput());
+        Object inputOutput = client.postRoundTripEmpty(new Object());
         Assertions.assertNotNull(inputOutput);
     }
 }

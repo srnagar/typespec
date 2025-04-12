@@ -3,6 +3,7 @@ package streaming.jsonl.implementation;
 import io.clientcore.core.annotations.ReturnType;
 import io.clientcore.core.annotations.ServiceInterface;
 import io.clientcore.core.annotations.ServiceMethod;
+import io.clientcore.core.http.annotations.BodyParam;
 import io.clientcore.core.http.annotations.HeaderParam;
 import io.clientcore.core.http.annotations.HostParam;
 import io.clientcore.core.http.annotations.HttpRequestInformation;
@@ -57,12 +58,52 @@ public final class BasicsImpl {
         }
 
         @HttpRequestInformation(
+            method = HttpMethod.POST,
+            path = "/streaming/jsonl/basic/send",
+            expectedStatusCodes = { 204 })
+        @UnexpectedResponseExceptionDetail
+        Response<Void> send(@HostParam("endpoint") String endpoint, @HeaderParam("content-type") String contentType,
+            @BodyParam("application/jsonl") BinaryData body, @HeaderParam("Content-Length") long contentLength,
+            RequestContext requestContext);
+
+        @HttpRequestInformation(
             method = HttpMethod.GET,
             path = "/streaming/jsonl/basic/receive",
             expectedStatusCodes = { 200 })
         @UnexpectedResponseExceptionDetail
         Response<BinaryData> receive(@HostParam("endpoint") String endpoint, @HeaderParam("Accept") String accept,
             RequestContext requestContext);
+    }
+
+    /**
+     * The send operation.
+     * 
+     * @param body The body parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> sendWithResponse(BinaryData body, long contentLength, RequestContext requestContext) {
+        final String contentType = "application/jsonl";
+        return service.send(this.client.getEndpoint(), contentType, body, contentLength, requestContext);
+    }
+
+    /**
+     * The send operation.
+     * 
+     * @param body The body parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void send(BinaryData body, long contentLength) {
+        sendWithResponse(body, contentLength, RequestContext.none());
     }
 
     /**

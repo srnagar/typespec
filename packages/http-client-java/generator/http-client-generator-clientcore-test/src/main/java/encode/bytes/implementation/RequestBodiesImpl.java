@@ -13,6 +13,7 @@ import io.clientcore.core.http.models.HttpResponseException;
 import io.clientcore.core.http.models.RequestContext;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.http.pipeline.HttpPipeline;
+import io.clientcore.core.models.binarydata.BinaryData;
 import io.clientcore.core.utils.Base64Uri;
 import java.lang.reflect.InvocationTargetException;
 
@@ -60,6 +61,33 @@ public final class RequestBodiesImpl {
 
         @HttpRequestInformation(
             method = HttpMethod.POST,
+            path = "/encode/bytes/body/request/default",
+            expectedStatusCodes = { 204 })
+        @UnexpectedResponseExceptionDetail
+        Response<Void> defaultMethod(@HostParam("endpoint") String endpoint,
+            @HeaderParam("Content-Type") String contentType, @BodyParam("application/octet-stream") BinaryData value,
+            @HeaderParam("Content-Length") long contentLength, RequestContext requestContext);
+
+        @HttpRequestInformation(
+            method = HttpMethod.POST,
+            path = "/encode/bytes/body/request/octet-stream",
+            expectedStatusCodes = { 204 })
+        @UnexpectedResponseExceptionDetail
+        Response<Void> octetStream(@HostParam("endpoint") String endpoint,
+            @HeaderParam("content-type") String contentType, @BodyParam("application/octet-stream") BinaryData value,
+            @HeaderParam("Content-Length") long contentLength, RequestContext requestContext);
+
+        @HttpRequestInformation(
+            method = HttpMethod.POST,
+            path = "/encode/bytes/body/request/custom-content-type",
+            expectedStatusCodes = { 204 })
+        @UnexpectedResponseExceptionDetail
+        Response<Void> customContentType(@HostParam("endpoint") String endpoint,
+            @HeaderParam("content-type") String contentType, @BodyParam("image/png") BinaryData value,
+            @HeaderParam("Content-Length") long contentLength, RequestContext requestContext);
+
+        @HttpRequestInformation(
+            method = HttpMethod.POST,
             path = "/encode/bytes/body/request/base64",
             expectedStatusCodes = { 204 })
         @UnexpectedResponseExceptionDetail
@@ -74,6 +102,101 @@ public final class RequestBodiesImpl {
         Response<Void> base64url(@HostParam("endpoint") String endpoint,
             @HeaderParam("content-type") String contentType, @BodyParam("application/json") Base64Uri value,
             RequestContext requestContext);
+    }
+
+    /**
+     * The defaultMethod operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> defaultMethodWithResponse(BinaryData value, long contentLength,
+        RequestContext requestContext) {
+        final String contentType = "application/octet-stream";
+        return service.defaultMethod(this.client.getEndpoint(), contentType, value, contentLength, requestContext);
+    }
+
+    /**
+     * The defaultMethod operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void defaultMethod(BinaryData value, long contentLength) {
+        defaultMethodWithResponse(value, contentLength, RequestContext.none());
+    }
+
+    /**
+     * The octetStream operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> octetStreamWithResponse(BinaryData value, long contentLength, RequestContext requestContext) {
+        final String contentType = "application/octet-stream";
+        return service.octetStream(this.client.getEndpoint(), contentType, value, contentLength, requestContext);
+    }
+
+    /**
+     * The octetStream operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void octetStream(BinaryData value, long contentLength) {
+        octetStreamWithResponse(value, contentLength, RequestContext.none());
+    }
+
+    /**
+     * The customContentType operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @param requestContext The context to configure the HTTP request before HTTP client sends it.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public Response<Void> customContentTypeWithResponse(BinaryData value, long contentLength,
+        RequestContext requestContext) {
+        final String contentType = "image/png";
+        return service.customContentType(this.client.getEndpoint(), contentType, value, contentLength, requestContext);
+    }
+
+    /**
+     * The customContentType operation.
+     * 
+     * @param value The value parameter.
+     * @param contentLength The Content-Length header for the request.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     */
+    @ServiceMethod(returns = ReturnType.SINGLE)
+    public void customContentType(BinaryData value, long contentLength) {
+        customContentTypeWithResponse(value, contentLength, RequestContext.none());
     }
 
     /**

@@ -30,6 +30,10 @@ public class BinaryMapper implements IMapper<BinarySchema, IType> {
         if (binarySchema == null) {
             return null;
         }
-        return JavaSettings.getInstance().isDataPlaneClient() ? ClassType.BINARY_DATA : GenericType.FLUX_BYTE_BUFFER;
+
+        if (JavaSettings.getInstance().isBranded() && !JavaSettings.getInstance().isDataPlaneClient()) {
+            return GenericType.FLUX_BYTE_BUFFER;
+        }
+        return ClassType.BINARY_DATA;
     }
 }
