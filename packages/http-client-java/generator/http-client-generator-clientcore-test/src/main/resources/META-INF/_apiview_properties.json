@@ -1,7 +1,9 @@
 {
   "flavor": "generic", 
   "CrossLanguageDefinitionId": {
-    "server.endpoint.notdefined.NotDefinedClient": "Server.Endpoint.NotDefined",
-    "server.endpoint.notdefined.NotDefinedClientBuilder": "Server.Endpoint.NotDefined"
+    "parameters.bodyoptionality.BodyModel": "Parameters.BodyOptionality.BodyModel",
+    "parameters.bodyoptionality.BodyOptionalityClient": "Parameters.BodyOptionality",
+    "parameters.bodyoptionality.BodyOptionalityClientBuilder": "Parameters.BodyOptionality",
+    "parameters.bodyoptionality.OptionalExplicitClient": "Parameters.BodyOptionality.OptionalExplicit"
   }
 }
