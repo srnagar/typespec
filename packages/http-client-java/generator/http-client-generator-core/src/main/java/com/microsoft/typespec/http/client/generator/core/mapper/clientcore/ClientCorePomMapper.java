@@ -13,7 +13,6 @@ public class ClientCorePomMapper extends PomMapper {
     private static final ClientCorePomMapper INSTANCE = new ClientCorePomMapper();
 
     private ClientCorePomMapper() {
-
     }
 
     public static ClientCorePomMapper getInstance() {
@@ -37,8 +36,6 @@ public class ClientCorePomMapper extends PomMapper {
         Set<String> addedDependencyPrefixes = new HashSet<>();
         List<String> dependencyIdentifiers = new ArrayList<>();
         addDependencyIdentifier(dependencyIdentifiers, addedDependencyPrefixes, Project.Dependency.CLIENTCORE, false);
-        addDependencyIdentifier(dependencyIdentifiers, addedDependencyPrefixes, Project.Dependency.AZURE_CORE_V2,
-            false);
 
         // merge dependencies in POM and dependencies added above
         dependencyIdentifiers.addAll(project.getPomDependencyIdentifiers()
@@ -48,9 +45,6 @@ public class ClientCorePomMapper extends PomMapper {
             .collect(Collectors.toList()));
 
         pom.setDependencyIdentifiers(dependencyIdentifiers);
-
-        pom.setParentIdentifier(Project.Dependency.AZURE_CLIENT_SDK_PARENT_V2.getDependencyIdentifier());
-        pom.setParentRelativePath("../../parents/azure-client-sdk-parent-v2");
 
         pom.setRequireCompilerPlugins(true);
         return pom;

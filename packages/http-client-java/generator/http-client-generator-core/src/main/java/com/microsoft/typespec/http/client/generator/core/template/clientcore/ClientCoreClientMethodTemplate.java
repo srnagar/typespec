@@ -655,8 +655,7 @@ public class ClientCoreClientMethodTemplate extends ClientMethodTemplate {
                 throw new UnsupportedOperationException("Async methods are not supported in Azure VNext");
 
             case SendRequestSync:
-                generateSendRequestSync(clientMethod, typeBlock);
-                break;
+                throw new UnsupportedOperationException("Send request not supported in Azure VNext");
         }
     }
 

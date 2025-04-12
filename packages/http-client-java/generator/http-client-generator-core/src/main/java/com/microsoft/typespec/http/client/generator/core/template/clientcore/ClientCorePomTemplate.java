@@ -3,11 +3,11 @@ package com.microsoft.typespec.http.client.generator.core.template.clientcore;
 import com.azure.core.util.CoreUtils;
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.model.clientmodel.Pom;
-import com.microsoft.typespec.http.client.generator.core.model.projectmodel.Project;
 import com.microsoft.typespec.http.client.generator.core.model.xmlmodel.XmlBlock;
 import com.microsoft.typespec.http.client.generator.core.model.xmlmodel.XmlFile;
 import com.microsoft.typespec.http.client.generator.core.template.PomTemplate;
 import com.microsoft.typespec.http.client.generator.core.template.TemplateHelper;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +17,6 @@ public class ClientCorePomTemplate extends PomTemplate {
     private static final ClientCorePomTemplate INSTANCE = new ClientCorePomTemplate();
 
     private ClientCorePomTemplate() {
-
     }
 
     public static ClientCorePomTemplate getInstance() {
@@ -53,8 +52,7 @@ public class ClientCorePomTemplate extends PomTemplate {
                     String parentVersion = parts[2];
                     parentBlock.tag("groupId", parentGroupId);
                     parentBlock.tag("artifactId", parentArtifactId);
-                    parentBlock.tagWithInlineComment("version", parentVersion,
-                        "{x-version-update;com.azure.v2:azure-client-sdk-parent;current}");
+                    parentBlock.tag("version", parentVersion);
                     parentBlock.tag("relativePath", pom.getParentRelativePath());
                 });
             }
@@ -63,8 +61,7 @@ public class ClientCorePomTemplate extends PomTemplate {
 
             projectBlock.tag("groupId", pom.getGroupId());
             projectBlock.tag("artifactId", pom.getArtifactId());
-            projectBlock.tagWithInlineComment("version", pom.getVersion(),
-                String.format("{x-version-update;%1$s:%2$s;current}", pom.getGroupId(), pom.getArtifactId()));
+            projectBlock.tag("version", pom.getVersion());
             projectBlock.tag("packaging", "jar");
 
             projectBlock.line();
@@ -125,14 +122,10 @@ public class ClientCorePomTemplate extends PomTemplate {
                             scope = null;
                         }
                         dependenciesBlock.block("dependency", dependencyBlock -> {
-                            boolean externalDependency = !groupId.startsWith("com.azure");  // a bit of hack here
                             dependenciesBlock.tag("groupId", groupId);
                             dependenciesBlock.tag("artifactId", artifactId);
                             if (version != null) {
-                                dependencyBlock.tagWithInlineComment("version", version,
-                                    String.format("{x-version-update;%1$s;%2$s}",
-                                        Project.getVersionUpdateTag(groupId, artifactId),
-                                        externalDependency ? "external_dependency" : "dependency"));
+                                dependencyBlock.tag("version", version);
                             }
                             if (scope != null) {
                                 dependenciesBlock.tag("scope", scope);
@@ -221,8 +214,7 @@ public class ClientCorePomTemplate extends PomTemplate {
                             annotationProcessorPathsBlock.block("annotationProcessorPath", pathBlock -> {
                                 pathBlock.tag("groupId", "io.clientcore");
                                 pathBlock.tag("artifactId", "annotation-processor");
-                                pathBlock.tagWithInlineComment("version", "1.0.0-beta.1",
-                                    "{x-version-update;io.clientcore:annotation-processor;dependency}");
+                                pathBlock.tag("version", "1.0.0-beta.1");
                             });
                         });
                         configurationBlock.block("annotationProcessors", annotationProcessorsBlock -> {
@@ -244,8 +236,7 @@ public class ClientCorePomTemplate extends PomTemplate {
                 dependenciesBlock.block("dependency", dependencyBlock -> {
                     dependencyBlock.tag("groupId", "io.clientcore");
                     dependencyBlock.tag("artifactId", "annotation-processor");
-                    dependencyBlock.tagWithInlineComment("version", "1.0.0-beta.1",
-                        "{x-version-update;io.clientcore:annotation-processor;dependency}");
+                    dependencyBlock.tag("version", "1.0.0-beta.1");
                 });
             });
         });
