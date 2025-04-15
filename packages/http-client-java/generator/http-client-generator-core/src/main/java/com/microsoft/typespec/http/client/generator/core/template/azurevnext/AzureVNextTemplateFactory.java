@@ -1,9 +1,9 @@
 package com.microsoft.typespec.http.client.generator.core.template.azurevnext;
 
-import com.microsoft.typespec.http.client.generator.core.template.DefaultTemplateFactory;
 import com.microsoft.typespec.http.client.generator.core.template.PomTemplate;
+import com.microsoft.typespec.http.client.generator.core.template.clientcore.ClientCoreTemplateFactory;
 
-public class AzureVNextTemplateFactory extends DefaultTemplateFactory {
+public class AzureVNextTemplateFactory extends ClientCoreTemplateFactory {
 
     @Override
     public PomTemplate getPomTemplate() {

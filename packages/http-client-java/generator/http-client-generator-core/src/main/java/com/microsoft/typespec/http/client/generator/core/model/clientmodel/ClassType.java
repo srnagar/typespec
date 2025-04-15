@@ -202,6 +202,10 @@ public class ClassType implements IType {
                     "io.clientcore.core.http.pipeline.OAuthBearerTokenAuthenticationPolicy",
                     "com.azure.v2.core.http.pipeline.BearerTokenAuthenticationPolicy"));
             put(CoreUtils.class, new ClassDetails(CoreUtils.class, "io.clientcore.core.utils.CoreUtils"));
+            put(MatchConditions.class,
+                new ClassDetails(MatchConditions.class, "io.clientcore.core.http.models.HttpMatchConditions"));
+            put(RequestConditions.class,
+                new ClassDetails(RequestConditions.class, "io.clientcore.core.http.models.HttpRequestConditions"));
         }
     };
 
@@ -239,8 +243,8 @@ public class ClassType implements IType {
         }
     }
 
-    public static final ClassType REQUEST_CONDITIONS = new Builder().knownClass(RequestConditions.class).build();
-    public static final ClassType MATCH_CONDITIONS = new Builder().knownClass(MatchConditions.class).build();
+    public static final ClassType REQUEST_CONDITIONS = getClassTypeBuilder(RequestConditions.class).build();
+    public static final ClassType MATCH_CONDITIONS = getClassTypeBuilder(MatchConditions.class).build();
     public static final ClassType CORE_UTILS = getClassTypeBuilder(CoreUtils.class).build();
     public static final ClassType RESPONSE = getClassTypeBuilder(Response.class).build();
     public static final ClassType SIMPLE_RESPONSE = getClassTypeBuilder(SimpleResponse.class).build();

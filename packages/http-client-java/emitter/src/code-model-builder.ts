@@ -525,7 +525,9 @@ export class CodeModelBuilder {
         !(
           this.isBranded() &&
           (schema.language.java?.namespace?.startsWith("com.azure.core.") ||
-            schema.language.default?.namespace?.startsWith("Azure."))
+            schema.language.default?.namespace?.startsWith("Azure.") ||
+            schema.language.java?.namespace?.startsWith("com.azure.v2.core.") ||
+            schema.language.java?.namespace?.startsWith("io.clientcore.core.")) // because azure core v2 uses clientcore types
         )
       ) {
         if (!nameCount.has(name)) {
@@ -583,7 +585,7 @@ export class CodeModelBuilder {
   private processClients() {
     // preprocess group-etag-headers
     
-    this.options["group-etag-headers"] = this.options["group-etag-headers"] ?? true;
+    this.options["group-etag-headers"] = this.options["group-etag-headers"] ?? false;
 
     const sdkPackage = this.sdkContext.sdkPackage;
     for (const client of sdkPackage.clients) {
@@ -1771,11 +1773,11 @@ export class CodeModelBuilder {
 
         // group schema
 
-        var coreNamespace = this.options.namespace;
+        var coreNamespace = this.namespace;
         if(this.isAzureV1()) {
-          coreNamespace:  "com.azure.core.http";
-        } else if(this.isAzureV2()) {
-          coreNamespace: "com.azure.v2.core.http.models";
+          coreNamespace = "com.azure.core.http";
+        } else {
+          coreNamespace = "io.clientcore.core.http.models";
         }
         const requestConditionsSchema = this.codeModel.schemas.add(
           new GroupSchema(schemaName, schemaDescription, {
