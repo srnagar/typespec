@@ -128,7 +128,7 @@ public final class MapperUtils {
         }
     }
 
-    static IType getExpectedResponseBodyType(Operation operation, JavaSettings settings) {
+    public static IType getExpectedResponseBodyType(Operation operation, JavaSettings settings) {
         final Iterator<Schema> expectedResponseSchemas
             = operation.getResponses().stream().map(Response::getSchema).filter(Objects::nonNull).iterator();
         final Schema responseSchema = SchemaUtil.getLowestCommonParent(expectedResponseSchemas);
@@ -153,6 +153,7 @@ public final class MapperUtils {
         final String classPackage = settings.isCustomType(className)
             ? settings.getPackage(className)
             : settings.getPackage(settings.getImplementationSubpackage() + ".models");
+
         return new ClassType.Builder().packageName(classPackage)
             .name(className)
             .extensions(schema.getExtensions())

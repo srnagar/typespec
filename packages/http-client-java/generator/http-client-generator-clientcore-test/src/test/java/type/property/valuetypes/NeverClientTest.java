@@ -12,12 +12,12 @@ public class NeverClientTest {
 
     @Test
     public void get() {
-        NeverProperty response = client.get();
+        Object response = client.get();
         Assertions.assertNotNull(response);
     }
 
     @Test
     public void put() {
-        client.put(new NeverProperty());
+        client.put(new Object());
     }
 }

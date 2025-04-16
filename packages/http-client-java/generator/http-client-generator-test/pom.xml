@@ -67,6 +67,7 @@
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
       <version>3.4.41</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>

@@ -96,7 +96,9 @@ public class ClientModelUtil {
                 .findAny()
                 .map(og -> getConvenienceMethods(serviceClient::getClientMethods, og))
                 .orElse(Collections.emptyList());
-            builder.convenienceMethods(convenienceMethods);
+            if (JavaSettings.getInstance().isBranded()) {
+                builder.convenienceMethods(convenienceMethods);
+            }
 
             if (generateAsyncMethods) {
                 String asyncClassName = clientNameToAsyncClientName(serviceClient.getClientBaseName());
@@ -129,7 +131,9 @@ public class ClientModelUtil {
                 .findAny()
                 .map(og -> getConvenienceMethods(methodGroupClient::getClientMethods, og))
                 .orElse(Collections.emptyList());
-            builder.convenienceMethods(convenienceMethods);
+            if (JavaSettings.getInstance().isBranded()) {
+                builder.convenienceMethods(convenienceMethods);
+            }
 
             if (count == 1) {
                 // if it is the only method group, use service client name as base.
@@ -382,6 +386,14 @@ public class ClientModelUtil {
         if (settings.isDataPlaneClient() && CoreUtils.isNullOrEmpty(artifactId)) {
             // convert package/namespace to artifact
             artifactId = settings.getPackage().toLowerCase(Locale.ROOT).replace("com.", "").replace(".", "-");
+        }
+
+        if (settings.isAzureCoreV2()) {
+            artifactId = settings.getPackage()
+                .toLowerCase(Locale.ROOT)
+                .replace("com.", "")
+                .replace(".v2.", ".")
+                .replace(".", "-");
         }
         return artifactId;
     }

@@ -3,9 +3,7 @@
 
 package type.enumnamespace.fixed;
 
-import io.clientcore.core.http.exceptions.HttpResponseException;
 import io.clientcore.core.http.pipeline.HttpRetryOptions;
-import io.clientcore.core.models.binarydata.BinaryData;
 import java.time.Duration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
@@ -32,8 +30,5 @@ public class FixedClientTest {
     public void putUnknownValue() {
         // Not a valid test for Java, as compiler will fail at "DaysOfWeekEnum.WEEKEND"
         // client.putUnknownValue(DaysOfWeekEnum.WEEKEND);
-
-        Assertions.assertThrowsExactly(HttpResponseException.class,
-            () -> client.putUnknownValueWithResponse(BinaryData.fromObject("Weekend"), null));
     }
 }
