@@ -46,7 +46,7 @@ import com.microsoft.typespec.http.client.generator.core.model.javamodel.JavaVis
 import com.microsoft.typespec.http.client.generator.core.util.ClientModelUtil;
 import com.microsoft.typespec.http.client.generator.core.util.MethodNamer;
 import com.microsoft.typespec.http.client.generator.core.util.MethodUtil;
-import com.microsoft.typespec.http.client.generator.core.util.ReturnTypeDescriptionAssembler;
+import com.microsoft.typespec.http.client.generator.core.util.ReturnTypeJavaDocAssembler;
 import com.microsoft.typespec.http.client.generator.core.util.SchemaUtil;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -502,6 +502,61 @@ public class ClientCoreClientMethodMapper extends ClientMethodMapper {
             .filter(m -> m.getMethodVisibility() != NOT_GENERATE)
             .distinct()
             .collect(Collectors.toList());
+    }
+
+    private void createAdditionalLroMethods(Operation operation, ClientMethod.Builder builder,
+        List<ClientMethod> methods, boolean isProtocolMethod, IType asyncReturnType, IType syncReturnType,
+        ProxyMethod proxyMethod, List<ClientMethodParameter> parameters,
+        boolean generateClientMethodWithOnlyRequiredParameters, MethodOverloadType defaultOverloadType) {
+
+        // fluent provides the simple wrapper API for LRO
+        // the difference is that it does not have a RestResponse overload, as Response data is not included in an LRO
+        // API
+
+        // async
+        methods.add(builder.returnValue(createLongRunningAsyncReturnValue(operation, asyncReturnType, syncReturnType))
+            .name(proxyMethod.getSimpleAsyncMethodName())
+            .onlyRequiredParameters(false)
+            .type(ClientMethodType.LongRunningAsync)
+            .groupedParameterRequired(false)
+            .methodVisibility(
+                methodVisibility(ClientMethodType.LongRunningAsync, defaultOverloadType, false, isProtocolMethod))
+            .build());
+
+        if (generateClientMethodWithOnlyRequiredParameters) {
+            methods.add(builder.onlyRequiredParameters(true)
+                .methodVisibility(methodVisibility(ClientMethodType.LongRunningAsync,
+                    MethodOverloadType.OVERLOAD_MINIMUM, false, isProtocolMethod))
+                .build());
+        }
+
+        addClientMethodWithContext(methods,
+            builder.methodVisibility(
+                methodVisibility(ClientMethodType.LongRunningAsync, defaultOverloadType, true, isProtocolMethod)),
+            parameters, getContextParameter(isProtocolMethod));
+
+        // sync
+        methods.add(builder.returnValue(createLongRunningSyncReturnValue(operation, syncReturnType))
+            .name(proxyMethod.getName())
+            .onlyRequiredParameters(false)
+            .type(ClientMethodType.LongRunningSync)
+            .groupedParameterRequired(false)
+            .onlyRequiredParameters(true)
+            .methodVisibility(
+                methodVisibility(ClientMethodType.LongRunningSync, defaultOverloadType, false, isProtocolMethod))
+            .build());
+
+        if (generateClientMethodWithOnlyRequiredParameters) {
+            methods.add(builder.onlyRequiredParameters(true)
+                .methodVisibility(methodVisibility(ClientMethodType.LongRunningSync,
+                    MethodOverloadType.OVERLOAD_MINIMUM, false, isProtocolMethod))
+                .build());
+        }
+
+        addClientMethodWithContext(methods,
+            builder.methodVisibility(
+                methodVisibility(ClientMethodType.LongRunningSync, defaultOverloadType, true, isProtocolMethod)),
+            parameters, getContextParameter(isProtocolMethod));
     }
 
     private ReturnTypeHolder getReturnTypes(Operation operation, boolean isProtocolMethod, JavaSettings settings,
@@ -1526,7 +1581,7 @@ public class ClientCoreClientMethodMapper extends ClientMethodMapper {
             description = "whether resource exists";
         }
 
-        description = ReturnTypeDescriptionAssembler.assemble(description, returnType, baseType);
+        description = ReturnTypeJavaDocAssembler.assemble(description, returnType, baseType);
 
         return description == null ? "the response" : description;
     }

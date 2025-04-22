@@ -8,8 +8,8 @@ import com.microsoft.typespec.http.client.generator.core.extension.model.codemod
 import com.microsoft.typespec.http.client.generator.core.extension.plugin.JavaSettings;
 import com.microsoft.typespec.http.client.generator.core.util.CodeNamer;
 import com.microsoft.typespec.http.client.generator.core.util.MethodUtil;
-import java.util.Base64;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Set;
 
 /**
