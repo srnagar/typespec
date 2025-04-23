@@ -331,9 +331,9 @@ public class TypeSpecPlugin extends Javagen {
         LOGGER.info("Output folder: {}", options.getOutputDir());
         LOGGER.info("Namespace: {}", JavaSettings.getInstance().getPackage());
 
-        if (options.getFlavor() != null && options.getFlavor().equals("azure")) {
+        if (options.getFlavor() != null && options.getFlavor().equalsIgnoreCase("azure")) {
             Mappers.setFactory(new TypeSpecMapperFactory());
-        } else if (options.getFlavor() != null && options.getFlavor().equals("azurev2")) {
+        } else if (options.getFlavor() != null && options.getFlavor().equalsIgnoreCase("azurev2")) {
             Mappers.setFactory(new TypeSpecAzureVNextMapperFactory());
         } else {
             Mappers.setFactory(new TypeSpecClientCoreMapperFactory());

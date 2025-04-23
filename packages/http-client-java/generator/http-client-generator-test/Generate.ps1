@@ -119,6 +119,12 @@ $generateScript = {
 
 ./Setup.ps1
 
+Write-Host "
+  ========================
+  SETUP COMPLETE
+  ========================
+"
+
 New-Item -Path ./existingcode/src/main/java/tsptest -ItemType Directory -Force | Out-Null
 
 if (Test-Path ./src/main/java/tsptest/partialupdate) {
@@ -157,16 +163,31 @@ $job = (Get-ChildItem ./specs -Include "main.tsp","old.tsp" -File -Recurse) | Fo
 $job | Wait-Job -Timeout 1200
 $job | Receive-Job
 
+Write-Host "
+  ========================
+  Removing specs directory
+  ========================
+"
 Remove-Item ./specs -Recurse -Force
 
 Copy-Item -Path ./tsp-output/*/src -Destination ./ -Recurse -Force -Exclude @("ReadmeSamples.java", "module-info.java")
 
+Write-Host "
+  ========================
+  Removing tsp-output directory
+  ========================
+"
 Remove-Item ./tsp-output -Recurse -Force
 
 if (Test-Path ./src/main/resources/META-INF/client-structure-service_apiview_properties.json) {
   # client structure is generated from multiple client.tsp files and the last one to execute overwrites
   # the api view properties file. Because the tests run in parallel, the order is not guaranteed. This
   # causes git diff check to fail as the checked in file is not the same as the generated one.
+  Write-Host "
+    ========================
+    Removing client-structure-service_apiview_properties.json
+    ========================
+  "
   Remove-Item ./src/main/resources/META-INF/client-structure-service_apiview_properties.json -Force
 }
 

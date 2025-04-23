@@ -413,7 +413,7 @@ public class JavaSettings {
     }
 
     public boolean isAzureCoreV2() {
-        return "azurev2".equals(this.flavor);
+        return "azurev2".equalsIgnoreCase(this.flavor);
     }
 
     private final String keyCredentialHeaderName;
