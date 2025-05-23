@@ -3,7 +3,6 @@ package type.model.inheritance.notdiscriminated.implementation;
 import io.clientcore.core.annotations.ReturnType;
 import io.clientcore.core.annotations.ServiceInterface;
 import io.clientcore.core.annotations.ServiceMethod;
-import io.clientcore.core.http.RestProxy;
 import io.clientcore.core.http.annotations.BodyParam;
 import io.clientcore.core.http.annotations.HeaderParam;
 import io.clientcore.core.http.annotations.HostParam;
@@ -63,7 +62,7 @@ public final class NotDiscriminatedClientImpl {
     public NotDiscriminatedClientImpl(HttpPipeline httpPipeline, String endpoint) {
         this.httpPipeline = httpPipeline;
         this.endpoint = endpoint;
-        this.service = RestProxy.create(NotDiscriminatedClientService.class, this.httpPipeline);
+        this.service = NotDiscriminatedClientService.getNewInstance(this.httpPipeline);
     }
 
     /**

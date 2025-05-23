@@ -3,7 +3,6 @@ package type.property.nullable.implementation;
 import io.clientcore.core.annotations.ReturnType;
 import io.clientcore.core.annotations.ServiceInterface;
 import io.clientcore.core.annotations.ServiceMethod;
-import io.clientcore.core.http.RestProxy;
 import io.clientcore.core.http.annotations.BodyParam;
 import io.clientcore.core.http.annotations.HeaderParam;
 import io.clientcore.core.http.annotations.HostParam;
@@ -37,7 +36,7 @@ public final class CollectionsBytesImpl {
      * @param client the instance of the service client containing this operation class.
      */
     CollectionsBytesImpl(NullableClientImpl client) {
-        this.service = RestProxy.create(CollectionsBytesService.class, client.getHttpPipeline());
+        this.service = CollectionsBytesService.getNewInstance(client.getHttpPipeline());
         this.client = client;
     }
 

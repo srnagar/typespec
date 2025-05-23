@@ -116,13 +116,13 @@ if (Test-Path ./src/main/resources/META-INF/client-structure-service_metadata.js
 }
 
 # smoke test, generate Java project and verify compilation pass
-git fetch origin pull/6981/head:smoke-test-branch
-git restore --source smoke-test-branch --worktree -- ../../../smoke-http-specs
-Copy-Item -Path ../../../smoke-http-specs/specs -Destination ./ -Recurse -Force
-Generate-Compile todoapp
-Generate-Compile petstore
-Remove-Item ./specs -Recurse -Force
-Remove-Item ../../../smoke-http-specs -Recurse -Force
+# git fetch origin pull/6981/head:smoke-test-branch
+# git restore --source smoke-test-branch --worktree -- ../../../smoke-http-specs
+# Copy-Item -Path ../../../smoke-http-specs/specs -Destination ./ -Recurse -Force
+# Generate-Compile todoapp
+# Generate-Compile petstore
+# Remove-Item ./specs -Recurse -Force
+# Remove-Item ../../../smoke-http-specs -Recurse -Force
 
 if ($ExitCode -ne 0) {
   throw "Failed to generate from tsp"

@@ -3,7 +3,6 @@ package parameters.bodyoptionality.implementation;
 import io.clientcore.core.annotations.ReturnType;
 import io.clientcore.core.annotations.ServiceInterface;
 import io.clientcore.core.annotations.ServiceMethod;
-import io.clientcore.core.http.RestProxy;
 import io.clientcore.core.http.annotations.BodyParam;
 import io.clientcore.core.http.annotations.HeaderParam;
 import io.clientcore.core.http.annotations.HostParam;
@@ -78,7 +77,7 @@ public final class BodyOptionalityClientImpl {
         this.httpPipeline = httpPipeline;
         this.endpoint = endpoint;
         this.optionalExplicits = new OptionalExplicitsImpl(this);
-        this.service = RestProxy.create(BodyOptionalityClientService.class, this.httpPipeline);
+        this.service = BodyOptionalityClientService.getNewInstance(this.httpPipeline);
     }
 
     /**

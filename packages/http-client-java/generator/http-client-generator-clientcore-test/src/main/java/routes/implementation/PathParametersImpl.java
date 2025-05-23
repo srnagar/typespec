@@ -3,7 +3,6 @@ package routes.implementation;
 import io.clientcore.core.annotations.ReturnType;
 import io.clientcore.core.annotations.ServiceInterface;
 import io.clientcore.core.annotations.ServiceMethod;
-import io.clientcore.core.http.RestProxy;
 import io.clientcore.core.http.annotations.HostParam;
 import io.clientcore.core.http.annotations.HttpRequestInformation;
 import io.clientcore.core.http.annotations.PathParam;
@@ -35,7 +34,7 @@ public final class PathParametersImpl {
      * @param client the instance of the service client containing this operation class.
      */
     PathParametersImpl(RoutesClientImpl client) {
-        this.service = RestProxy.create(PathParametersService.class, client.getHttpPipeline());
+        this.service = PathParametersService.getNewInstance(client.getHttpPipeline());
         this.client = client;
     }
 
